@@ -16,17 +16,190 @@
         android:text="soundVox"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <GridLayout
         android:id="@+id/sound_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/profile_container"
         app:layout_constraintTop_toBottomOf="@id/app_label"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp" >
+        android:layout_margin="10dp">
 
-    </LinearLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+        </TableLayout>
+
+
+    </GridLayout>
 
     <LinearLayout
         android:id="@+id/profile_container"
