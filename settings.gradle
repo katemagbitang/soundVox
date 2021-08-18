@@ -1,0 +1,2 @@
+rootProject.name = "Sound Vox"
+include ':app'
