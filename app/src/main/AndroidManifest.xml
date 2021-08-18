@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundVox">
         <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".MenuProfileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

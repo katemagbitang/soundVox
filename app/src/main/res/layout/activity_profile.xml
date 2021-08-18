@@ -16,56 +16,237 @@
         android:text="soundVox"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/profile_list_container"
+    <GridLayout
+        android:id="@+id/sound_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/profile_container"
         app:layout_constraintTop_toBottomOf="@id/app_label"
-        app:layout_constraintBottom_toTopOf="@id/goback_container"
-        android:orientation="vertical"
-        >
+        android:layout_margin="10dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/profile_item_1_btn"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Profile 1"
-            android:textAlignment="textStart"
-            />
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/profile_item_2_btn"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Profile 2"
-            android:textAlignment="textStart"/>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:weightSum="8"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_margin="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="85dp"
+                    android:layout_weight="2"/>
+            </TableRow>
+
+        </TableLayout>
 
 
-    </LinearLayout>
+    </GridLayout>
 
     <LinearLayout
-        android:id="@+id/goback_container"
+        android:id="@+id/profile_container"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:weightSum="10"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:weightSum="10">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/back_btn"
-            android:layout_width="10dp"
+            android:id="@+id/goback_btn"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="back_btn"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="goback_btn"/>
 
         <TextView
             android:id="@+id/goback_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8"
+            android:layout_weight="2"
             android:text="Go Back"
             />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/trash_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="trash_btn"/>
+
+        <TextView
+            android:id="@+id/save_label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="Save"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_profile_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="save_profile_btn"/>
 
     </LinearLayout>
 
