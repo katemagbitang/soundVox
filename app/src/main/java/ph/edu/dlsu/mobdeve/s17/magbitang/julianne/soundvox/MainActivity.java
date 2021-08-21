@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button home_menu_btn, profile_menu_btn;
+    Button profile_menu_btn;
+    ImageButton home_menu_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +23,11 @@ public class MainActivity extends AppCompatActivity {
         home_menu_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(goToMenu);
-            finish();
         });
 
         profile_menu_btn.setOnClickListener(view -> {
             Intent goToProfileMenu = new Intent(MainActivity.this, MenuProfileActivity.class);
             startActivity(goToProfileMenu);
-            finish();
         });
     }
 }
