@@ -27,175 +27,172 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:weightSum="12"
+            android:orientation="horizontal"
+            >
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:weightSum="8"
-                >
+                android:layout_weight="2">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
             </TableRow>
-
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:weightSum="8"
-                >
+                android:layout_weight="2">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
             </TableRow>
-
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:weightSum="8"
-                >
+                android:layout_weight="2">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
             </TableRow>
-
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:weightSum="8"
-                >
+                android:layout_weight="2">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
             </TableRow>
-
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:weightSum="8"
-                >
+                android:layout_weight="2">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
             </TableRow>
-
             <TableRow
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:weightSum="8"
-                >
+                android:layout_weight="2">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_margin="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="85dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="2"/>
             </TableRow>
-
         </TableLayout>
 
 

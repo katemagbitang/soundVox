@@ -15,33 +15,31 @@
         android:textStyle="bold"
         android:text="soundVox"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/profile_list_container"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/app_label"
-        app:layout_constraintBottom_toTopOf="@id/goback_container"
-        android:orientation="vertical"
-        >
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/profile_item_1_btn"
+        app:layout_constraintBottom_toTopOf="@id/goback_container">
+        <LinearLayout
+            android:id="@+id/profile_list_container"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Profile 1"
-            android:textAlignment="textStart"
-            />
+            android:layout_height="0dp"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/profile_item_1_btn"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Profile 1"
+                android:textAlignment="textStart" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/profile_item_2_btn"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="Profile 2"
+                android:textAlignment="textStart"/>
+        </LinearLayout>
+    </ScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/profile_item_2_btn"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="Profile 2"
-            android:textAlignment="textStart"/>
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/goback_container"
