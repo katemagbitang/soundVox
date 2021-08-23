@@ -8,7 +8,9 @@ import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button record_btn, back_btn;
+    Button record_btn,
+            back_btn,
+            create_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,7 @@ public class MenuActivity extends AppCompatActivity {
 
         record_btn = findViewById(R.id.menu_item_1_btn);
         back_btn = findViewById(R.id.goback_btn);
+        create_btn = findViewById(R.id.menu_item_4_btn);
 
         record_btn.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, RecordingActivity.class);
@@ -27,6 +30,12 @@ public class MenuActivity extends AppCompatActivity {
         back_btn.setOnClickListener(view -> {
             Intent goToMain = new Intent(MenuActivity.this, MainActivity.class);
             startActivity(goToMain);
+            finish();
+        });
+
+        create_btn.setOnClickListener(view -> {
+            Intent goToCreate = new Intent(MenuActivity.this, ProfileActivity.class);
+            startActivity(goToCreate);
             finish();
         });
     }

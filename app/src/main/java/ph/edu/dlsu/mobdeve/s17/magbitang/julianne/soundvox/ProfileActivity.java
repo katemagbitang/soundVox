@@ -18,7 +18,7 @@ public class ProfileActivity extends AppCompatActivity {
         back_btn = findViewById(R.id.goback_btn);
 
         back_btn.setOnClickListener(view -> {
-            Intent goToMenu = new Intent(ProfileActivity.this, MenuProfileActivity.class);
+            Intent goToMenu = new Intent(ProfileActivity.this, MenuActivity.class);
             startActivity(goToMenu);
             finish();
         });
