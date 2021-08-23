@@ -1,4 +1,4 @@
-package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
+package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models;
 
 public class Profile {
     private String name = "";
