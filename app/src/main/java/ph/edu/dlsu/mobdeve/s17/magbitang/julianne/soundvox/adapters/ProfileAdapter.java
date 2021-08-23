@@ -1,21 +1,23 @@
-package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
+package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.ProfileActivity;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
+
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
 
     private ArrayList<Profile> profileArrayList;
-//    private String[] profile_name;
     private Context context;
 
     public ProfileAdapter(Context context, ArrayList<Profile> profileArrayList) {
@@ -27,6 +29,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     public ProfileAdapter.ProfileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_profile_list,parent,false);
         ProfileViewHolder profileViewHolder = new ProfileViewHolder(view);
+        profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+
+                v.getContext().startActivity(intent);
+            }
+        });
 
         return profileViewHolder;
     }
@@ -34,8 +44,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     @Override
     public void onBindViewHolder(ProfileAdapter.ProfileViewHolder holder, int position) {
         Profile profile = this.profileArrayList.get(position);
-//        holder.profile_btn.setText(profileArrayList.get(position).getName());
-        holder.setName(profile.getName());
+        holder.setButton(profile.getName());
     }
 
     @Override
@@ -45,13 +54,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
     public class ProfileViewHolder extends RecyclerView.ViewHolder{
 
-        TextView profile_name;
+        Button btn_profile;
 
         public ProfileViewHolder(View itemView) {
             super(itemView);
-            profile_name = itemView.findViewById(R.id.profile_item);
+            btn_profile = itemView.findViewById(R.id.profile_item);
         }
 
-        public void setName(String name){ this.profile_name.setText(name);}
+        public void setButton(String name){ this.btn_profile.setText(name);}
+        public Button getButton() { return this.btn_profile;}
     }
 }
