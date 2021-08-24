@@ -20,7 +20,6 @@ public class RecordingActivity extends AppCompatActivity {
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(RecordingActivity.this, MenuActivity.class);
             startActivity(goToMenu);
-            finish();
         });
     }
 }

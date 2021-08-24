@@ -8,9 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".RecordingActivity"></activity>
+        <activity android:name=".RecordingActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MenuProfileActivity" />

@@ -38,13 +38,15 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/goback_btn"
             android:layout_width="10dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="back_btn"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:drawableLeft="@drawable/back_button"
+            android:padding="10dp"
+            android:text="Go Back"
+            android:background="#00000000"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-        <TextView
-            android:id="@+id/goback_label"
+        <Space
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -55,7 +57,7 @@
             android:id="@+id/save_record_btn"
             android:layout_width="10dp"
             android:layout_height="40dp"
-            android:layout_weight="3"
+            android:layout_weight="2.5"
             android:text="save_btn"
             app:layout_constraintBottom_toBottomOf="parent" />
 
