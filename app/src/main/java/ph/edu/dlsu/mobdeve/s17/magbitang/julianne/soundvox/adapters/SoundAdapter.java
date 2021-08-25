@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHolder> {
@@ -22,6 +23,12 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
     public SoundAdapter(Context context, ArrayList<Sound> soundArrayList) {
         this.soundArrayList = soundArrayList;
         this.context = context;
+    }
+
+    public void addSounds(ArrayList<Sound> soundArrayList){
+        soundArrayList.clear();
+        soundArrayList.addAll(soundArrayList);
+        notifyDataSetChanged();
     }
 
     @Override

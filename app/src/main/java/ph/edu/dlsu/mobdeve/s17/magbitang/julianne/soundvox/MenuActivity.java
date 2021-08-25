@@ -10,11 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.databinding.ActivityMainBinding;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -80,9 +84,11 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // insert save profile name functions here
                 Profile profile = new Profile();
+                ArrayList<Sound> newSounds = new ArrayList<>();
                 int count = profileDAO.getProfiles().size();
                 profile.setId(count);
                 profile.setName(profileName.getText().toString());
+                profile.setSounds(newSounds);
                 profileDAO.createProfile(profile);
                 profileAdapter.addProfiles(profileDAO.getProfiles());
 

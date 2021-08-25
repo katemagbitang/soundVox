@@ -1,6 +1,7 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,10 @@ public class SoundDAOSqlImpl implements SoundDAO {
 
     private SQLiteDatabase database;
     private SoundDatabase soundDatabase;
+
+    public SoundDAOSqlImpl(Context context){
+        soundDatabase = new SoundDatabase(context);
+    }
 
     @Override
     public long addSound(Sound sound) {
@@ -180,7 +185,6 @@ public class SoundDAOSqlImpl implements SoundDAO {
         if (database != null){
             soundDatabase.close();
         }
-
         return records;
     }
 }
