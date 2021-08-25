@@ -3,6 +3,10 @@ package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models;
 public class Sound {
     private String label;
     private String URL;
+    private int id = -1;
+    private Profile profile;
+
+    public Sound(){}
 
     public Sound(String label) {
         this.label = label;
@@ -29,4 +33,19 @@ public class Sound {
         this.URL = URL;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 }

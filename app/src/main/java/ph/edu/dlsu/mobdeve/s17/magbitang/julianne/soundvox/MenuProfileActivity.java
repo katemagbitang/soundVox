@@ -8,10 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 
 public class MenuProfileActivity extends AppCompatActivity {
 
