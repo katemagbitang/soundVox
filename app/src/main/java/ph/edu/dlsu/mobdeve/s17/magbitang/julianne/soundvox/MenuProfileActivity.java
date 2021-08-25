@@ -17,17 +17,13 @@ public class MenuProfileActivity extends AppCompatActivity {
 
     Button back_btn;
     private ProfileAdapter profileAdapter;
-    private ArrayList<Profile> profileArrayList = new ArrayList<>();
     private RecyclerView rvProfile;
     private RecyclerView.LayoutManager layout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuprofile);
-
-        populate_data();
 
         init();
 
@@ -39,17 +35,13 @@ public class MenuProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void populate_data() {
-        this.profileArrayList.add(new Profile("Profile 1"));
-        this.profileArrayList.add(new Profile("Profile 2"));
-        this.profileArrayList.add(new Profile("Profile 3"));
-    }
 
     private void init(){
         this.rvProfile = findViewById(R.id.profileRecyclerView);
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
-        this.profileAdapter = new ProfileAdapter(getApplicationContext(),this.profileArrayList);
+        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
+        this.profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
         this.rvProfile.setAdapter(this.profileAdapter);
     }
 

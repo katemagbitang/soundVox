@@ -23,6 +23,13 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     public ProfileAdapter(Context context, ArrayList<Profile> profileArrayList) {
         this.profileArrayList = profileArrayList;
         this.context = context;
+
+    }
+
+    public void addProfiles(ArrayList<Profile> profileArrayList){
+        profileArrayList.clear();
+        profileArrayList.addAll(profileArrayList);
+        notifyDataSetChanged();
     }
 
     @Override

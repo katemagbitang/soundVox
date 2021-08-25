@@ -2,12 +2,18 @@ package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.databinding.ActivityMainBinding;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -17,6 +23,9 @@ public class MenuActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private EditText profileName;
     private Button btn_cancel,btn_save;
+
+    private ProfileAdapter profileAdapter;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,9 @@ public class MenuActivity extends AppCompatActivity {
         btn_save = view.findViewById(R.id.btn_save);
         profileName = (EditText) view.findViewById(R.id.input_profile);
 
+        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
+        profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
+
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -66,6 +78,17 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // insert save profile name functions here
+                Profile profile = new Profile();
+                int count = profileDAO.getProfiles().size();
+                profile.setId(count);
+                profile.setName(profileName.getText().toString());
+                profileDAO.createProfile(profile);
+                profileAdapter.addProfiles(profileDAO.getProfiles());
+
+                Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
+
+                Intent goToMenuProfile = new Intent(MenuActivity.this,MenuProfileActivity.class);
+                startActivity(goToMenuProfile);
             }
         });
     }

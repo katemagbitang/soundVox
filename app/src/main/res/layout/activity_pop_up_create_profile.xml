@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".PopUpCreateProfile">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/profile_label"
@@ -18,7 +17,7 @@
         android:id="@+id/input_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile Name"
+        android:hint="Profile Name"
         app:layout_constraintTop_toBottomOf="@id/profile_label"/>
     <LinearLayout
         android:layout_width="match_parent"
