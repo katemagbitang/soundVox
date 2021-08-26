@@ -26,8 +26,7 @@
             android:id="@+id/profile_list_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/menu_item_1_btn"
@@ -35,42 +34,55 @@
                 android:layout_height="100dp"
                 android:text="Record through microphone"
                 android:textAlignment="textStart"
-                />
+                app:strokeWidth="10dp"
+                android:background="@drawable/menu_button"
+                android:padding="15dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/menu_item_2_btn"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="Upload sound"
-                android:textAlignment="textStart"/>
+                android:textAlignment="textStart"
+                android:background="@drawable/menu_button"
+                android:padding="15dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/menu_item_3_btn"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="Open sound folder"
-                android:textAlignment="textStart"/>
+                android:textAlignment="textStart"
+                android:background="@drawable/menu_button"
+                android:padding="15dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/menu_item_4_btn"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="Create a new profile"
-                android:textAlignment="textStart"/>
+                android:textAlignment="textStart"
+                android:background="@drawable/menu_button"
+                android:padding="15dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/menu_item_5_btn"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="Edit an existing profile"
-                android:textAlignment="textStart"/>
+                android:textAlignment="textStart"
+                android:background="@drawable/menu_button"
+                android:padding="15dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/menu_item_6_btn"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="Delete an existing profile"
-                android:textAlignment="textStart"/>
+                android:textAlignment="textStart"
+                android:background="@drawable/menu_button"
+                android:padding="15dp"/>
+
 
 
         </LinearLayout>
@@ -95,7 +107,7 @@
             android:padding="10dp"
             android:text="Go Back"
             android:background="#00000000"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:layout_width="10dp"
             android:layout_height="wrap_content"
