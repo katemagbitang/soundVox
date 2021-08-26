@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="android:fontFamily">@font/montserrat_black</item>
+        <item name="fontFamily">@font/montserrat_black</item> <!-- target android sdk versions < 26 and > 14 if theme other than AppCompat -->
+    </style>
+</resources>
