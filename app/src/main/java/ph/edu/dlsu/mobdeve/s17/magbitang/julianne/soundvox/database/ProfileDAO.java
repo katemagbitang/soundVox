@@ -8,7 +8,7 @@ public interface ProfileDAO {
 
     long createProfile(Profile profile);
     ArrayList<Profile> getProfiles();
-    Profile getProfile(int profileid);
+    Profile getProfile(String profileName);
     int updateProfile(Profile profile);
     int deleteProfile(int profileid);
 }

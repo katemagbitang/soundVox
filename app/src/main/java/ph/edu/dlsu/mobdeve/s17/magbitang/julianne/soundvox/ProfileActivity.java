@@ -24,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     Button back_btn;
     private SoundAdapter soundAdapter;
-//    private ArrayList<Sound> soundArrayList = new ArrayList<>();
+    private ArrayList<Sound> soundArrayList = new ArrayList<>();
     private RecyclerView rvSound;
     private RecyclerView.LayoutManager layout;
 
@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-//        populate_data();
+        populate_data();
 
         init();
 
@@ -45,25 +45,26 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-//    private void populate_data() {
-////        this.profileArrayList = new ArrayList<>();
-//
-//        this.soundArrayList.add(new Sound("Sound 1"));
-//        this.soundArrayList.add(new Sound("Sound 2"));
-//        this.soundArrayList.add(new Sound("Sound 3"));
-//        this.soundArrayList.add(new Sound("Sound 4"));
-//        this.soundArrayList.add(new Sound("Sound 5"));
-//        this.soundArrayList.add(new Sound("Sound 6"));
-//        this.soundArrayList.add(new Sound("Sound 7"));
-//        this.soundArrayList.add(new Sound("Sound 8"));
-//    }
+    private void populate_data() {
+//        this.profileArrayList = new ArrayList<>();
+
+        this.soundArrayList.add(new Sound("Sound 1"));
+        this.soundArrayList.add(new Sound("Sound 2"));
+        this.soundArrayList.add(new Sound("Sound 3"));
+        this.soundArrayList.add(new Sound("Sound 4"));
+        this.soundArrayList.add(new Sound("Sound 5"));
+        this.soundArrayList.add(new Sound("Sound 6"));
+        this.soundArrayList.add(new Sound("Sound 7"));
+        this.soundArrayList.add(new Sound("Sound 8"));
+    }
 
     private void init(){
         this.rvSound = findViewById(R.id.soundRecyclerView);
         this.layout = new GridLayoutManager(this,4);
         this.rvSound.setLayoutManager(this.layout);
         SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
-        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds());
+//        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds());
+        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList);
         this.rvSound.setAdapter(this.soundAdapter);
     }
 

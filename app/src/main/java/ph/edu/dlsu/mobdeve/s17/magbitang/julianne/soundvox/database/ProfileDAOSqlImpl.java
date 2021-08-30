@@ -72,11 +72,11 @@ public class ProfileDAOSqlImpl implements ProfileDAO{
     }
 
     @Override
-    public Profile getProfile(int profileid) {
+    public Profile getProfile(String profileName) {
         Profile profile = null;
 
         String query = "SELECT * from " + ProfileDatabase.TABLE_PROFILES
-                + " where " + ProfileDatabase.PROFILE_ID + " = " + profileid;
+                + " where " + ProfileDatabase.PROFILE_NAME + " = " + profileName;
 
         Cursor cursor = null;
 
@@ -108,6 +108,7 @@ public class ProfileDAOSqlImpl implements ProfileDAO{
 
         return profile;
     }
+
 
     @Override
     public int updateProfile(Profile profile) {

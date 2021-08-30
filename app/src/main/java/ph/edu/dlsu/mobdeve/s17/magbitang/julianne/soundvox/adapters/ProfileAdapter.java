@@ -6,12 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MenuProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.ProfileActivity;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
 
@@ -32,16 +36,47 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         notifyDataSetChanged();
     }
 
+    public void removeProfile(int position){
+        profileArrayList.remove(position);
+        notifyItemRemoved(position);
+//        notifyDataSetChanged();
+    }
+
     @Override
     public ProfileAdapter.ProfileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_profile_list,parent,false);
         ProfileViewHolder profileViewHolder = new ProfileViewHolder(view);
+//        profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+//
+//                v.getContext().startActivity(intent);
+//            }
+//        });
+
         profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                String profileName = profileViewHolder.getButton().getText().toString();
 
-                v.getContext().startActivity(intent);
+                ProfileDAO profileDAO = new ProfileDAOSqlImpl(v.getContext());
+//            profiles = profileDAO.getProfiles();
+
+//                Profile profile = profileDAO.getProfile(profileName);
+                Profile profile = profileDAO.getProfile(profileName);
+
+                if (profile != null){
+                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+
+                    v.getContext().startActivity(intent);
+                    Toast.makeText(v.getContext(),"User" + profileName + "found", Toast.LENGTH_SHORT).show();
+                }
+                else{
+//                binding.uName.setText("");
+//                binding.uEmail.setText("");
+                    Toast.makeText(v.getContext(),"User not found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
