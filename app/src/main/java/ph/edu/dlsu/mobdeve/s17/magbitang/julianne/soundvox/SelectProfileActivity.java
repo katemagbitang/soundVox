@@ -12,7 +12,7 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapt
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 
-public class MenuProfileActivity extends AppCompatActivity {
+public class SelectProfileActivity extends AppCompatActivity {
 
     private Button back_btn;
     private ProfileAdapter profileAdapter;
@@ -22,27 +22,24 @@ public class MenuProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menuprofile);
+        setContentView(R.layout.activity_select_profile);
 
         init();
 
         back_btn = findViewById(R.id.goback_btn);
 
         back_btn.setOnClickListener(view -> {
-            Intent goToMain = new Intent(MenuProfileActivity.this, MainActivity.class);
+            Intent goToMain = new Intent(SelectProfileActivity.this, MenuActivity.class);
             startActivity(goToMain);
         });
     }
 
-
     private void init(){
-        this.rvProfile = findViewById(R.id.profileRecyclerView);
+        this.rvProfile = findViewById(R.id.selectProfileRecyclerView);
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
         this.profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
         this.rvProfile.setAdapter(this.profileAdapter);
     }
-
-
 }
