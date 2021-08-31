@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/sound_container"
+            android:id="@+id/sound_container_delete"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -22,6 +22,16 @@
                 android:text="heheehehehehehehehe"
                 android:textColor="@color/darkgrey_bgcolor"/>
         </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete_item"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:textSize="10dp"
+            android:text="X"
+            app:layout_constraintRight_toRightOf="@id/sound_container_delete"
+            app:layout_constraintTop_toTopOf="@id/sound_container_delete"
+            android:backgroundTint="@color/lightgrey_bgcolor"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -29,3 +39,4 @@
 
 
 </androidx.cardview.widget.CardView>
+

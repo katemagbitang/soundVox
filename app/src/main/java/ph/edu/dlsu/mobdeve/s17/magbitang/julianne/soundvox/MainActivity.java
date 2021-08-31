@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         this.rvSound.setLayoutManager(this.layout);
         SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
 //        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds());
-        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList);
+        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,0);
         this.rvSound.setAdapter(this.soundAdapter);
     }
 }

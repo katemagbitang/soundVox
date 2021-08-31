@@ -19,10 +19,16 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
 
     private ArrayList<Sound> soundArrayList;
     private Context context;
+    private int inflater;
 
-    public SoundAdapter(Context context, ArrayList<Sound> soundArrayList) {
+    public SoundAdapter(Context context, ArrayList<Sound> soundArrayList, int phase) {
         this.soundArrayList = soundArrayList;
         this.context = context;
+        if(phase == 0){
+            inflater = R.layout.button_sound_list;
+        }else{
+            inflater = R.layout.button_sound_list_delete;
+        }
     }
 
     public void addSounds(ArrayList<Sound> soundArrayList){
@@ -33,7 +39,7 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
 
     @Override
     public SoundAdapter.SoundViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_sound_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(inflater,parent,false);
         SoundAdapter.SoundViewHolder soundViewHolder = new SoundAdapter.SoundViewHolder(view);
 
         return soundViewHolder;

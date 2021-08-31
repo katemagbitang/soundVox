@@ -11,5 +11,6 @@
     <color name="button_bgcolor_press">#1F1F1F</color>
     <color name="button_bgcolor_enable">#C4C4C4</color>
     <color name="darkgrey_bgcolor">#1F1F1F</color>
+    <color name="lightgrey_bgcolor">#303030</color>
     <color name="transparent">#00000000</color>
 </resources>
