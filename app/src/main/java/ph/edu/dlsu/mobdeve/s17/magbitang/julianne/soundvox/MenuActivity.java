@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -100,7 +101,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
-                Intent goToMainProfile = new Intent(MenuActivity.this,MainActivity.class);
+                Intent goToMainProfile = new Intent(MenuActivity.this, MenuProfileActivity.class);
                 startActivity(goToMainProfile);
             }
         });

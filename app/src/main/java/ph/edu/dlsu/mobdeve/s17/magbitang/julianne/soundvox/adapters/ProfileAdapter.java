@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MainActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MenuProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.ProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
@@ -49,7 +50,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
 
                 v.getContext().startActivity(intent);
             }

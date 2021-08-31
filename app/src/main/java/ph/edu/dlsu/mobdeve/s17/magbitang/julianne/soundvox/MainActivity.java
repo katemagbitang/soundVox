@@ -1,5 +1,9 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
     private Integer profileNo = null;
     TextView tv;
+
+
 
 
     @Override
@@ -78,4 +85,23 @@ public class MainActivity extends AppCompatActivity {
         this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,0);
         this.rvSound.setAdapter(this.soundAdapter);
     }
+
+    private ActivityResultLauncher<Intent> launchMenuProfile =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            Intent intent = result.getData();
+                            Profile profile = new Profile();
+                            String name = intent.getStringExtra(intent.getStringExtra("name"));
+                            if (profile.getName() == name){
+                                if (profile.getSounds().isEmpty()){
+                                    tv.setVisibility(View.INVISIBLE);
+                                }
+                                else{
+                                    tv.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    });
 }
