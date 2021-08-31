@@ -40,6 +40,9 @@ public class MenuProfileActivity extends AppCompatActivity {
 
 //        profile_btn.setOnClickListener(view -> {
 //            Intent intent = new Intent();
+//            intent.get
+//
+//
 //            intent.putExtra("id", profile.getId());
 //            intent.putExtra("name", profile.getName());
 //            intent.putExtra("sound", profile.getSounds());

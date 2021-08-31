@@ -30,7 +30,7 @@ public class SelectProfileActivity extends AppCompatActivity {
         back_btn = findViewById(R.id.goback_btn);
 
         back_btn.setOnClickListener(view -> {
-            Intent goToMain = new Intent(SelectProfileActivity.this, MenuProfileActivity.class);
+            Intent goToMain = new Intent(SelectProfileActivity.this, MenuActivity.class);
             startActivity(goToMain);
         });
     }
