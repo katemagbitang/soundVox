@@ -46,39 +46,39 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     public ProfileAdapter.ProfileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_profile_list,parent,false);
         ProfileViewHolder profileViewHolder = new ProfileViewHolder(view);
-//        profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
-//
-//                v.getContext().startActivity(intent);
-//            }
-//        });
-
         profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String profileName = profileViewHolder.getButton().getText().toString();
+                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
 
-                ProfileDAO profileDAO = new ProfileDAOSqlImpl(v.getContext());
-//            profiles = profileDAO.getProfiles();
-
-//                Profile profile = profileDAO.getProfile(profileName);
-                Profile profile = profileDAO.getProfile(profileName);
-
-                if (profile != null){
-                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
-
-                    v.getContext().startActivity(intent);
-                    Toast.makeText(v.getContext(),"User" + profileName + "found", Toast.LENGTH_SHORT).show();
-                }
-                else{
-//                binding.uName.setText("");
-//                binding.uEmail.setText("");
-                    Toast.makeText(v.getContext(),"User not found", Toast.LENGTH_SHORT).show();
-                }
+                v.getContext().startActivity(intent);
             }
         });
+
+//        profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String profileName = profileViewHolder.getButton().getText().toString();
+//
+//                ProfileDAO profileDAO = new ProfileDAOSqlImpl(v.getContext());
+////            profiles = profileDAO.getProfiles();
+//
+////                Profile profile = profileDAO.getProfile(profileName);
+//                Profile profile = profileDAO.getProfile(profileName);
+//
+//                if (profile != null){
+//                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+//
+//                    v.getContext().startActivity(intent);
+//                    Toast.makeText(v.getContext(),"User" + profileName + "found", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+////                binding.uName.setText("");
+////                binding.uEmail.setText("");
+//                    Toast.makeText(v.getContext(),"User not found", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         return profileViewHolder;
     }

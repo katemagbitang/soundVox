@@ -30,7 +30,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button btn_cancel,btn_save;
 
     private ProfileAdapter profileAdapter;
-    private ActivityMainBinding binding;
+//    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +100,8 @@ public class MenuActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
-                Intent goToMenuProfile = new Intent(MenuActivity.this,MenuProfileActivity.class);
-                startActivity(goToMenuProfile);
+                Intent goToMainProfile = new Intent(MenuActivity.this,MainActivity.class);
+                startActivity(goToMainProfile);
             }
         });
     }
