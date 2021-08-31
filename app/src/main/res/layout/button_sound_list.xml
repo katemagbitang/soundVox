@@ -3,7 +3,7 @@
     android:id="@+id/item_show_profile_cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    
     <LinearLayout
         android:id="@+id/sound_container"
         android:layout_width="match_parent"
@@ -19,8 +19,15 @@
             android:text="heheehehehehehehehe"
             android:textColor="@color/darkgrey_bgcolor"/>
 
-
     </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delete_button"
+        android:layout_margin="2.5dp"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:text="heheehehehehehehehe"
+        android:textColor="@color/darkgrey_bgcolor"/>
 
 
 </androidx.cardview.widget.CardView>
