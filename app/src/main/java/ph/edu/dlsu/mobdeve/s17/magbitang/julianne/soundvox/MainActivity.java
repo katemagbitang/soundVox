@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         profile_menu_btn.setOnClickListener(view -> {
             Intent goToProfileMenu = new Intent(MainActivity.this, MenuProfileActivity.class);
+//            launchMenuProfile.launch(goToProfileMenu);
             startActivity(goToProfileMenu);
         });
     }
@@ -93,15 +94,18 @@ public class MainActivity extends AppCompatActivity {
                         public void onActivityResult(ActivityResult result) {
                             Intent intent = result.getData();
                             Profile profile = new Profile();
-                            String name = intent.getStringExtra(intent.getStringExtra("name"));
-                            if (profile.getName() == name){
-                                if (profile.getSounds().isEmpty()){
-                                    tv.setVisibility(View.INVISIBLE);
-                                }
-                                else{
-                                    tv.setVisibility(View.VISIBLE);
-                                }
-                            }
+                            String name = intent.getStringExtra("name");
+                            int id = intent.getIntExtra("id",0);
+//                            if (profile.getId() < 5){
+//                                if (profile.getSounds().isEmpty()){
+//                                    rvSound.setVisibility(View.INVISIBLE);
+//                                }
+//                                else{
+//                                    rvSound.setVisibility(View.VISIBLE);
+//                                }
+//                            }
+                            TextView test = findViewById(R.id.profile_label);
+                            test.setText(name);
                         }
                     });
 }

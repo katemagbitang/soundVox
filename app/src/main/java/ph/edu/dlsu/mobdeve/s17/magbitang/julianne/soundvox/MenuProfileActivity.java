@@ -16,7 +16,7 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
 public class MenuProfileActivity extends AppCompatActivity {
 
-    private Button back_btn, profile_btn;
+    private Button back_btn;
     private ProfileAdapter profileAdapter;
     private RecyclerView rvProfile;
     private RecyclerView.LayoutManager layout;
@@ -30,27 +30,13 @@ public class MenuProfileActivity extends AppCompatActivity {
         init();
 
         back_btn = findViewById(R.id.goback_btn);
-        profile_btn = findViewById(R.id.profile_item);
-
 
         back_btn.setOnClickListener(view -> {
             Intent goToMain = new Intent(MenuProfileActivity.this, MainActivity.class);
             startActivity(goToMain);
         });
 
-//        profile_btn.setOnClickListener(view -> {
-//            Intent intent = new Intent();
-//            intent.get
-//
-//
-//            intent.putExtra("id", profile.getId());
-//            intent.putExtra("name", profile.getName());
-//            intent.putExtra("sound", profile.getSounds());
-//            setResult(Activity.RESULT_OK, intent);
-//            finish();
-//        });
     }
-
 
     private void init(){
         this.rvProfile = findViewById(R.id.profileRecyclerView);
@@ -60,6 +46,5 @@ public class MenuProfileActivity extends AppCompatActivity {
         this.profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
         this.rvProfile.setAdapter(this.profileAdapter);
     }
-
 
 }

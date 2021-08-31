@@ -52,6 +52,10 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
 
+                intent.putExtra("id", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getId());
+                intent.putExtra("name", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getName());
+                intent.putExtra("sound", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getSounds());
+
                 v.getContext().startActivity(intent);
             }
         });
