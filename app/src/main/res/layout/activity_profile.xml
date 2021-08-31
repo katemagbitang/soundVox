@@ -23,7 +23,9 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/profile_container"
         app:layout_constraintTop_toBottomOf="@id/app_label"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="6"/>
 
 <!--    <GridLayout-->
 <!--        android:id="@+id/sound_container"-->

@@ -28,6 +28,8 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView rvSound;
     private RecyclerView.LayoutManager layout;
 
+    private Integer profileNo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,20 +49,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void populate_data() {
 //        this.profileArrayList = new ArrayList<>();
+        if (profileNo == null){
+            for(int i = 0; i < 24; i++)
+                this.soundArrayList.add(new Sound("Sound" + i));}
+//        else{
+//
+//        }
 
-        this.soundArrayList.add(new Sound("Sound 1"));
-        this.soundArrayList.add(new Sound("Sound 2"));
-        this.soundArrayList.add(new Sound("Sound 3"));
-        this.soundArrayList.add(new Sound("Sound 4"));
-        this.soundArrayList.add(new Sound("Sound 5"));
-        this.soundArrayList.add(new Sound("Sound 6"));
-        this.soundArrayList.add(new Sound("Sound 7"));
-        this.soundArrayList.add(new Sound("Sound 8"));
     }
 
     private void init(){
         this.rvSound = findViewById(R.id.soundRecyclerView);
-        this.layout = new GridLayoutManager(this,4);
         this.rvSound.setLayoutManager(this.layout);
         SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
 //        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds());

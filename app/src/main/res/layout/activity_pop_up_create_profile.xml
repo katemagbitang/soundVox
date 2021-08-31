@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/profile_label"
@@ -12,6 +13,8 @@
         android:textAlignment="center"
         android:textSize="26dp"
         android:text="Create Profile"
+        android:background="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:id="@+id/input_profile"
@@ -24,25 +27,32 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/input_profile"
         android:weightSum="10"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:textColor="@color/black">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+
+            android:textColor="@color/black"
             android:text="Cancel"/>
 
         <Space
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"/>
+            android:layout_weight="4"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:backgroundTint="@color/darkgrey_bgcolor"
             android:text="Save"/>
 
     </LinearLayout>
