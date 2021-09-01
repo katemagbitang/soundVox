@@ -68,7 +68,9 @@
             <TextView
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="7.5"/>
+                android:layout_weight="7.5"
+                android:text="Select a profile to play"
+                android:textAlignment="center"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
