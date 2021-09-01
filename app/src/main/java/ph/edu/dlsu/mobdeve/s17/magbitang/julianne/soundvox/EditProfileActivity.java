@@ -150,7 +150,7 @@ public class EditProfileActivity extends AppCompatActivity {
             String filePath = getRealPathFromUri(data.getData(),EditProfileActivity.this);
             Log.d("File Path: ",""+filePath);
             this.soundArrayList.add(new Sound("Test Sound",filePath));
-            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,1);
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,0);
             this.rvSound.setAdapter(this.soundAdapter);
         }
     }
