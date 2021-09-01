@@ -23,7 +23,7 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private Button record_btn, back_btn, create_btn, edit_btn;
+    private Button record_btn, back_btn, create_btn, edit_btn, delete_btn;
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -42,6 +42,7 @@ public class MenuActivity extends AppCompatActivity {
         back_btn = findViewById(R.id.goback_btn);
         create_btn = findViewById(R.id.menu_item_4_btn);
         edit_btn = findViewById(R.id.menu_item_5_btn);
+        delete_btn = findViewById(R.id.menu_item_6_btn);
 
         record_btn.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, RecordingActivity.class);
@@ -62,6 +63,11 @@ public class MenuActivity extends AppCompatActivity {
         edit_btn.setOnClickListener(view -> {
             Intent goToSelectProfile = new Intent(MenuActivity.this, SelectProfileActivity.class);
             startActivity(goToSelectProfile);
+        });
+
+        delete_btn.setOnClickListener(view -> {
+            Intent goToDeleteProfile = new Intent(MenuActivity.this, DeleteProfileActivity.class);
+            startActivity(goToDeleteProfile);
         });
     }
 
