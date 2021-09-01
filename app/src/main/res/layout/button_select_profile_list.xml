@@ -7,17 +7,16 @@
     <LinearLayout
         android:id="@+id/profile_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/select_profile_item"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:background="@color/purple_200"/>
+            android:text="Record through microphone"
+            android:textAlignment="textStart"
+            android:background="@drawable/menu_button"
+            android:padding="15dp"/>
 
     </LinearLayout>
 

@@ -28,7 +28,7 @@ public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfileAdap
 
     @Override
     public DeleteProfileAdapter.DeleteProfileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_select_profile_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_delete_profile_list,parent,false);
         DeleteProfileAdapter.DeleteProfileViewHolder deleteProfileViewHolder = new DeleteProfileAdapter.DeleteProfileViewHolder(view);
         deleteProfileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfileAdap
 
         public DeleteProfileViewHolder(View itemView) {
             super(itemView);
-            btn_profile = itemView.findViewById(R.id.select_profile_item);
+            btn_profile = itemView.findViewById(R.id.delete_profile_item);
         }
 
         public void setButton(String name){ this.btn_profile.setText(name);}
