@@ -8,10 +8,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,6 +31,7 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 public class EditProfileActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
+    private static final int REQUEST_GALLERY = 200;
     Button back_btn, trash_btn, add_btn;
     private SoundAdapter soundAdapter;
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
@@ -65,10 +71,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
         add_btn.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT >= 23){
-
+                if (checkPermission()){
+                    filePicker();
+                }
+                else{
+                    requestPermission();
+                }
             }
             else{
-
+                filePicker();
             }
         });
     }
@@ -112,6 +123,13 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void filePicker(){
+        Toast.makeText(EditProfileActivity.this,"File Picker Call", Toast.LENGTH_SHORT).show();
+        Intent opengallery = new Intent(Intent.ACTION_PICK);
+        opengallery.setType("*/*");
+        startActivityForResult(opengallery,REQUEST_GALLERY);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -123,6 +141,27 @@ public class EditProfileActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(EditProfileActivity.this,"Permission Failed",Toast.LENGTH_SHORT).show();
                 }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK){
+            String filePath = getRealPathFromUri(data.getData(),EditProfileActivity.this);
+            Log.d("File Path: ",""+filePath);
+        }
+    }
+
+    public String getRealPathFromUri(Uri uri, Activity activity){
+        Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);
+        if (cursor == null){
+            return uri.getPath();
+        }
+        else{
+            cursor.moveToFirst();
+            int id = cursor.getColumnIndex(MediaStore.Audio.AudioColumns._ID);
+            return cursor.getString(id);
         }
     }
 }
