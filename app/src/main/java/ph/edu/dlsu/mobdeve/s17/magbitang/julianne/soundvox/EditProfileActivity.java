@@ -1,49 +1,53 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
-public class ProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
-    Button back_btn, trash_btn;
+    private static final int PERMISSION_REQUEST_CODE = 1;
+    Button back_btn, trash_btn, add_btn;
     private SoundAdapter soundAdapter;
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
     private RecyclerView rvSound;
     private RecyclerView.LayoutManager layout;
     private boolean deleteState = false;
     private Integer profileNo = null;
+    Intent myFileIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        populate_data();
+//        populate_data();
         init();
         this.rvSound.setVisibility(View.VISIBLE);
         back_btn = findViewById(R.id.goback_btn);
         trash_btn = findViewById(R.id.trash_btn);
+        add_btn = findViewById(R.id.add_btn);
 
         back_btn.setOnClickListener(view -> {
-            Intent goToMenu = new Intent(ProfileActivity.this, MenuActivity.class);
+            Intent goToMenu = new Intent(EditProfileActivity.this, MenuActivity.class);
             startActivity(goToMenu);
         });
         trash_btn.setOnClickListener(view -> {
@@ -58,7 +62,18 @@ public class ProfileActivity extends AppCompatActivity {
                 deleteState = true;
             }
         });
+
+        add_btn.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= 23){
+
+            }
+            else{
+
+            }
+        });
     }
+
+
 
     private void populate_data() {
         if (profileNo == null){
@@ -67,8 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
     }
-
-
 
     private void init(){
         this.rvSound = findViewById(R.id.soundRecyclerView);
@@ -80,4 +93,36 @@ public class ProfileActivity extends AppCompatActivity {
         this.rvSound.setAdapter(this.soundAdapter);
     }
 
+    private void requestPermission(){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            Toast.makeText(EditProfileActivity.this, "Please give permission to upload file", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            ActivityCompat.requestPermissions(EditProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(EditProfileActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case PERMISSION_REQUEST_CODE:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(EditProfileActivity.this,"Permission Successful",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(EditProfileActivity.this,"Permission Failed",Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
 }

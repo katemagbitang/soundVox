@@ -101,7 +101,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
-                Intent goToMainProfile = new Intent(MenuActivity.this, MenuProfileActivity.class);
+                    Intent goToMainProfile = new Intent(MenuActivity.this, EditProfileActivity.class);
                 startActivity(goToMainProfile);
             }
         });

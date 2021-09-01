@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.ProfileActivity;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
@@ -34,7 +33,7 @@ public class SelectProfileAdapter extends RecyclerView.Adapter<SelectProfileAdap
         selectProfileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                Intent intent = new Intent(v.getContext(), EditProfileActivity.class);
 
                 v.getContext().startActivity(intent);
             }
