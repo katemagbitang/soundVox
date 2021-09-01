@@ -45,7 +45,7 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-//        populate_data();
+        populate_data();
         init();
         this.rvSound.setVisibility(View.VISIBLE);
         back_btn = findViewById(R.id.goback_btn);
@@ -83,8 +83,6 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void populate_data() {
         if (profileNo == null){
@@ -150,6 +148,7 @@ public class EditProfileActivity extends AppCompatActivity {
         if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK){
             String filePath = getRealPathFromUri(data.getData(),EditProfileActivity.this);
             Log.d("File Path: ",""+filePath);
+            this.soundArrayList.add(new Sound("Test Sound",filePath));
         }
     }
 
