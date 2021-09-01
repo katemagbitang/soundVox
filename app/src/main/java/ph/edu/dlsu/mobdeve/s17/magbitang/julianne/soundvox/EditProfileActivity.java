@@ -65,10 +65,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
         add_btn.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT >= 23){
-
+                if (checkPermission()){
+                    filePicker();
+                }
+                else{
+                    requestPermission();
+                }
             }
             else{
-
+                filePicker();
             }
         });
     }
@@ -110,6 +115,10 @@ public class EditProfileActivity extends AppCompatActivity {
         else{
             return false;
         }
+    }
+
+    private void filePicker(){
+        Toast.makeText(EditProfileActivity.this,"File Picker Call", Toast.LENGTH_SHORT).show();
     }
 
     @Override
