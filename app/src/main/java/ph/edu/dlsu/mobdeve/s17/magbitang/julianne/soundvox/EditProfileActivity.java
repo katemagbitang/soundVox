@@ -38,6 +38,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private RecyclerView rvSound;
     private RecyclerView.LayoutManager layout;
     private boolean deleteState = false;
+    private boolean addState = false;
     private Integer profileNo = null;
     Intent myFileIntent;
 
@@ -149,6 +150,8 @@ public class EditProfileActivity extends AppCompatActivity {
             String filePath = getRealPathFromUri(data.getData(),EditProfileActivity.this);
             Log.d("File Path: ",""+filePath);
             this.soundArrayList.add(new Sound("Test Sound",filePath));
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,1);
+            this.rvSound.setAdapter(this.soundAdapter);
         }
     }
 
