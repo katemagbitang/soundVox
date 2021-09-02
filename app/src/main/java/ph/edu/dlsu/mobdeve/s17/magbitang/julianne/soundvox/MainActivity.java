@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private SoundAdapter soundAdapter;
     private ProfileAdapter profileAdapter;
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
-    private Integer profileNo = null;
+    private Integer profileNo = 0;
     TextView tv;
     private TextView profile_name_label;
     private TextView profile_name_id;
@@ -90,40 +90,32 @@ public class MainActivity extends AppCompatActivity {
             tv.setVisibility(View.INVISIBLE);
     }
     private void populate_data() {
-        if (profileNo == null){
-            final MediaPlayer sound0 = MediaPlayer.create(this, R.raw.piano_a_major);
-            final MediaPlayer sound1 = MediaPlayer.create(this, R.raw.piano_b_major);
-            final MediaPlayer sound2 = MediaPlayer.create(this, R.raw.piano_c_major);
-            final MediaPlayer sound3 = MediaPlayer.create(this, R.raw.piano_c_sharp);
-            final MediaPlayer sound4 = MediaPlayer.create(this, R.raw.piano_d_major);
-            final MediaPlayer sound5 = MediaPlayer.create(this, R.raw.piano_e_major);
-            final MediaPlayer sound6 = MediaPlayer.create(this, R.raw.piano_f_major);
-            final MediaPlayer sound7 = MediaPlayer.create(this, R.raw.piano_g_major);
+        if (profileNo == 0){
             for(int i = 0; i < 8; i++){
                 switch(i) {
                     case 0:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound0));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_a_major)));
                         break;
                     case 1:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound1));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_b_major)));
                         break;
                     case 2:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound2));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_c_major)));
                         break;
                     case 3:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound3));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_c_sharp)));
                         break;
                     case 4:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound4));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_d_major)));
                         break;
                     case 5:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound5));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_e_major)));
                         break;
                     case 6:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound6));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_f_major)));
                         break;
                     case 7:
-                        this.soundArrayList.add(new Sound("Sound" + i, sound7));
+                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_g_major)));
                         break;
                 }
             }
