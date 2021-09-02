@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
     private Integer profileNo = null;
     TextView tv;
-
+    private TextView profile_name_label;
+    private TextView profile_name_id;
 
 
 
@@ -53,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
         setSoundBtnVisibility(View.VISIBLE);
         home_menu_btn = findViewById(R.id.menu_btn);
         profile_menu_btn = findViewById(R.id.btn_profile_menu);
+        this.profile_name_label = findViewById(R.id.profile_name_label);
+        this.profile_name_id = findViewById(R.id.profile_name_id);
+
+        Intent intent = getIntent();
+        this.profile_name_label.setText(intent.getStringExtra("name"));
+        this.profile_name_id.setText(intent.getStringExtra("id"));
+
 
         home_menu_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(MainActivity.this, MenuActivity.class);

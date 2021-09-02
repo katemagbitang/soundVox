@@ -35,7 +35,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     public void removeProfile(int position){
         profileArrayList.remove(position);
         notifyItemRemoved(position);
-//        notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     @Override

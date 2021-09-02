@@ -1,5 +1,9 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -19,13 +23,19 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SelectProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -34,6 +44,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY = 200;
     Button back_btn, trash_btn, add_btn;
     private SoundAdapter soundAdapter;
+    private ProfileAdapter profileAdapter;
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
     private RecyclerView rvSound;
     private RecyclerView.LayoutManager layout;
@@ -41,6 +52,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private boolean addState = false;
     private Integer profileNo = null;
     Intent myFileIntent;
+    private TextView profile_name_label;
+    private TextView profile_name_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +65,16 @@ public class EditProfileActivity extends AppCompatActivity {
         back_btn = findViewById(R.id.goback_btn);
         trash_btn = findViewById(R.id.trash_btn);
         add_btn = findViewById(R.id.add_btn);
+        this.profile_name_label = findViewById(R.id.profile_name_label);
+        this.profile_name_id = findViewById(R.id.profile_name_id);
+
+        Intent intent = getIntent();
+        this.profile_name_label.setText(intent.getStringExtra("name"));
+        this.profile_name_id.setText(intent.getStringExtra("id"));
+
+        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
+        ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
+        SelectProfileAdapter selectProfileAdapter = new SelectProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
 
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(EditProfileActivity.this, MenuActivity.class);
@@ -68,6 +91,22 @@ public class EditProfileActivity extends AppCompatActivity {
                 this.rvSound.setAdapter(this.soundAdapter);
                 deleteState = true;
             }
+
+
+            int status = profileDAO.deleteProfile(Integer.parseInt(profile_name_id.getText().toString()));
+            if (status > 0){
+//                profileAdapter.removeProfile(Integer.parseInt(profile_name_label.getText().toString()));
+                profileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
+                selectProfileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
+                profileAdapter.addProfiles(profileDAO.getProfiles());
+                selectProfileAdapter.addProfiles(profileDAO.getProfiles());
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Profile not found", Toast.LENGTH_SHORT).show();
+            }
+
+            Intent goToMain = new Intent(EditProfileActivity.this, MainActivity.class);
+            startActivity(goToMain);
         });
 
         add_btn.setOnClickListener(view -> {

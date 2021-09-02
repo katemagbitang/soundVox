@@ -16,7 +16,34 @@
         android:text="soundVox"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/app_label"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <TextView
+            android:id="@+id/profile_name_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
+            app:layout_constraintRight_toLeftOf="@id/profile_name_label"
+            app:layout_constraintTop_toBottomOf="@id/app_label"
+            android:layout_weight="5"/>
+        <TextView
+            android:id="@+id/profile_name_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/app_label"
+            android:layout_margin="10dp"
+            android:layout_weight="5"/>
 
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/soundRecyclerView"
@@ -24,10 +51,11 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/profile_container"
-        app:layout_constraintTop_toBottomOf="@id/app_label"
+        app:layout_constraintTop_toBottomOf="@id/container"
         android:layout_margin="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="4"/>
+
 <!--    <GridLayout-->
 <!--        android:id="@+id/sound_container"-->
 <!--        android:layout_width="match_parent"-->

@@ -26,6 +26,17 @@ public class SelectProfileAdapter extends RecyclerView.Adapter<SelectProfileAdap
 
     }
 
+    public void addProfiles(ArrayList<Profile> selectProfileArrayList){
+        selectProfileArrayList.clear();
+        selectProfileArrayList.addAll(selectProfileArrayList);
+        notifyDataSetChanged();
+    }
+
+    public void removeProfile(int position){
+        selectProfileArrayList.remove(position);
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
+    }
     @Override
     public SelectProfileAdapter.SelectProfileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_select_profile_list,parent,false);
@@ -34,6 +45,10 @@ public class SelectProfileAdapter extends RecyclerView.Adapter<SelectProfileAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EditProfileActivity.class);
+
+                intent.putExtra("id", selectProfileArrayList.get(selectProfileViewHolder.getBindingAdapterPosition()).getId());
+                intent.putExtra("name", selectProfileArrayList.get(selectProfileViewHolder.getBindingAdapterPosition()).getName());
+                intent.putExtra("sound", selectProfileArrayList.get(selectProfileViewHolder.getBindingAdapterPosition()).getSounds());
 
                 v.getContext().startActivity(intent);
             }
