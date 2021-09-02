@@ -34,6 +34,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
     public void removeProfile(int position){
         profileArrayList.remove(position);
+//        int i = 0;
+//        int count = 1;
+//
+//        while(i < profileArrayList.size()){
+//            profileArrayList.get(i).setId(count);
+//            count++;
+//            i++;
+//        }
+
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
