@@ -99,7 +99,8 @@ public class MenuActivity extends AppCompatActivity {
                 // insert save profile name functions here
                 Profile profile = new Profile();
                 ArrayList<Sound> newSounds = new ArrayList<>();
-                int count = profileDAO.getProfiles().size();
+//                int count = profileDAO.getProfiles().size();
+                int count = profileAdapter.getItemCount();
                 Log.d(String.valueOf(count),"profile id");
                 profile.setId(count + 1);
                 profile.setName(profileName.getText().toString());
@@ -109,7 +110,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
-                Intent goToMainProfile = new Intent(MenuActivity.this, EditProfileActivity.class);
+                Intent goToMainProfile = new Intent(MenuActivity.this, MenuProfileActivity.class);
                 startActivity(goToMainProfile);
             }
         });
