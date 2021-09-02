@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -98,8 +99,8 @@ public class MenuActivity extends AppCompatActivity {
                 // insert save profile name functions here
                 Profile profile = new Profile();
                 ArrayList<Sound> newSounds = new ArrayList<>();
-//                int count = profileDAO.getProfiles().size();
-                int count = profileAdapter.getItemCount();
+                int count = profileDAO.getProfiles().size();
+                Log.d(String.valueOf(count),"profile id");
                 profile.setId(count + 1);
                 profile.setName(profileName.getText().toString());
                 profile.setSounds(newSounds);
@@ -108,7 +109,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
-                    Intent goToMainProfile = new Intent(MenuActivity.this, EditProfileActivity.class);
+                Intent goToMainProfile = new Intent(MenuActivity.this, EditProfileActivity.class);
                 startActivity(goToMainProfile);
             }
         });

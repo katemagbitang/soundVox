@@ -70,7 +70,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.profile_name_label.setText(intent.getStringExtra("name"));
-        this.profile_name_id.setText(intent.getStringExtra("id"));
+        this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
 
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
         ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());

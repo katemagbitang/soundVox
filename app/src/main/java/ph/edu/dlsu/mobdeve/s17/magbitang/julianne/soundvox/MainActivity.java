@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
@@ -36,11 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvSound;
     private RecyclerView.LayoutManager layout;
     private SoundAdapter soundAdapter;
+    private ProfileAdapter profileAdapter;
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
     private Integer profileNo = null;
     TextView tv;
     private TextView profile_name_label;
     private TextView profile_name_id;
+    private Profile profile;
 
 
 
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        populate_data();
+        populate_data();
         init();
         tv = (TextView)findViewById(R.id.tv_noprofile);
         setSoundBtnVisibility(View.VISIBLE);
@@ -56,10 +59,13 @@ public class MainActivity extends AppCompatActivity {
         profile_menu_btn = findViewById(R.id.btn_profile_menu);
         this.profile_name_label = findViewById(R.id.profile_name_label);
         this.profile_name_id = findViewById(R.id.profile_name_id);
+        profile = new Profile();
+
+//        while ()
 
         Intent intent = getIntent();
         this.profile_name_label.setText(intent.getStringExtra("name"));
-        this.profile_name_id.setText(intent.getStringExtra("id"));
+        this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
 
 
         home_menu_btn.setOnClickListener(view -> {

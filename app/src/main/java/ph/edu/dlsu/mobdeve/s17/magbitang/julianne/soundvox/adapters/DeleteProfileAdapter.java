@@ -23,7 +23,6 @@ public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfileAdap
     public DeleteProfileAdapter(Context context, ArrayList<Profile> deleteProfileArrayList) {
         this.deleteProfileArrayList = deleteProfileArrayList;
         this.context = context;
-
     }
 
     @Override
@@ -34,6 +33,10 @@ public class DeleteProfileAdapter extends RecyclerView.Adapter<DeleteProfileAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DeleteProfileActivity.class);
+
+                intent.putExtra("id", deleteProfileArrayList.get(deleteProfileViewHolder.getBindingAdapterPosition()).getId());
+                intent.putExtra("name", deleteProfileArrayList.get(deleteProfileViewHolder.getBindingAdapterPosition()).getName());
+                intent.putExtra("sound", deleteProfileArrayList.get(deleteProfileViewHolder.getBindingAdapterPosition()).getSounds());
 
                 v.getContext().startActivity(intent);
             }
