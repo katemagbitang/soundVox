@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         populate_data();
         init();
         tv = (TextView)findViewById(R.id.tv_noprofile);
@@ -88,11 +90,43 @@ public class MainActivity extends AppCompatActivity {
             tv.setVisibility(View.INVISIBLE);
     }
     private void populate_data() {
-
         if (profileNo == null){
-
-            for(int i = 0; i < 8; i++)
-                this.soundArrayList.add(new Sound("Sound" + i));
+            final MediaPlayer sound0 = MediaPlayer.create(this, R.raw.piano_a_major);
+            final MediaPlayer sound1 = MediaPlayer.create(this, R.raw.piano_b_major);
+            final MediaPlayer sound2 = MediaPlayer.create(this, R.raw.piano_c_major);
+            final MediaPlayer sound3 = MediaPlayer.create(this, R.raw.piano_c_sharp);
+            final MediaPlayer sound4 = MediaPlayer.create(this, R.raw.piano_d_major);
+            final MediaPlayer sound5 = MediaPlayer.create(this, R.raw.piano_e_major);
+            final MediaPlayer sound6 = MediaPlayer.create(this, R.raw.piano_f_major);
+            final MediaPlayer sound7 = MediaPlayer.create(this, R.raw.piano_g_major);
+            for(int i = 0; i < 8; i++){
+                switch(i) {
+                    case 0:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound0));
+                        break;
+                    case 1:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound1));
+                        break;
+                    case 2:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound2));
+                        break;
+                    case 3:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound3));
+                        break;
+                    case 4:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound4));
+                        break;
+                    case 5:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound5));
+                        break;
+                    case 6:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound6));
+                        break;
+                    case 7:
+                        this.soundArrayList.add(new Sound("Sound" + i, sound7));
+                        break;
+                }
+            }
         }
 
     }

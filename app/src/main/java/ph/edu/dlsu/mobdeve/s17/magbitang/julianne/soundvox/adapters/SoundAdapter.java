@@ -1,9 +1,11 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
@@ -42,6 +45,13 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
         View view = LayoutInflater.from(parent.getContext()).inflate(inflater,parent,false);
         SoundAdapter.SoundViewHolder soundViewHolder = new SoundAdapter.SoundViewHolder(view);
 
+
+        soundViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getSoundref().start();
+            }});
+
         return soundViewHolder;
     }
 
@@ -58,13 +68,14 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
 
     public class SoundViewHolder extends RecyclerView.ViewHolder{
 
-        TextView sound_name;
+        Button btn_sound;
 
         public SoundViewHolder(View itemView) {
             super(itemView);
-            sound_name = itemView.findViewById(R.id.sound_item);
+            btn_sound = itemView.findViewById(R.id.sound_item);
         }
 
-        public void setName(String name){ this.sound_name.setText(name);}
+        public void setName(String name){ this.btn_sound.setText(name);}
+        public Button getButton() { return this.btn_sound;}
     }
 }
