@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuProfileActivity">
+    tools:context=".SelectProfileActivity">
 
     <TextView
         android:id="@+id/app_label"
@@ -66,10 +66,11 @@
                 android:background="#00000000"
                 app:layout_constraintBottom_toBottomOf="parent" />
             <TextView
+                android:id="@+id/tv_label"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7.5"
-                android:text="Select a profile to play"
+                android:text="Select a profile to play*"
                 android:textAlignment="center"/>
         </LinearLayout>
 

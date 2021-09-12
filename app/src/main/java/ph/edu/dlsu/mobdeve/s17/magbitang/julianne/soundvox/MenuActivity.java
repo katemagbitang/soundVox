@@ -6,19 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.databinding.ActivityMainBinding;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
@@ -62,12 +59,15 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         edit_btn.setOnClickListener(view -> {
-            Intent goToSelectProfile = new Intent(MenuActivity.this, SelectProfileActivity.class);
-            startActivity(goToSelectProfile);
+            Intent goToSelectEditProfile = new Intent(MenuActivity.this, SelectEditProfileActivity.class);
+            //0 - edit
+            //1 - delete
+            //2 - select
+            startActivity(goToSelectEditProfile);
         });
 
         delete_btn.setOnClickListener(view -> {
-            Intent goToDeleteProfile = new Intent(MenuActivity.this, DeleteProfileActivity.class);
+            Intent goToDeleteProfile = new Intent(MenuActivity.this, SelectDeleteProfileActivity.class);
             startActivity(goToDeleteProfile);
         });
     }
@@ -80,7 +80,7 @@ public class MenuActivity extends AppCompatActivity {
         profileName = (EditText) view.findViewById(R.id.input_profile);
 
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
+        profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles(), (byte) 2);
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
@@ -110,7 +110,7 @@ public class MenuActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
-                Intent goToMainProfile = new Intent(MenuActivity.this, MenuProfileActivity.class);
+                Intent goToMainProfile = new Intent(MenuActivity.this, SelectProfileActivity.class);
                 startActivity(goToMainProfile);
             }
         });

@@ -13,12 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectProfileActivity"></activity>
+        <activity android:name=".SelectEditProfileActivity"></activity>
         <activity android:name=".RecordingActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".EditProfileActivity" />
-        <activity android:name=".MenuProfileActivity" />
-        <activity android:name=".DeleteProfileActivity" />
+        <activity android:name=".SelectProfileActivity" />
+        <activity android:name=".SelectDeleteProfileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

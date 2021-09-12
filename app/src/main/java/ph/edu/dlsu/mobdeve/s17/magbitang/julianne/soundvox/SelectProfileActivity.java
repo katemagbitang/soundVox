@@ -1,9 +1,5 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,38 +9,44 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SelectProfileAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
 public class SelectProfileActivity extends AppCompatActivity {
 
     private Button back_btn;
-    private SelectProfileAdapter selectProfileAdapter;
+    private TextView tv_label;
+    private ProfileAdapter profileAdapter;
     private RecyclerView rvProfile;
     private RecyclerView.LayoutManager layout;
+//    private Profile profile = new Profile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_profile);
+        setContentView(R.layout.activity_menuprofile);
 
         init();
 
         back_btn = findViewById(R.id.goback_btn);
-
+        tv_label = findViewById(R.id.tv_label);
+        tv_label.setText("Select a profile to play");
         back_btn.setOnClickListener(view -> {
-            Intent goToMain = new Intent(SelectProfileActivity.this, MenuActivity.class);
+            Intent goToMain = new Intent(SelectProfileActivity.this, MainActivity.class);
             startActivity(goToMain);
         });
+
     }
 
     private void init(){
-        this.rvProfile = findViewById(R.id.selectProfileRecyclerView);
+        this.rvProfile = findViewById(R.id.profileRecyclerView);
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        this.selectProfileAdapter = new SelectProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
-        this.rvProfile.setAdapter(this.selectProfileAdapter);
+        this.profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles(), (byte) 2);
+        this.rvProfile.setAdapter(this.profileAdapter);
     }
+
 }

@@ -1,10 +1,5 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -29,13 +24,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SelectProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -57,6 +50,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        Log.d("hello","edit");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         populate_data();
@@ -73,8 +67,7 @@ public class EditProfileActivity extends AppCompatActivity {
         this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
 
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
-        SelectProfileAdapter selectProfileAdapter = new SelectProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
+        ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles(), (byte) 0);
 
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(EditProfileActivity.this, MenuActivity.class);
@@ -91,22 +84,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 this.rvSound.setAdapter(this.soundAdapter);
                 deleteState = true;
             }
-
-
-            int status = profileDAO.deleteProfile(Integer.parseInt(profile_name_id.getText().toString()));
-            if (status > 0){
-//                profileAdapter.removeProfile(Integer.parseInt(profile_name_label.getText().toString()));
-                profileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
-                selectProfileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
-                profileAdapter.addProfiles(profileDAO.getProfiles());
-                selectProfileAdapter.addProfiles(profileDAO.getProfiles());
-            }
-            else{
-                Toast.makeText(getApplicationContext(),"Profile not found", Toast.LENGTH_SHORT).show();
-            }
-
-            Intent goToMain = new Intent(EditProfileActivity.this, MainActivity.class);
-            startActivity(goToMain);
         });
 
         add_btn.setOnClickListener(view -> {

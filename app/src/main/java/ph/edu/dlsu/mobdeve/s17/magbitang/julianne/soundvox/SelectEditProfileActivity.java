@@ -4,23 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
-public class MenuProfileActivity extends AppCompatActivity {
+public class SelectEditProfileActivity extends AppCompatActivity {
 
     private Button back_btn;
-    private ProfileAdapter profileAdapter;
+    private TextView tv_label;
+    private ProfileAdapter selectProfileAdapter;
     private RecyclerView rvProfile;
     private RecyclerView.LayoutManager layout;
-    private Profile profile = new Profile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +29,12 @@ public class MenuProfileActivity extends AppCompatActivity {
         init();
 
         back_btn = findViewById(R.id.goback_btn);
-
+        tv_label = findViewById(R.id.tv_label);
+        tv_label.setText("Select a profile to edit");
         back_btn.setOnClickListener(view -> {
-            Intent goToMain = new Intent(MenuProfileActivity.this, MainActivity.class);
+            Intent goToMain = new Intent(SelectEditProfileActivity.this, MenuActivity.class);
             startActivity(goToMain);
         });
-
     }
 
     private void init(){
@@ -43,8 +42,7 @@ public class MenuProfileActivity extends AppCompatActivity {
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        this.profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles());
-        this.rvProfile.setAdapter(this.profileAdapter);
+        this.selectProfileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles(), (byte) 0);
+        this.rvProfile.setAdapter(this.selectProfileAdapter);
     }
-
 }

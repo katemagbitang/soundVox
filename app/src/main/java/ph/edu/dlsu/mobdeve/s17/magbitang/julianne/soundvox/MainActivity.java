@@ -4,23 +4,17 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -76,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         profile_menu_btn.setOnClickListener(view -> {
-            Intent goToProfileMenu = new Intent(MainActivity.this, MenuProfileActivity.class);
+            Intent goToSelectProfileMenu = new Intent(MainActivity.this, SelectProfileActivity.class);
 //            launchMenuProfile.launch(goToProfileMenu);
-            startActivity(goToProfileMenu);
+            startActivity(goToSelectProfileMenu);
         });
     }
 
