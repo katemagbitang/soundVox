@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
-public class AppDAOSqlImpl implements AppDAO {
+public class ProfileDAOSqlImpl implements ProfileDAO {
 
     private SQLiteDatabase database;
     private AppDatabase appDatabase;
 
-    public AppDAOSqlImpl(Context context){
+    public ProfileDAOSqlImpl(Context context){
         appDatabase = new AppDatabase(context);
     }
 

@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 
 public class SelectEditProfileActivity extends AppCompatActivity {
 
@@ -41,8 +41,8 @@ public class SelectEditProfileActivity extends AppCompatActivity {
         this.rvProfile = findViewById(R.id.profileRecyclerView);
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
-        AppDAO appDAO = new AppDAOSqlImpl(getApplicationContext());
-        this.selectProfileAdapter = new ProfileAdapter(getApplicationContext(), appDAO.getProfiles(), (byte) 0);
+        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
+        this.selectProfileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 0);
         this.rvProfile.setAdapter(this.selectProfileAdapter);
     }
 }

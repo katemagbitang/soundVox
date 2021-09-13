@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MainActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MenuActivity;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
 
@@ -79,14 +79,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                 intent.putExtra("sound", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getSounds());
                 if(pClass == MenuActivity.class){
 
-                    AppDAO appDAO = new AppDAOSqlImpl(context);
+                    ProfileDAO profileDAO = new ProfileDAOSqlImpl(context);
                     int id = profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getId();
-                    int status = appDAO.deleteProfile(id);
+                    int status = profileDAO.deleteProfile(id);
                     if (status > 0){
 //                profileAdapter.removeProfile(Integer.parseInt(profile_name_label.getText().toString()));
                         removeProfile(id);
 //                selectProfileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
-                        addProfiles(appDAO.getProfiles());
+                        addProfiles(profileDAO.getProfiles());
 //                selectProfileAdapter.addProfiles(profileDAO.getProfiles());
                     }
                     else{
