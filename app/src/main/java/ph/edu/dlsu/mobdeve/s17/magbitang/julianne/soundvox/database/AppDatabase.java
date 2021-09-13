@@ -4,23 +4,33 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class ProfileDatabase extends SQLiteOpenHelper {
+public class AppDatabase extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "profile.db";
+    private static final String DATABASE_NAME = "soundvox.db";
     private static final int DATABASE_VERSION = 1;
 
     //column names
     public static final String TABLE_PROFILES = "profiles";
-    public static final String PROFILE_ID = "id";
-    public static final String PROFILE_NAME = "name";
+    public static final String PROFILE_ID = "profile_id";
+    public static final String PROFILE_NAME = "profile_name";
 //    public static final String USERS_EMAIL = "email";
+
+    public static final String TABLE_SOUNDS = "sounds";
+    public static final String SOUND_ID = "sound_id";
+    public static final String SOUND_NAME = "sound_name";
 
     public static final String CREATE_PROFILE_TABLE = "create table " + TABLE_PROFILES + " ( "
             + PROFILE_ID + " integer primary key , "
             + PROFILE_NAME + " text); ";
-//            + USERS_EMAIL + " text );";
 
-    public ProfileDatabase(Context context){
+    public static final String CREATE_SOUND_TABLE = "create table " + TABLE_SOUNDS + " ( "
+            + SOUND_ID + " integer primary key , "
+            + SOUND_NAME + " text not null , "
+            + PROFILE_ID + " text not null , "
+            + "FOREIGN KEY ("+PROFILE_ID+") REFERENCES " +TABLE_PROFILES + " ("+PROFILE_ID+"))";
+
+
+    public AppDatabase(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
@@ -28,11 +38,13 @@ public class ProfileDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_PROFILE_TABLE);
+        db.execSQL(CREATE_SOUND_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SOUNDS);
         onCreate(db);
     }
 }

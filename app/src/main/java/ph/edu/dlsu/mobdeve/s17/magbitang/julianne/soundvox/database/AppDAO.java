@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
-public interface ProfileDAO {
+public interface AppDAO {
 
     long createProfile(Profile profile);
     ArrayList<Profile> getProfiles();

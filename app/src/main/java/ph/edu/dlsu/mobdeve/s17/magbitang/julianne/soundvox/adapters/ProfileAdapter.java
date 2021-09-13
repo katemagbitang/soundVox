@@ -2,13 +2,10 @@ package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +15,8 @@ import java.util.ArrayList;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MainActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MenuActivity;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
 
@@ -82,14 +79,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                 intent.putExtra("sound", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getSounds());
                 if(pClass == MenuActivity.class){
 
-                    ProfileDAO profileDAO = new ProfileDAOSqlImpl(context);
+                    AppDAO appDAO = new AppDAOSqlImpl(context);
                     int id = profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getId();
-                    int status = profileDAO.deleteProfile(id);
+                    int status = appDAO.deleteProfile(id);
                     if (status > 0){
 //                profileAdapter.removeProfile(Integer.parseInt(profile_name_label.getText().toString()));
                         removeProfile(id);
 //                selectProfileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
-                        addProfiles(profileDAO.getProfiles());
+                        addProfiles(appDAO.getProfiles());
 //                selectProfileAdapter.addProfiles(profileDAO.getProfiles());
                     }
                     else{

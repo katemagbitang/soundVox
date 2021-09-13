@@ -14,8 +14,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.AppDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
@@ -79,8 +79,8 @@ public class MenuActivity extends AppCompatActivity {
         btn_save = view.findViewById(R.id.btn_save);
         profileName = (EditText) view.findViewById(R.id.input_profile);
 
-        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        profileAdapter = new ProfileAdapter(getApplicationContext(),profileDAO.getProfiles(), (byte) 2);
+        AppDAO appDAO = new AppDAOSqlImpl(getApplicationContext());
+        profileAdapter = new ProfileAdapter(getApplicationContext(), appDAO.getProfiles(), (byte) 2);
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
@@ -105,8 +105,8 @@ public class MenuActivity extends AppCompatActivity {
                 profile.setId(count + 1);
                 profile.setName(profileName.getText().toString());
                 profile.setSounds(newSounds);
-                profileDAO.createProfile(profile);
-                profileAdapter.addProfiles(profileDAO.getProfiles());
+                appDAO.createProfile(profile);
+                profileAdapter.addProfiles(appDAO.getProfiles());
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
