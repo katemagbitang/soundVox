@@ -11,4 +11,5 @@ public interface ProfileDAO {
     Profile getProfile(String profileName);
     int updateProfile(Profile profile);
     int deleteProfile(int profileid);
+    int getProfileDbSize();
 }

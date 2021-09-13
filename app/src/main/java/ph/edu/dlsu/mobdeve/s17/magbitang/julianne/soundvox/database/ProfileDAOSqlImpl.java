@@ -109,6 +109,10 @@ public class ProfileDAOSqlImpl implements ProfileDAO {
         return profile;
     }
 
+    @Override
+    public int getProfileDbSize(){
+        return getProfiles().size();
+    }
 
     @Override
     public int updateProfile(Profile profile) {

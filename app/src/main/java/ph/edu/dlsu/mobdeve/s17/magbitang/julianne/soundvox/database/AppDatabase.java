@@ -20,13 +20,13 @@ public class AppDatabase extends SQLiteOpenHelper {
     public static final String SOUND_NAME = "sound_name";
 
     public static final String CREATE_PROFILE_TABLE = "create table " + TABLE_PROFILES + " ( "
-            + PROFILE_ID + " integer primary key , "
+            + PROFILE_ID + " integer primary key autoincrement, "
             + PROFILE_NAME + " text); ";
 
     public static final String CREATE_SOUND_TABLE = "create table " + TABLE_SOUNDS + " ( "
-            + SOUND_ID + " integer primary key , "
+            + SOUND_ID + " integer primary key autoincrement, "
             + SOUND_NAME + " text not null , "
-            + PROFILE_ID + " text not null , "
+            + PROFILE_ID + " integer not null , "
             + "FOREIGN KEY ("+PROFILE_ID+") REFERENCES " +TABLE_PROFILES + " ("+PROFILE_ID+"))";
 
 
