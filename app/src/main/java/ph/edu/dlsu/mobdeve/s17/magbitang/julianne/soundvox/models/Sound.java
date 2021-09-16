@@ -6,7 +6,7 @@ public class Sound {
     private String label;
     private String URL;
     private int id = -1;
-    private Profile profile;
+    private int profileID;
     MediaPlayer soundref;
 
     public Sound(){}
@@ -49,12 +49,12 @@ public class Sound {
         this.id = id;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public int getProfileID() {
+        return profileID;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setProfileID(int profileID) {
+        this.profileID = profileID;
     }
 
     public MediaPlayer getSoundref() {

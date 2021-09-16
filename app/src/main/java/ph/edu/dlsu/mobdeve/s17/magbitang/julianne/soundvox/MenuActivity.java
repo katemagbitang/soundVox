@@ -98,13 +98,13 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // insert save profile name functions here
                 Profile profile = new Profile();
-                ArrayList<Sound> newSounds = new ArrayList<>();
+//                ArrayList<Sound> newSounds = new ArrayList<>();
 //                int count = profileDAO.getProfiles().size();
                 int count = profileAdapter.getItemCount();
                 Log.d(String.valueOf(count),"profile id");
                 profile.setId(count + 1);
                 profile.setName(profileName.getText().toString());
-                profile.setSounds(newSounds);
+//                profile.setSounds(newSounds);
                 profileDAO.createProfile(profile);
                 profileAdapter.addProfiles(profileDAO.getProfiles());
 

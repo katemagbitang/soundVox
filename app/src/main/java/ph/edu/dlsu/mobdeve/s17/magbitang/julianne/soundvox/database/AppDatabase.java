@@ -18,6 +18,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     public static final String TABLE_SOUNDS = "sounds";
     public static final String SOUND_ID = "sound_id";
     public static final String SOUND_NAME = "sound_name";
+    public static final String SOUND_PATH = "sound_path";
 
     public static final String CREATE_PROFILE_TABLE = "create table " + TABLE_PROFILES + " ( "
             + PROFILE_ID + " integer primary key autoincrement, "
@@ -26,6 +27,7 @@ public class AppDatabase extends SQLiteOpenHelper {
     public static final String CREATE_SOUND_TABLE = "create table " + TABLE_SOUNDS + " ( "
             + SOUND_ID + " integer primary key autoincrement, "
             + SOUND_NAME + " text not null , "
+            + SOUND_PATH + " text not null , "
             + PROFILE_ID + " integer not null , "
             + "FOREIGN KEY ("+PROFILE_ID+") REFERENCES " +TABLE_PROFILES + " ("+PROFILE_ID+"))";
 

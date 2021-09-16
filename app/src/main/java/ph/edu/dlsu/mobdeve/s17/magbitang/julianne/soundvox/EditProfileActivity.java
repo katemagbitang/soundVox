@@ -27,6 +27,9 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapt
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -41,17 +44,18 @@ public class EditProfileActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layout;
     private boolean deleteState = false;
     private boolean addState = false;
-    private Integer profileNo = null;
+//    private Integer profileNo = null;
     Intent myFileIntent;
     private TextView profile_name_label;
     private TextView profile_name_id;
+    private TextView pathFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        Log.d("hello","edit");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        populate_data();
+//        populate_data();
         init();
         this.rvSound.setVisibility(View.VISIBLE);
         back_btn = findViewById(R.id.goback_btn);
@@ -59,12 +63,14 @@ public class EditProfileActivity extends AppCompatActivity {
         add_btn = findViewById(R.id.add_btn);
         this.profile_name_label = findViewById(R.id.profile_name_label);
         this.profile_name_id = findViewById(R.id.profile_name_id);
+        this.pathFile = findViewById(R.id.pathOfFilePicked);
 
         Intent intent = getIntent();
         this.profile_name_label.setText(intent.getStringExtra("name"));
         this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
 
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
+
         ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 0);
 
         back_btn.setOnClickListener(view -> {
@@ -99,13 +105,13 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void populate_data() {
-        if (profileNo == null){
-            for(int i = 0; i < 9; i++)
-                this.soundArrayList.add(new Sound("Sound" + i));
-        }
-
-    }
+//    private void populate_data() {
+//        if (profileNo == null){
+//            for(int i = 0; i < 9; i++)
+//                this.soundArrayList.add(new Sound("Sound" + i));
+//        }
+//
+//    }
 
     private void init(){
         this.rvSound = findViewById(R.id.soundRecyclerView);
@@ -161,10 +167,27 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK){
-            String filePath = getRealPathFromUri(data.getData(),EditProfileActivity.this);
-            Log.d("File Path: ",""+filePath);
-            this.soundArrayList.add(new Sound("Test Sound",filePath));
-            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,0);
+            String path = data.getData().getPath();
+//            String filePath = getRealPathFromUri(data.getData(),EditProfileActivity.this);
+            Log.d("File Path: ",""+path);
+
+            this.pathFile.setText(path);
+
+//            Profile profile = new Profile();
+            Sound sound = new Sound();
+            int count = soundAdapter.getItemCount();
+            sound.setId(count+1);
+            sound.setLabel("Trial Dos");
+            sound.setURL(path);
+            sound.setProfileID(Integer.parseInt(profile_name_id.getText().toString()));
+            SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
+            soundDAO.addSoundToProfile(sound);
+            soundAdapter.addSounds(soundDAO.getSounds());
+
+            Toast.makeText(getApplicationContext(),"Sound was stored.", Toast.LENGTH_SHORT).show();
+
+//            this.soundArrayList.add(new Sound("Test Sound",path));
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds(),0);
             this.rvSound.setAdapter(this.soundAdapter);
         }
     }

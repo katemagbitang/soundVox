@@ -12,4 +12,6 @@ public interface SoundDAO {
     Sound getSound(int sound_id);
 //    int updateProfile(Profile profile);
     int deleteSound(int sound_id);
+
+    ArrayList<Sound> getSounds();
 }

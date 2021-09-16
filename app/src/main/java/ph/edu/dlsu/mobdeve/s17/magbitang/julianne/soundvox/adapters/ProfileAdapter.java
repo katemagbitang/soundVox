@@ -88,6 +88,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 //                selectProfileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
                         addProfiles(profileDAO.getProfiles());
 //                selectProfileAdapter.addProfiles(profileDAO.getProfiles());
+                        Toast.makeText(context,""+getItemCount(), Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(context,"Profile not found", Toast.LENGTH_SHORT).show();
