@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "533713871902",
+    "project_id": "soundvox-data",
+    "storage_bucket": "soundvox-data.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533713871902:android:6f3d9e6b00d382ca867a0f",
+        "android_client_info": {
+          "package_name": "ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533713871902-i9cfdbck9977a6qrmvu7pkk4k9n5hqqa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaSGPaIUjVfY5vmybO9OGbLjfOcqDtF10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533713871902-i9cfdbck9977a6qrmvu7pkk4k9n5hqqa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

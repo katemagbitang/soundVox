@@ -4,8 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_delete_profile.xml" value="0.2140625" />
+        <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_main.xml" value="0.22192028985507245" />
+        <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_menu.xml" value="0.22192028985507245" />
         <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_menuprofile.xml" value="0.25" />
-        <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_profile.xml" value="0.3671875" />
+        <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_pop_up_create_profile.xml" value="0.22192028985507245" />
+        <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_pop_up_delete_profile.xml" value="0.22" />
+        <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_profile.xml" value="0.5" />
         <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_recording.xml" value="0.3671875" />
         <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/activity_select_profile.xml" value="0.2140625" />
         <entry key="..\:/Users/Emc33/Documents/GitHub/soundVox/app/src/main/res/layout/button_delete_profile_list.xml" value="0.3671875" />

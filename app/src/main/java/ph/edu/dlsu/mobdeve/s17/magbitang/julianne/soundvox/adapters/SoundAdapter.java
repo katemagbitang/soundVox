@@ -50,6 +50,8 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
             @Override
             public void onClick(View v) {
                 soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getSoundref().start();
+
+                soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getSoundref().stop();
             }});
 
         return soundViewHolder;

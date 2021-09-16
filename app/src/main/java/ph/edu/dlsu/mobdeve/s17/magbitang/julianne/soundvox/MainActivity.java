@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.common.util.Strings;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
@@ -38,14 +42,30 @@ public class MainActivity extends AppCompatActivity {
     private TextView profile_name_id;
     private Profile profile;
 
-
-
+    //firebase
+    private DatabaseReference mDatabase;
+// ...
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        populate_data();
+        mDatabase = FirebaseDatabase.getInstance("https://soundvox-data-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
+
+        this.soundArrayList.add(new Sound("Sound 1", MediaPlayer.create(this, R.raw.piano_a_major)));
+        this.soundArrayList.add(new Sound("Sound 2", MediaPlayer.create(this, R.raw.piano_b_major)));
+        this.soundArrayList.add(new Sound("Sound 3", MediaPlayer.create(this, R.raw.piano_c_major)));
+//        populate_data();
+        ArrayList<String> stringsDB = new ArrayList<String>();
+        for(int i = 0; i < 3; i++){
+            stringsDB.add(soundArrayList.get(i).toString());
+        }
+        mDatabase.child("sound_database").child("profile").setValue(stringsDB);
+
+
+
+
+
         init();
         tv = (TextView)findViewById(R.id.tv_noprofile);
         setSoundBtnVisibility(View.VISIBLE);
@@ -81,40 +101,6 @@ public class MainActivity extends AppCompatActivity {
         else
             tv.setVisibility(View.INVISIBLE);
     }
-    private void populate_data() {
-        if (profileNo == 0){
-            for(int i = 0; i < 8; i++){
-                switch(i) {
-                    case 0:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_a_major)));
-                        break;
-                    case 1:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_b_major)));
-                        break;
-                    case 2:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_c_major)));
-                        break;
-                    case 3:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_c_sharp)));
-                        break;
-                    case 4:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_d_major)));
-                        break;
-                    case 5:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_e_major)));
-                        break;
-                    case 6:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_f_major)));
-                        break;
-                    case 7:
-                        this.soundArrayList.add(new Sound("Sound" + i, MediaPlayer.create(this, R.raw.piano_g_major)));
-                        break;
-                }
-            }
-        }
-
-    }
-
     private void init(){
         this.rvSound = findViewById(R.id.soundRecyclerView);
         this.layout = new GridLayoutManager(this,4);
