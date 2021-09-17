@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
@@ -49,22 +48,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView profile_name_id;
     private TextView pathFile;
 
-    private FireBaseProfileDB profileDB = new FireBaseProfileDB();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        Log.d("hello","edit");
         super.onCreate(savedInstanceState);
-
-        profileDB.setListener(new FireBaseProfileDB.ChangeListener() {
-            @Override
-            public void onChange() {
-                if(profileDB.getProfiles().size() > 0){
-                    Log.d("HEHE","working");
-                }
-            }
-        });
-
         setContentView(R.layout.activity_profile);
 //        populate_data();
         init();
@@ -82,7 +69,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
 
-        ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), profileDB.getProfiles(), (byte) 0);
+        ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 0);
 
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(EditProfileActivity.this, MenuActivity.class);

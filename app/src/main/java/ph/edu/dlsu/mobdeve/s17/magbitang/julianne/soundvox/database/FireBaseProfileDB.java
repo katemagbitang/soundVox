@@ -33,7 +33,7 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 public class FireBaseProfileDB {
 
     private DatabaseReference profileDB;
-    private ArrayList<ProfileFB> Profiles = new ArrayList<>();
+    private ArrayList<ProfileFB> Profiles;
     private ChangeListener listener;
     boolean exists;
     private String PROFILE_DB_ERROR = "PROFILE_DB_ERROR";
@@ -77,7 +77,6 @@ public class FireBaseProfileDB {
 
     public FireBaseProfileDB(){
         profileDB = FirebaseDatabase.getInstance("https://soundvox-data-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("test-user").child("profiles");
-
         //ProfilesFirstRead();
         profileDB.addValueEventListener(postListener);
     }

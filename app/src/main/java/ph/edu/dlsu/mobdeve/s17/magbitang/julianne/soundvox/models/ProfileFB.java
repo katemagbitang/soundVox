@@ -2,12 +2,11 @@ package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models;
 
 import com.google.firebase.database.Exclude;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProfileFB implements Serializable {
+public class ProfileFB {
     private String name = "";
     private ArrayList<SoundFB> sounds;
 

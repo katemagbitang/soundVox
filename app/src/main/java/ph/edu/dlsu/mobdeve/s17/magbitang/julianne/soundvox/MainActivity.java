@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
@@ -34,7 +33,6 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_profile_menu;
     private TextView profile_name_label;
     private TextView profile_name_id;
-    private ArrayList<ProfileFB> profiles;
+    private Profile profile;
 
     private boolean profileExists;
 
@@ -71,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             public void onChange() {
                 if(profileDB.getProfiles().size() > 0){
                         profileExists = true;
-                        profiles = profileDB.getProfiles();
                         Log.d("HEHE","working");
                 }
             }
@@ -98,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         btn_selectprofile_menu = findViewById(R.id.btn_profile_menu);
         this.profile_name_label = findViewById(R.id.tv_profilename_debug);
         this.profile_name_id = findViewById(R.id.tv_profileid_debug);
+        profile = new Profile();
 
 
 //        this.profile_name_label.setText(intent.getStringExtra("name"));
@@ -110,18 +108,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btn_selectprofile_menu.setOnClickListener(view -> {
-            if(profileExists){
-                Intent goToSelectProfileMenu = new Intent(MainActivity.this, SelectProfileActivity.class);
-                Bundle args = new Bundle();
-                args.putSerializable("PROFILES",(Serializable)profiles);
-                goToSelectProfileMenu.putExtra("BUNDLE",args);
-
-                startActivity(goToSelectProfileMenu);
-                finish();
-            }
-            else{
-                //SOMETHING, POPUP
-            }
+            Intent goToSelectProfileMenu = new Intent(MainActivity.this, SelectProfileActivity.class);
+            startActivity(goToSelectProfileMenu);
+            finish();
         });
     }
 
