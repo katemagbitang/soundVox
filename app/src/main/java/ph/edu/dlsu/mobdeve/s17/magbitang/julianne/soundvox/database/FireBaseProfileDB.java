@@ -48,18 +48,38 @@ public class FireBaseProfileDB {
             if(dataSnapshot.getValue(profileListType) != null){
                 newProfiles = dataSnapshot.getValue(profileListType).values();
 
+                /*READ PROFILE*/
                 for(Object object : newProfiles){
                     HashMap<String, Object> element = (HashMap<String, Object>) object;
                     String name = "";
-                    ArrayList<SoundFB> sounds = new ArrayList<SoundFB>();
+                    ArrayList<HashMap<String, String>> sounds = new ArrayList<HashMap<String, String>>();
                     for(Object item : element.values()){
                         if(item instanceof  ArrayList)
-                            sounds = (ArrayList<SoundFB>) item;
+                            sounds = (ArrayList<HashMap<String, String>>) item;
                         if(item instanceof  String)
                             name = item.toString();
                     }
-                    ProfileFB profile = new ProfileFB(name, sounds);
-                    Profiles.add(profile);
+
+                    /*READ SOUND */
+                    String label = "";
+                    String url = "";
+                    int i = 0;
+                    ArrayList<SoundFB> soundRefs = new ArrayList<>();
+                    for(HashMap<String, String> hash: sounds){
+                        i = 0;
+                        for(Object sound  : hash.values()){
+                            if(i==0){
+                                label = sound.toString();
+                            }
+                            else{
+                                url = sound.toString();
+                            }
+                            i++;
+                        }
+                        soundRefs.add(new SoundFB(label, url));
+                    }
+
+                    Profiles.add(new ProfileFB(name, soundRefs));
                 }
 
                 profilesUpdated();
@@ -219,6 +239,7 @@ public class FireBaseProfileDB {
 
     public void destroyDBInstance() {
         profileDB.removeEventListener(postListener);
+        listener = null;
     }
 
 

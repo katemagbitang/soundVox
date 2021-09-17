@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
@@ -26,15 +30,27 @@ public class MenuActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private EditText profileName;
     private Button btn_cancel,btn_save;
-
+    private ArrayList<ProfileFB> Profiles = new ArrayList<>();
     private ProfileAdapter profileAdapter;
 //    private ActivityMainBinding binding;
+
+    private FireBaseProfileDB profileDB = new FireBaseProfileDB();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        /*LISTEN FOR PROFILE DB UPDATES*/
+        profileDB.setListener(new FireBaseProfileDB.ChangeListener() {
+            @Override
+            public void onChange() {
+                if(profileDB.getProfiles().size() > 0){
+                    Profiles = profileDB.getProfiles();
+                    Log.d("HEHE","working");
+                }
+            }
+        });
 
         btn_back = findViewById(R.id.btn_back);
         btn_record = findViewById(R.id.btn_smenu_1);
@@ -47,12 +63,14 @@ public class MenuActivity extends AppCompatActivity {
         btn_back.setOnClickListener(view -> {
             Intent goToMain = new Intent(MenuActivity.this, MainActivity.class);
             startActivity(goToMain);
+            profileDB.destroyDBInstance();
             finish();
         });
 
         btn_record.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, RecordingActivity.class);
             startActivity(goToRecord);
+            profileDB.destroyDBInstance();
             finish();
         });
 
@@ -63,6 +81,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_open.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, SelectAllSoundsActivity.class);
             startActivity(goToRecord);
+            profileDB.destroyDBInstance();
             finish();
         });
 
@@ -71,32 +90,47 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         btn_edit.setOnClickListener(view -> {
-            Intent goToSelectEditProfile = new Intent(MenuActivity.this, SelectEditProfileActivity.class);
-            startActivity(goToSelectEditProfile);
-            finish();
+                Intent goToSelectEditProfile = new Intent(MenuActivity.this, SelectEditProfileActivity.class);
+
+                /*Pass Loaded Users*/
+                Bundle args = new Bundle();
+                args.putSerializable("PROFILES",(Serializable)Profiles);
+                goToSelectEditProfile.putExtra("BUNDLE",args);
+
+                startActivity(goToSelectEditProfile);
+                profileDB.destroyDBInstance();
+                finish();
         });
 
         btn_delete.setOnClickListener(view -> {
             Intent goToDeleteProfile = new Intent(MenuActivity.this, SelectDeleteProfileActivity.class);
+
+            /*Pass Loaded Users*/
+            Bundle args = new Bundle();
+            args.putSerializable("PROFILES",(Serializable)Profiles);
+            goToDeleteProfile.putExtra("BUNDLE",args);
+
+            profileDB.destroyDBInstance();
             startActivity(goToDeleteProfile);
             finish();
         });
     }
 
     public void createNewProfile(){
+
+        /*INIT DIALOG*/
         dialogBuilder = new AlertDialog.Builder(this);
         final View view = getLayoutInflater().inflate(R.layout.activity_pop_up_create_profile,null);
         btn_cancel = view.findViewById(R.id.btn_cancel);
         btn_save = view.findViewById(R.id.btn_save);
         profileName = (EditText) view.findViewById(R.id.input_profile);
 
-//        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-//        profileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 2);
-
+        /*START DIALOG*/
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
         dialog.show();
 
+        /*CANCEL BUTTON*/
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,28 +138,26 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        /*SAVE USER*/
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // insert save profile name functions here
+                // Init Profile
                 ProfileFB profile = new ProfileFB(profileName.getText().toString());
+
+                //Save to DB
                 FireBaseProfileDB profileDB = new FireBaseProfileDB();
                 profileDB.addProfile(profile);
-//                ArrayList<Sound> newSounds = new ArrayList<>();
-//                int count = profileDAO.getProfiles().size();
-//                int count = profileAdapter.getItemCount();
-//                Log.d(String.valueOf(count),"profile id");
-//                profile.setId(count + 1);
-//                profile.setName(profileName.getText().toString());
-////                profile.setSounds(newSounds);
-//
-//                profileDAO.createProfile(profile);
-//                profileAdapter.addProfiles(profileDAO.getProfiles());
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
-                Intent goToMainProfile = new Intent(MenuActivity.this, SelectProfileActivity.class);
-                startActivity(goToMainProfile);
+                //Go to Edit Profile
+                Intent goToEditProfile = new Intent(MenuActivity.this, EditProfileActivity.class);
+                goToEditProfile.putExtra("profile", profile);
+                profileDB.destroyDBInstance();
+                dialog.dismiss();
+                startActivity(goToEditProfile);
+                finish();
             }
         });
     }

@@ -15,6 +15,7 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class SelectAllSoundsActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
     private SoundAdapter openSoundsAdapter;
     private RecyclerView rv_opensounds;
     private RecyclerView.LayoutManager layout;
-    private ArrayList<Sound> soundArrayList = new ArrayList<>();
+    private ArrayList<SoundFB> soundArrayList = new ArrayList<>();
 //    private Profile profile = new Profile();
 
     @Override

@@ -4,10 +4,11 @@ import android.media.MediaPlayer;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SoundFB {
+public class SoundFB implements Serializable {
 
     private String label;
     private String URL;

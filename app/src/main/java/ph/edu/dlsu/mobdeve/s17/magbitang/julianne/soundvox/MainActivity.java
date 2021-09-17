@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
@@ -33,7 +35,9 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layout;
     private SoundAdapter soundAdapter;
     private ProfileAdapter profileAdapter;
-    private ArrayList<Sound> soundArrayList = new ArrayList<>();
+    private ArrayList<SoundFB> soundArrayList = new ArrayList<>();
     private Integer profileNo = 0;
     private TextView tv_noprofile;
     private RecyclerView rv_soundlist;
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView profile_name_label;
     private TextView profile_name_id;
     private Profile profile;
+    private ArrayList<ProfileFB> Profiles = new ArrayList<>();
 
     private boolean profileExists;
 
@@ -64,16 +69,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*LISTEN FOR PROFILE DB UPDATES*/
         profileDB.setListener(new FireBaseProfileDB.ChangeListener() {
             @Override
             public void onChange() {
                 if(profileDB.getProfiles().size() > 0){
-                        profileExists = true;
+                        Profiles = profileDB.getProfiles();
                         Log.d("HEHE","working");
                 }
             }
         });
 
+        /*IF SELECTED PROFILE EXISTS*/
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -86,31 +93,28 @@ public class MainActivity extends AppCompatActivity {
             profileExists = (Boolean) savedInstanceState.getSerializable("SPM_BOOL");
         }
 
+        /* INITIALIZE */
         init();
-        tv_noprofile = (TextView)findViewById(R.id.tv_noprofile);
-        rv_soundlist = (RecyclerView)findViewById(R.id.rv_soundlist);
-        btn_profile_menu = (Button)findViewById(R.id.btn_profile_menu);
-        setSoundBtnVisibility(profileExists);
-        btn_menu = findViewById(R.id.btn_menu);
-        btn_selectprofile_menu = findViewById(R.id.btn_profile_menu);
-        this.profile_name_label = findViewById(R.id.tv_profilename_debug);
-        this.profile_name_id = findViewById(R.id.tv_profileid_debug);
-        profile = new Profile();
 
-
-//        this.profile_name_label.setText(intent.getStringExtra("name"));
-//        this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
-
+        /*ON CLICK FOR MENU BAR*/
         btn_menu.setOnClickListener(view -> {
             Intent goToMenu = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(goToMenu);
             finish();
         });
 
+        /* ON CLICK FOR SELECT PROFILE */
         btn_selectprofile_menu.setOnClickListener(view -> {
-            Intent goToSelectProfileMenu = new Intent(MainActivity.this, SelectProfileActivity.class);
-            startActivity(goToSelectProfileMenu);
-            finish();
+                Intent goToSelectProfileMenu = new Intent(MainActivity.this, SelectProfileActivity.class);
+
+                /*Pass Loaded Users*/
+                Bundle args = new Bundle();
+                args.putSerializable("PROFILES",(Serializable)Profiles);
+                goToSelectProfileMenu.putExtra("BUNDLE",args);
+                profileDB.destroyDBInstance();
+
+                startActivity(goToSelectProfileMenu);
+                finish();
         });
     }
 
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(profileExists) {
             this.btn_profile_menu.setText(intent.getStringExtra("name"));
+            soundArrayList = (ArrayList<SoundFB>) intent.getSerializableExtra("sounds");
             tv_noprofile.setVisibility(View.INVISIBLE);
             rv_soundlist.setVisibility(View.VISIBLE);
         }
@@ -128,11 +133,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void init(){
+
         this.rvSound = findViewById(R.id.rv_soundlist);
         this.layout = new GridLayoutManager(this,4);
         this.rvSound.setLayoutManager(this.layout);
-        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,false,false);
+        if(profileExists) {
+            Intent intent = getIntent();
+            soundArrayList = (ArrayList<SoundFB>) intent.getSerializableExtra("sounds");
+        }
+        this.soundAdapter = new SoundAdapter(getApplicationContext(), soundArrayList,false,false,false);
         this.rvSound.setAdapter(this.soundAdapter);
+
+        tv_noprofile = (TextView)findViewById(R.id.tv_noprofile);
+        rv_soundlist = (RecyclerView)findViewById(R.id.rv_soundlist);
+        btn_profile_menu = (Button)findViewById(R.id.btn_profile_menu);
+
+        btn_menu = findViewById(R.id.btn_menu);
+        btn_selectprofile_menu = findViewById(R.id.btn_profile_menu);
+        this.profile_name_label = findViewById(R.id.tv_profilename_debug);
+        this.profile_name_id = findViewById(R.id.tv_profileid_debug);
+        profile = new Profile();
+
+        setSoundBtnVisibility(profileExists);
+        // DEBUG
+        //        this.profile_name_label.setText(intent.getStringExtra("name"));
+        //        this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
+
+
+
+
     }
 
     private ActivityResultLauncher<Intent> launchMenuProfile =

@@ -2,7 +2,9 @@ package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models;
 
 import android.media.MediaPlayer;
 
-public class Sound {
+import java.io.Serializable;
+
+public class Sound implements Serializable {
     private String label;
     private String URL;
     private int id = -1;

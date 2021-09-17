@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 
 public class SelectDeleteProfileActivity extends AppCompatActivity {
 
@@ -20,11 +23,16 @@ public class SelectDeleteProfileActivity extends AppCompatActivity {
     private ProfileAdapter deleteProfileAdapter;
     private RecyclerView rvProfile;
     private RecyclerView.LayoutManager layout;
+    private ArrayList<ProfileFB> Profiles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuprofile);
+
+        /*GET USERS*/
+        Bundle args = getIntent().getBundleExtra("BUNDLE");
+        Profiles = (ArrayList<ProfileFB>) args.getSerializable("PROFILES");
 
         init();
 
@@ -42,7 +50,7 @@ public class SelectDeleteProfileActivity extends AppCompatActivity {
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        this.deleteProfileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 1);
+        this.deleteProfileAdapter = new ProfileAdapter(getApplicationContext(), Profiles, (byte) 1);
         this.rvProfile.setAdapter(this.deleteProfileAdapter);
     }
 }

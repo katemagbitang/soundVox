@@ -28,7 +28,9 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -37,7 +39,7 @@ public class EditProfileActivity extends AppCompatActivity {
     Button back_btn, trash_btn, add_btn;
     private SoundAdapter soundAdapter;
     private ProfileAdapter profileAdapter;
-    private ArrayList<Sound> soundArrayList = new ArrayList<>();
+    private ArrayList<SoundFB> soundArrayList = new ArrayList<>();
     private RecyclerView rvSound;
     private RecyclerView.LayoutManager layout;
     private boolean deleteState = false;
@@ -47,35 +49,30 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView profile_name_label;
     private TextView profile_name_id;
     private TextView pathFile;
+    private ArrayList<ProfileFB> Profiles = new ArrayList<>();
+    private ProfileFB profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        Log.d("hello","edit");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-//        populate_data();
-        init();
-        this.rvSound.setVisibility(View.VISIBLE);
-        back_btn = findViewById(R.id.btn_back);
-        trash_btn = findViewById(R.id.trash_btn);
-        add_btn = findViewById(R.id.add_btn);
-        this.profile_name_label = findViewById(R.id.tv_profilename_debug);
-        this.profile_name_id = findViewById(R.id.tv_profileid_debug);
-        this.pathFile = findViewById(R.id.pathOfFilePicked);
 
+        /* SET CURRENT USER */
         Intent intent = getIntent();
-        this.profile_name_label.setText(intent.getStringExtra("name"));
-        this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
+        profile = (ProfileFB) intent.getSerializableExtra("profile");
+        soundArrayList = soundArrayList;
 
-        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
+        init();
 
-        ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 0);
-
+        /*ON CLICK BACK*/
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(EditProfileActivity.this, MenuActivity.class);
             startActivity(goToMenu);
             finish();
         });
+
+        /*ON CLICK DELETE*/
         trash_btn.setOnClickListener(view -> {
             if(deleteState){
                 this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
@@ -88,9 +85,12 @@ public class EditProfileActivity extends AppCompatActivity {
             this.rvSound.setAdapter(this.soundAdapter);
         });
 
+        /*ON CLICK ADD*/
         add_btn.setOnClickListener(view -> {
             Intent goToOpenSounds = new Intent(EditProfileActivity.this, AddSoundsActivity.class);
             startActivity(goToOpenSounds);
+
+//            FILE PICKER CODE (MOVE TO MENU UPLOAD)
 //            if (Build.VERSION.SDK_INT >= 23){
 //                if (checkPermission()){
 //                    filePicker();
@@ -116,13 +116,26 @@ public class EditProfileActivity extends AppCompatActivity {
     private void init(){
         this.rvSound = findViewById(R.id.rv_soundlist);
         this.layout = new GridLayoutManager(this,4);
+
         this.rvSound.setLayoutManager(this.layout);
-//        SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
-//        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds());
-        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
+        this.soundAdapter = new SoundAdapter(getApplicationContext(), soundArrayList,deleteState,false,false);
         this.rvSound.setAdapter(this.soundAdapter);
+
+
+        this.rvSound.setVisibility(View.VISIBLE);
+        back_btn = findViewById(R.id.btn_back);
+        trash_btn = findViewById(R.id.trash_btn);
+        add_btn = findViewById(R.id.add_btn);
+        this.profile_name_label = findViewById(R.id.tv_profilename_debug);
+        this.profile_name_id = findViewById(R.id.tv_profileid_debug);
+        this.pathFile = findViewById(R.id.pathOfFilePicked);
+        this.profile_name_label.setText(profile.getName());
+
+        ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), Profiles, (byte) 0);
+
     }
 
+    /*FILE PICKER REQ PERMISSION*/
     private void requestPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
             Toast.makeText(EditProfileActivity.this, "Please give permission to upload file", Toast.LENGTH_SHORT).show();
@@ -131,7 +144,7 @@ public class EditProfileActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(EditProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
         }
     }
-
+    /*FILE PICKER CHECK PERMISSION*/
     private boolean checkPermission(){
         int result = ContextCompat.checkSelfPermission(EditProfileActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED){
@@ -141,7 +154,7 @@ public class EditProfileActivity extends AppCompatActivity {
             return false;
         }
     }
-
+    /*FILE PICKER */
     private void filePicker(){
         Toast.makeText(EditProfileActivity.this,"File Picker Call", Toast.LENGTH_SHORT).show();
         Intent opengallery = new Intent(Intent.ACTION_PICK);
@@ -149,6 +162,7 @@ public class EditProfileActivity extends AppCompatActivity {
         startActivityForResult(opengallery,REQUEST_GALLERY);
     }
 
+    /*FILE PICKER */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -163,6 +177,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    /* FILE PICKER RESULT*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -182,12 +197,12 @@ public class EditProfileActivity extends AppCompatActivity {
             sound.setProfileID(Integer.parseInt(profile_name_id.getText().toString()));
             SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
             soundDAO.addSoundToProfile(sound);
-            soundAdapter.addSounds(soundDAO.getSounds());
+            soundAdapter.addSounds(soundArrayList);
 
             Toast.makeText(getApplicationContext(),"Sound was stored.", Toast.LENGTH_SHORT).show();
 
 //            this.soundArrayList.add(new Sound("Test Sound",path));
-            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds(),deleteState,false,false);
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
             this.rvSound.setAdapter(this.soundAdapter);
         }
     }

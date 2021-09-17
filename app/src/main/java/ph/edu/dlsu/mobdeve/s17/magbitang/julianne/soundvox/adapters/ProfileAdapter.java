@@ -15,18 +15,20 @@ import java.util.ArrayList;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MainActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MenuActivity;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
 
-    private ArrayList<Profile> profileArrayList;
+    private ArrayList<ProfileFB> profileArrayList;
     private Context context;
     private Class pClass; //class to go
 
-    public ProfileAdapter(Context context, ArrayList<Profile> profileArrayList, byte pSelect) {
+    public ProfileAdapter(Context context, ArrayList<ProfileFB> profileArrayList, byte pSelect) {
         this.profileArrayList = profileArrayList;
         this.context = context;
 
@@ -42,7 +44,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
     }
 
-    public void addProfiles(ArrayList<Profile> profileArrayList){
+    public void addProfiles(ArrayList<ProfileFB> profileArrayList){
         profileArrayList.clear();
         profileArrayList.addAll(profileArrayList);
         notifyDataSetChanged();
@@ -75,22 +77,16 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                 //Create intent based on switch case
                 Intent intent = new Intent(v.getContext(), pClass);
                 intent.putExtra("SPM_BOOL",true);
-                intent.putExtra("id", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getId());
+                intent.putExtra("profile", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()));
                 intent.putExtra("name", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getName());
-                intent.putExtra("sound", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getSounds());
-                if(pClass == MenuActivity.class){
+                intent.putExtra("sounds", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getSounds());
 
-                    ProfileDAO profileDAO = new ProfileDAOSqlImpl(context);
-                    int id = profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getId();
-                    int status = profileDAO.deleteProfile(id);
-                    if (status > 0){
-                        removeProfile(id);
-                        addProfiles(profileDAO.getProfiles());
-                        Toast.makeText(context,""+getItemCount(), Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(context,"Profile not found", Toast.LENGTH_SHORT).show();
-                    }
+
+                /* DELETE USER*/
+               if(pClass == MenuActivity.class){
+                   FireBaseProfileDB profileDB = new FireBaseProfileDB();
+                   profileDB.deleteProfile(profileArrayList.get(profileViewHolder.getBindingAdapterPosition()));
+                   profileDB.destroyDBInstance();
                 }
                 v.getContext().startActivity(intent);
             }
@@ -101,7 +97,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
     @Override
     public void onBindViewHolder(ProfileAdapter.ProfileViewHolder holder, int position) {
-        Profile profile = this.profileArrayList.get(position);
+        ProfileFB profile = this.profileArrayList.get(position);
         holder.setButton(profile.getName());
     }
 

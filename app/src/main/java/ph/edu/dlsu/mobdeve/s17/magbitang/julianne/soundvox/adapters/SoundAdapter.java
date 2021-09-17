@@ -2,6 +2,9 @@ package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +16,11 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHolder> {
 
-    private ArrayList<Sound> soundArrayList;
+    private ArrayList<SoundFB> soundArrayList;
     private Context context;
     private int inflater;
     private boolean phase; //for deleting
@@ -25,7 +28,7 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
     private boolean assigning;
 
     public SoundAdapter(Context context,
-                        ArrayList<Sound> soundArrayList,
+                        ArrayList<SoundFB> soundArrayList,
                         boolean phase, //if removing sound; true
                         boolean openAccess, //if using soundadapter for ALL sounds; true
                         boolean assigning)//if assigning to profile)
@@ -41,7 +44,7 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
         this.assigning = assigning;
     }
 
-    public void addSounds(ArrayList<Sound> soundArrayList){
+    public void addSounds(ArrayList<SoundFB> soundArrayList){
         soundArrayList.clear();
         soundArrayList.addAll(soundArrayList);
         notifyDataSetChanged();
@@ -55,15 +58,36 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
             soundViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getSoundref().start();
-                    soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getSoundref().stop();
+
+                    MediaPlayer mPlayer;
+                    switch(soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getURL()){
+                        case R.raw.piano_a_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_a_major); break;
+                        case R.raw.piano_b_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_b_major); break;
+                        case R.raw.piano_c_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_c_major); break;
+                        case R.raw.piano_c_sharp + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_c_sharp); break;
+                        case R.raw.piano_d_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_d_major); break;
+                        case R.raw.piano_e_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_e_major); break;
+                        case R.raw.piano_f_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_f_major); break;
+                        case R.raw.piano_g_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_g_major); break;
+                        default: mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_a_major); break;
+
+                    }
+                    
+                    mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            mPlayer.stop();
+                            mPlayer.release();
+                        }
+                    });
+
+                    mPlayer.start();
+
                 }});
         }else{
             soundViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), EditProfileActivity.class);
-                    intent.putExtra("id", soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getId());
                     intent.putExtra("name", soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getLabel());
                     intent.putExtra("soundref", soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getURL());
                     v.getContext().startActivity(intent);
@@ -76,8 +100,7 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
 
     @Override
     public void onBindViewHolder(SoundAdapter.SoundViewHolder holder, int position) {
-        Sound sound = this.soundArrayList.get(position);
-        holder.setName(sound.getLabel());
+        holder.setName(this.soundArrayList.get(position).getLabel());
     }
 
     @Override
