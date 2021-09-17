@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         this.rvSound = findViewById(R.id.rv_soundlist);
         this.layout = new GridLayoutManager(this,4);
         this.rvSound.setLayoutManager(this.layout);
-        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,false);
+        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,false,false);
         this.rvSound.setAdapter(this.soundAdapter);
     }
 

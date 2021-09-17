@@ -28,7 +28,7 @@ public class SelectDeleteProfileActivity extends AppCompatActivity {
 
         init();
 
-        back_btn = findViewById(R.id.goback_btn);
+        back_btn = findViewById(R.id.btn_back);
         tv_label = findViewById(R.id.tv_label);
         tv_label.setText("Select a profile to delete");
         back_btn.setOnClickListener(view -> {
@@ -38,7 +38,7 @@ public class SelectDeleteProfileActivity extends AppCompatActivity {
     }
 
     private void init(){
-        this.rvProfile = findViewById(R.id.profileRecyclerView);
+        this.rvProfile = findViewById(R.id.rv_profile);
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());

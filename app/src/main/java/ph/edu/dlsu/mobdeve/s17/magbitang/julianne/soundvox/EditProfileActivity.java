@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -57,7 +56,7 @@ public class EditProfileActivity extends AppCompatActivity {
 //        populate_data();
         init();
         this.rvSound.setVisibility(View.VISIBLE);
-        back_btn = findViewById(R.id.goback_btn);
+        back_btn = findViewById(R.id.btn_back);
         trash_btn = findViewById(R.id.trash_btn);
         add_btn = findViewById(R.id.add_btn);
         this.profile_name_label = findViewById(R.id.tv_profilename_debug);
@@ -78,18 +77,18 @@ public class EditProfileActivity extends AppCompatActivity {
         });
         trash_btn.setOnClickListener(view -> {
             if(deleteState){
-                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false);
+                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
                 deleteState = false;
             }
             else{
-                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false);
+                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
                 deleteState = true;
             }
             this.rvSound.setAdapter(this.soundAdapter);
         });
 
         add_btn.setOnClickListener(view -> {
-            Intent goToOpenSounds = new Intent(EditProfileActivity.this, OpenSoundsActivity.class);
+            Intent goToOpenSounds = new Intent(EditProfileActivity.this, AddSoundsActivity.class);
             startActivity(goToOpenSounds);
 //            if (Build.VERSION.SDK_INT >= 23){
 //                if (checkPermission()){
@@ -119,7 +118,7 @@ public class EditProfileActivity extends AppCompatActivity {
         this.rvSound.setLayoutManager(this.layout);
 //        SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
 //        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds());
-        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false);
+        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
         this.rvSound.setAdapter(this.soundAdapter);
     }
 
@@ -187,7 +186,7 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Sound was stored.", Toast.LENGTH_SHORT).show();
 
 //            this.soundArrayList.add(new Sound("Test Sound",path));
-            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds(),deleteState,false);
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds(),deleteState,false,false);
             this.rvSound.setAdapter(this.soundAdapter);
         }
     }

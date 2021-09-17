@@ -11,18 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
-public class OpenSoundsActivity extends AppCompatActivity {
+public class SelectAllSoundsActivity extends AppCompatActivity {
 
     private Button back_btn;
     private TextView tv_label;
     private SoundAdapter openSoundsAdapter;
-    private RecyclerView rvProfile;
+    private RecyclerView rv_opensounds;
     private RecyclerView.LayoutManager layout;
     private ArrayList<Sound> soundArrayList = new ArrayList<>();
 //    private Profile profile = new Profile();
@@ -33,24 +32,25 @@ public class OpenSoundsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menuprofile);
 
         init();
-        back_btn = findViewById(R.id.goback_btn);
+        back_btn = findViewById(R.id.btn_back);
         tv_label = findViewById(R.id.tv_label);
-        tv_label.setText("Select a sound to add");
+        tv_label.setText("Select a sound");
         back_btn.setOnClickListener(view -> {
-            Intent goToEdit = new Intent(OpenSoundsActivity.this, EditProfileActivity.class);
-            startActivity(goToEdit);
+            Intent goToMenu = new Intent(SelectAllSoundsActivity.this, MenuActivity.class);
+            startActivity(goToMenu);
             finish();
         });
 
     }
 
     private void init(){
-        this.rvProfile = findViewById(R.id.profileRecyclerView);
+        this.rv_opensounds = findViewById(R.id.rv_profile);
         this.layout = new LinearLayoutManager(this);
-        this.rvProfile.setLayoutManager(this.layout);
+        this.rv_opensounds.setLayoutManager(this.layout);
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        this.openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true);
-        this.rvProfile.setAdapter(this.openSoundsAdapter);
+
+        this.openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
+        this.rv_opensounds.setAdapter(this.openSoundsAdapter);
     }
 
 }

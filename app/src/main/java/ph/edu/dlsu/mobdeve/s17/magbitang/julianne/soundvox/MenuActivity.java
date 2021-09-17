@@ -18,7 +18,7 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private Button record_btn, back_btn, create_btn, edit_btn, delete_btn;
+    private Button btn_back, btn_record, btn_upload, btn_open, btn_create, btn_edit, btn_delete;
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -33,37 +33,44 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        record_btn = findViewById(R.id.btn_smenu_1);
-        back_btn = findViewById(R.id.goback_btn);
-        create_btn = findViewById(R.id.btn_smenu_4);
-        edit_btn = findViewById(R.id.btn_smenu_5);
-        delete_btn = findViewById(R.id.btn_smenu_6);
 
-        record_btn.setOnClickListener(view -> {
-            Intent goToRecord = new Intent(MenuActivity.this, RecordingActivity.class);
-            startActivity(goToRecord);
-        });
+        btn_back = findViewById(R.id.btn_back);
+        btn_record = findViewById(R.id.btn_smenu_1);
+        btn_upload = findViewById(R.id.btn_smenu_2);
+        btn_open = findViewById(R.id.btn_smenu_3);
+        btn_create = findViewById(R.id.btn_smenu_4);
+        btn_edit = findViewById(R.id.btn_smenu_5);
+        btn_delete = findViewById(R.id.btn_smenu_6);
 
-        back_btn.setOnClickListener(view -> {
+        btn_back.setOnClickListener(view -> {
             Intent goToMain = new Intent(MenuActivity.this, MainActivity.class);
             startActivity(goToMain);
         });
 
-        create_btn.setOnClickListener(view -> {
-//            Intent goToCreate = new Intent(MenuActivity.this, PopUpCreateProfile.class);
-//            startActivity(goToCreate);
+        btn_record.setOnClickListener(view -> {
+            Intent goToRecord = new Intent(MenuActivity.this, RecordingActivity.class);
+            startActivity(goToRecord);
+        });
+
+        btn_upload.setOnClickListener(view -> {
+            //TO DO: this is where the upload goes to using file picker
+        });
+
+        btn_open.setOnClickListener(view -> {
+            Intent goToRecord = new Intent(MenuActivity.this, SelectAllSoundsActivity.class);
+            startActivity(goToRecord);
+        });
+
+        btn_create.setOnClickListener(view -> {
             createNewProfile();
         });
 
-        edit_btn.setOnClickListener(view -> {
+        btn_edit.setOnClickListener(view -> {
             Intent goToSelectEditProfile = new Intent(MenuActivity.this, SelectEditProfileActivity.class);
-            //0 - edit
-            //1 - delete
-            //2 - select
             startActivity(goToSelectEditProfile);
         });
 
-        delete_btn.setOnClickListener(view -> {
+        btn_delete.setOnClickListener(view -> {
             Intent goToDeleteProfile = new Intent(MenuActivity.this, SelectDeleteProfileActivity.class);
             startActivity(goToDeleteProfile);
         });

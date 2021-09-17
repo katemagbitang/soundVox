@@ -15,7 +15,7 @@ public class RecordingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
 
-        back_btn = findViewById(R.id.goback_btn);
+        back_btn = findViewById(R.id.btn_back);
 
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(RecordingActivity.this, MenuActivity.class);
