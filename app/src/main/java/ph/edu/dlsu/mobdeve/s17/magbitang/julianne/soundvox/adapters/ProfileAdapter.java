@@ -29,6 +29,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     public ProfileAdapter(Context context, ArrayList<Profile> profileArrayList, byte pSelect) {
         this.profileArrayList = profileArrayList;
         this.context = context;
+
         switch(pSelect){
             //edit
             case 0:
@@ -66,14 +67,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     @Override
     public ProfileAdapter.ProfileViewHolder onCreateViewHolder(ViewGroup parent,
                                                                int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_profile_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_item_list,parent,false);
         ProfileViewHolder profileViewHolder = new ProfileViewHolder(view);
         profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Create intent based on switch case
                 Intent intent = new Intent(v.getContext(), pClass);
-
+                intent.putExtra("SPM_BOOL",true);
                 intent.putExtra("id", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getId());
                 intent.putExtra("name", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getName());
                 intent.putExtra("sound", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getSounds());
@@ -83,11 +84,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                     int id = profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getId();
                     int status = profileDAO.deleteProfile(id);
                     if (status > 0){
-//                profileAdapter.removeProfile(Integer.parseInt(profile_name_label.getText().toString()));
                         removeProfile(id);
-//                selectProfileAdapter.removeProfile(Integer.parseInt(profile_name_id.getText().toString()));
                         addProfiles(profileDAO.getProfiles());
-//                selectProfileAdapter.addProfiles(profileDAO.getProfiles());
                         Toast.makeText(context,""+getItemCount(), Toast.LENGTH_SHORT).show();
                     }
                     else{
@@ -98,32 +96,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
             }
 
         });
-
-//        profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String profileName = profileViewHolder.getButton().getText().toString();
-//
-//                ProfileDAO profileDAO = new ProfileDAOSqlImpl(v.getContext());
-////            profiles = profileDAO.getProfiles();
-//
-////                Profile profile = profileDAO.getProfile(profileName);
-//                Profile profile = profileDAO.getProfile(profileName);
-//
-//                if (profile != null){
-//                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
-//
-//                    v.getContext().startActivity(intent);
-//                    Toast.makeText(v.getContext(),"User" + profileName + "found", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-////                binding.uName.setText("");
-////                binding.uEmail.setText("");
-//                    Toast.makeText(v.getContext(),"User not found", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-
         return profileViewHolder;
     }
 
@@ -144,7 +116,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
         public ProfileViewHolder(View itemView) {
             super(itemView);
-            btn_profile = itemView.findViewById(R.id.profile_item);
+            btn_profile = itemView.findViewById(R.id.btn_soundall);
 
         }
 

@@ -7,13 +7,13 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/app_label"
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="36dp"
+        android:textSize="36sp"
         android:textStyle="bold"
-        android:text="soundVox"
+        android:text="@string/app_name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -21,228 +21,48 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/profile_container"
-        app:layout_constraintTop_toBottomOf="@id/app_label"
-        android:text="No profile loaded, Please select or create a new profile"
-        android:textAlignment="center"/>
-    <LinearLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/app_label"
-        android:orientation="horizontal"
-        android:weightSum="10">
-        <TextView
-            android:id="@+id/profile_name_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="8dp"
-            android:textAlignment="center"
-            app:layout_constraintRight_toLeftOf="@id/profile_name_label"
-            app:layout_constraintTop_toBottomOf="@id/app_label"
-            android:layout_weight="5"/>
-        <TextView
-            android:id="@+id/profile_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/app_label"
-            android:layout_margin="10dp"
-            android:layout_weight="5"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:text="@string/no_profile"
+        android:textAlignment="center"
+        android:visibility="visible"/>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_title"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:weightSum="10">-->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_profileid_debug"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:textAlignment="center"-->
+<!--            app:layout_constraintRight_toLeftOf="@id/tv_profilename_debug"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_title"-->
+<!--            android:layout_weight="5"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_profilename_debug"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textAlignment="center"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_title"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_weight="5"/>-->
 
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/soundRecyclerView"
+        android:id="@+id/rv_soundlist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/profile_container"
-        app:layout_constraintTop_toBottomOf="@id/container"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         android:layout_margin="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="4"/>
-
-<!--    <GridLayout-->
-<!--        android:id="@+id/sound_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/profile_container"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/app_label"-->
-<!--        android:layout_marginHorizontal="10dp">-->
-
-<!--        <TableLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:weightSum="12"-->
-<!--            android:orientation="horizontal">-->
-<!--            <TableRow-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textAlignment="center"-->
-<!--                android:weightSum="8"-->
-<!--                android:layout_weight="2">-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--            </TableRow>-->
-<!--            <TableRow-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textAlignment="center"-->
-<!--                android:weightSum="8"-->
-<!--                android:layout_weight="2">-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--            </TableRow>-->
-<!--            <TableRow-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textAlignment="center"-->
-<!--                android:weightSum="8"-->
-<!--                android:layout_weight="2">-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--            </TableRow>-->
-<!--            <TableRow-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textAlignment="center"-->
-<!--                android:weightSum="8"-->
-<!--                android:layout_weight="2">-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--            </TableRow>-->
-<!--            <TableRow-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textAlignment="center"-->
-<!--                android:weightSum="8"-->
-<!--                android:layout_weight="2">-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--            </TableRow>-->
-<!--            <TableRow-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textAlignment="center"-->
-<!--                android:weightSum="8"-->
-<!--                android:layout_weight="2">-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--                <androidx.appcompat.widget.AppCompatButton-->
-<!--                    android:layout_margin="5dp"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="2"/>-->
-<!--            </TableRow>-->
-<!--        </TableLayout>-->
-
-
-<!--    </GridLayout>-->
 
     <LinearLayout
         android:id="@+id/profile_container"
@@ -253,7 +73,7 @@
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/menu_btn"
+            android:id="@+id/btn_menu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -271,7 +91,7 @@
 
             <TextView
                 android:gravity="bottom"
-                android:id="@+id/profile_label"
+                android:id="@+id/btn_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="Profile:"

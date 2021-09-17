@@ -4,39 +4,32 @@
     android:id="@+id/cv_item_showprofile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/sound_container"
+            android:id="@+id/profile_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_sound"
-                android:layout_margin="2.5dp"
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
+                android:id="@+id/btn_soundall"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:text="@string/filler"
-                android:textColor="@color/darkgrey_bgcolor"/>
+                android:textAlignment="textStart"
+                android:background="@drawable/menu_button"
+                android:padding="15dp"/>
         </LinearLayout>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_delete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/lightgrey_bgcolor"
             android:text="@string/close"
-            android:textSize="10sp"
-            android:visibility="visible"
-            app:layout_constraintRight_toRightOf="@id/sound_container"
-            app:layout_constraintTop_toTopOf="@id/sound_container" />
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintRight_toRightOf="@id/profile_container"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
 </androidx.cardview.widget.CardView>

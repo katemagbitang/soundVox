@@ -29,7 +29,6 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -61,8 +60,8 @@ public class EditProfileActivity extends AppCompatActivity {
         back_btn = findViewById(R.id.goback_btn);
         trash_btn = findViewById(R.id.trash_btn);
         add_btn = findViewById(R.id.add_btn);
-        this.profile_name_label = findViewById(R.id.profile_name_label);
-        this.profile_name_id = findViewById(R.id.profile_name_id);
+        this.profile_name_label = findViewById(R.id.tv_profilename_debug);
+        this.profile_name_id = findViewById(R.id.tv_profileid_debug);
         this.pathFile = findViewById(R.id.pathOfFilePicked);
 
         Intent intent = getIntent();
@@ -79,29 +78,30 @@ public class EditProfileActivity extends AppCompatActivity {
         });
         trash_btn.setOnClickListener(view -> {
             if(deleteState){
-                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,0);
-                this.rvSound.setAdapter(this.soundAdapter);
+                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false);
                 deleteState = false;
             }
             else{
-                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,1);
-                this.rvSound.setAdapter(this.soundAdapter);
+                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false);
                 deleteState = true;
             }
+            this.rvSound.setAdapter(this.soundAdapter);
         });
 
         add_btn.setOnClickListener(view -> {
-            if (Build.VERSION.SDK_INT >= 23){
-                if (checkPermission()){
-                    filePicker();
-                }
-                else{
-                    requestPermission();
-                }
-            }
-            else{
-                filePicker();
-            }
+            Intent goToOpenSounds = new Intent(EditProfileActivity.this, OpenSoundsActivity.class);
+            startActivity(goToOpenSounds);
+//            if (Build.VERSION.SDK_INT >= 23){
+//                if (checkPermission()){
+//                    filePicker();
+//                }
+//                else{
+//                    requestPermission();
+//                }
+//            }
+//            else{
+//                filePicker();
+//            }
         });
     }
 
@@ -114,12 +114,12 @@ public class EditProfileActivity extends AppCompatActivity {
 //    }
 
     private void init(){
-        this.rvSound = findViewById(R.id.soundRecyclerView);
+        this.rvSound = findViewById(R.id.rv_soundlist);
         this.layout = new GridLayoutManager(this,4);
         this.rvSound.setLayoutManager(this.layout);
 //        SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
 //        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds());
-        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,0);
+        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false);
         this.rvSound.setAdapter(this.soundAdapter);
     }
 
@@ -187,7 +187,7 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Sound was stored.", Toast.LENGTH_SHORT).show();
 
 //            this.soundArrayList.add(new Sound("Test Sound",path));
-            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds(),0);
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundDAO.getSounds(),deleteState,false);
             this.rvSound.setAdapter(this.soundAdapter);
         }
     }

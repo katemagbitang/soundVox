@@ -1,50 +1,44 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
-public class SelectProfileActivity extends AppCompatActivity {
+public class OpenSoundsActivity extends AppCompatActivity {
 
     private Button back_btn;
     private TextView tv_label;
-    private ProfileAdapter profileAdapter;
+    private SoundAdapter openSoundsAdapter;
     private RecyclerView rvProfile;
     private RecyclerView.LayoutManager layout;
-    private boolean profileExists;
+    private ArrayList<Sound> soundArrayList = new ArrayList<>();
 //    private Profile profile = new Profile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuprofile);
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                profileExists = false;
-            } else {
-                profileExists = extras.getBoolean("SPM_BOOL");
-            }
-        } else {
-            profileExists = (Boolean) savedInstanceState.getSerializable("SPM_BOOL");
-        }
+
         init();
         back_btn = findViewById(R.id.goback_btn);
         tv_label = findViewById(R.id.tv_label);
-        tv_label.setText("Select a profile to play");
+        tv_label.setText("Select a sound to add");
         back_btn.setOnClickListener(view -> {
-            Intent goToMain = new Intent(SelectProfileActivity.this, MainActivity.class);
-            goToMain.putExtra("SPM_BOOL", profileExists);
-            startActivity(goToMain);
+            Intent goToEdit = new Intent(OpenSoundsActivity.this, EditProfileActivity.class);
+            startActivity(goToEdit);
             finish();
         });
 
@@ -55,8 +49,8 @@ public class SelectProfileActivity extends AppCompatActivity {
         this.layout = new LinearLayoutManager(this);
         this.rvProfile.setLayoutManager(this.layout);
         ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        this.profileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 2);
-        this.rvProfile.setAdapter(this.profileAdapter);
+        this.openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true);
+        this.rvProfile.setAdapter(this.openSoundsAdapter);
     }
 
 }

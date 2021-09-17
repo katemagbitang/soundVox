@@ -11,13 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -36,11 +33,11 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        record_btn = findViewById(R.id.menu_item_1_btn);
+        record_btn = findViewById(R.id.btn_smenu_1);
         back_btn = findViewById(R.id.goback_btn);
-        create_btn = findViewById(R.id.menu_item_4_btn);
-        edit_btn = findViewById(R.id.menu_item_5_btn);
-        delete_btn = findViewById(R.id.menu_item_6_btn);
+        create_btn = findViewById(R.id.btn_smenu_4);
+        edit_btn = findViewById(R.id.btn_smenu_5);
+        delete_btn = findViewById(R.id.btn_smenu_6);
 
         record_btn.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, RecordingActivity.class);

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Sound Vox</string>
+    <string name="app_name">soundVox</string>
+    <string name="close">X</string>
+    <string name="filler">test_string</string>
+    <string name="confirm">Confirm Delete Profile?</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_profile">Please create or select a profile</string>
 </resources>
