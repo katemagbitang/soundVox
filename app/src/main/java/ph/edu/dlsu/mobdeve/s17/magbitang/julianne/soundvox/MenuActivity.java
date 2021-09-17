@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -45,11 +47,13 @@ public class MenuActivity extends AppCompatActivity {
         btn_back.setOnClickListener(view -> {
             Intent goToMain = new Intent(MenuActivity.this, MainActivity.class);
             startActivity(goToMain);
+            finish();
         });
 
         btn_record.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, RecordingActivity.class);
             startActivity(goToRecord);
+            finish();
         });
 
         btn_upload.setOnClickListener(view -> {
@@ -59,6 +63,7 @@ public class MenuActivity extends AppCompatActivity {
         btn_open.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, SelectAllSoundsActivity.class);
             startActivity(goToRecord);
+            finish();
         });
 
         btn_create.setOnClickListener(view -> {
@@ -68,11 +73,13 @@ public class MenuActivity extends AppCompatActivity {
         btn_edit.setOnClickListener(view -> {
             Intent goToSelectEditProfile = new Intent(MenuActivity.this, SelectEditProfileActivity.class);
             startActivity(goToSelectEditProfile);
+            finish();
         });
 
         btn_delete.setOnClickListener(view -> {
             Intent goToDeleteProfile = new Intent(MenuActivity.this, SelectDeleteProfileActivity.class);
             startActivity(goToDeleteProfile);
+            finish();
         });
     }
 
@@ -83,8 +90,8 @@ public class MenuActivity extends AppCompatActivity {
         btn_save = view.findViewById(R.id.btn_save);
         profileName = (EditText) view.findViewById(R.id.input_profile);
 
-        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        profileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 2);
+//        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
+//        profileAdapter = new ProfileAdapter(getApplicationContext(), profileDAO.getProfiles(), (byte) 2);
 
         dialogBuilder.setView(view);
         dialog = dialogBuilder.create();
@@ -101,16 +108,19 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // insert save profile name functions here
-                Profile profile = new Profile();
+                ProfileFB profile = new ProfileFB(profileName.getText().toString());
+                FireBaseProfileDB profileDB = new FireBaseProfileDB();
+                profileDB.addProfile(profile);
 //                ArrayList<Sound> newSounds = new ArrayList<>();
 //                int count = profileDAO.getProfiles().size();
-                int count = profileAdapter.getItemCount();
-                Log.d(String.valueOf(count),"profile id");
-                profile.setId(count + 1);
-                profile.setName(profileName.getText().toString());
-//                profile.setSounds(newSounds);
-                profileDAO.createProfile(profile);
-                profileAdapter.addProfiles(profileDAO.getProfiles());
+//                int count = profileAdapter.getItemCount();
+//                Log.d(String.valueOf(count),"profile id");
+//                profile.setId(count + 1);
+//                profile.setName(profileName.getText().toString());
+////                profile.setSounds(newSounds);
+//
+//                profileDAO.createProfile(profile);
+//                profileAdapter.addProfiles(profileDAO.getProfiles());
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 

@@ -104,7 +104,7 @@ public class FireBaseProfileDB {
 
     }
 
-    ArrayList<ProfileFB> getProfiles() {
+    public ArrayList<ProfileFB> getProfiles() {
         return Profiles;
     }
 

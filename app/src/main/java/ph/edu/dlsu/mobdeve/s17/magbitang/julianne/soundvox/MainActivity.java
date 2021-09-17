@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
@@ -52,12 +54,19 @@ public class MainActivity extends AppCompatActivity {
     private boolean profileExists;
 
     //firebase
-    private DatabaseReference mDatabase;
-// ...
+
+    private FireBaseProfileDB profileDB = new FireBaseProfileDB();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("HEHE","going");
+        Log.d("HEHE",Integer.toString(profileDB.getProfiles().size()));
+        if (profileDB.getProfiles().size() > 0){
+            profileExists = true;
+            Log.d("HEHE","working");
+        }
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -69,38 +78,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             profileExists = (Boolean) savedInstanceState.getSerializable("SPM_BOOL");
         }
-
-
-
-        mDatabase = FirebaseDatabase.getInstance("https://soundvox-data-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
-
-        this.soundArrayList.add(new Sound("Sound 1", MediaPlayer.create(this, R.raw.piano_a_major)));
-        this.soundArrayList.add(new Sound("Sound 2", MediaPlayer.create(this, R.raw.piano_b_major)));
-        this.soundArrayList.add(new Sound("Sound 3", MediaPlayer.create(this, R.raw.piano_c_major)));
-
-//        populate_data();
-        ArrayList<String> stringsDB = new ArrayList<String>();
-        for(int i = 0; i < 3; i++){
-            stringsDB.add(soundArrayList.get(i).toString());
-        }
-        mDatabase.child("sound_database").child("profile").setValue(stringsDB);
-        mDatabase.child("sound_database").child("soundlist").setValue(stringsDB);
-        mDatabase.child("sound_database").child("profile").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-
-                }
-                else {
-
-                    GenericTypeIndicator<ArrayList<String>> soundListType = new GenericTypeIndicator<ArrayList<String>>() {};
-                    Log.d("firebase", String.valueOf(task.getResult().getValue(soundListType)));
-                }
-            }
-        });
-
-
 
         init();
         tv_noprofile = (TextView)findViewById(R.id.tv_noprofile);
@@ -120,11 +97,13 @@ public class MainActivity extends AppCompatActivity {
         btn_menu.setOnClickListener(view -> {
             Intent goToMenu = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(goToMenu);
+            finish();
         });
 
         btn_selectprofile_menu.setOnClickListener(view -> {
             Intent goToSelectProfileMenu = new Intent(MainActivity.this, SelectProfileActivity.class);
             startActivity(goToSelectProfileMenu);
+            finish();
         });
     }
 

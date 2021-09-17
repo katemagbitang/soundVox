@@ -74,6 +74,7 @@ public class EditProfileActivity extends AppCompatActivity {
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(EditProfileActivity.this, MenuActivity.class);
             startActivity(goToMenu);
+            finish();
         });
         trash_btn.setOnClickListener(view -> {
             if(deleteState){
