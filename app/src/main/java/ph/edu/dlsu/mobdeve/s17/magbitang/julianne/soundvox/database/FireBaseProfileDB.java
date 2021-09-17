@@ -16,27 +16,54 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.security.Key;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MainActivity;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class FireBaseProfileDB {
 
     private DatabaseReference profileDB;
     private ArrayList<ProfileFB> Profiles;
+    private ChangeListener listener;
     boolean exists;
     private String PROFILE_DB_ERROR = "PROFILE_DB_ERROR";
-    GenericTypeIndicator<ArrayList<ProfileFB>> profileListType = new GenericTypeIndicator<ArrayList<ProfileFB>>() {
+    GenericTypeIndicator<Map<String, Object>> profileListType = new GenericTypeIndicator<Map<String, Object>>() {
     };
 
     ValueEventListener postListener = new ValueEventListener() {
-        @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             // Get Post object and use the values to update the UI
-            Profiles = dataSnapshot.getValue(profileListType);
+            Profiles = new ArrayList<ProfileFB>();
+            Collection<Object> newProfiles;
+            if(dataSnapshot.getValue(profileListType) != null){
+                newProfiles = dataSnapshot.getValue(profileListType).values();
+
+                for(Object object : newProfiles){
+                    HashMap<String, Object> element = (HashMap<String, Object>) object;
+                    String name = "";
+                    ArrayList<SoundFB> sounds = new ArrayList<SoundFB>();
+                    for(Object item : element.values()){
+                        if(item instanceof  ArrayList)
+                            sounds = (ArrayList<SoundFB>) item;
+                        if(item instanceof  String)
+                            name = item.toString();
+                    }
+                    ProfileFB profile = new ProfileFB(name, sounds);
+                    Profiles.add(profile);
+                }
+
+                profilesUpdated();
+            }
         }
 
         @Override
@@ -50,26 +77,21 @@ public class FireBaseProfileDB {
 
     public FireBaseProfileDB(){
         profileDB = FirebaseDatabase.getInstance("https://soundvox-data-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("test-user").child("profiles");
-        Profiles = new ArrayList<ProfileFB>();
-        ProfilesFirstRead();
+        //ProfilesFirstRead();
         profileDB.addValueEventListener(postListener);
     }
 
-
-    private void ProfilesFirstRead() {
-        profileDB.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    if (task.getResult().getValue(profileListType) != null) {
-                        Profiles = task.getResult().getValue(profileListType);
-                    }
-                }
-            }
-        });
+    public ArrayList<SoundFB> defaultMusic(){
+        ArrayList<SoundFB> sounds = new ArrayList<SoundFB>();
+        sounds.add(new SoundFB("a_major", Integer.toString(R.raw.piano_a_major)));
+        sounds.add(new SoundFB("b_major", Integer.toString(R.raw.piano_b_major)));
+        sounds.add(new SoundFB("c_major", Integer.toString(R.raw.piano_c_major)));
+        sounds.add(new SoundFB("c_sharp", Integer.toString(R.raw.piano_c_sharp)));
+        sounds.add(new SoundFB("d_major", Integer.toString(R.raw.piano_d_major)));
+        sounds.add(new SoundFB("e_major", Integer.toString(R.raw.piano_e_major)));
+        sounds.add(new SoundFB("f_major", Integer.toString(R.raw.piano_f_major)));
+        sounds.add(new SoundFB("g_major", Integer.toString(R.raw.piano_g_major)));
+        return sounds;
     }
 
 
@@ -94,24 +116,24 @@ public class FireBaseProfileDB {
 
         if(!exists){
             String key = profileDB.push().getKey();
-            Map<String, Object> postValues = profile.toMap();
-
             Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put(key, postValues);
+            childUpdates.put(key, profile);
 
             profileDB.updateChildren(childUpdates);
+            for(SoundFB sound : defaultMusic())
+                addProfileSong(profile, sound);
         }
 
     }
 
     public ArrayList<ProfileFB> getProfiles() {
-        return Profiles;
+        return this.Profiles;
     }
 
 
     public void addProfileSong(ProfileFB profile, SoundFB sound ) {
 
-        Query profiles = profileDB.orderByChild("name").equalTo(profile.getName()).orderByChild("sound").equalTo(sound.getURL());
+        Query profiles = profileDB.child(profile.getName()).orderByChild("sound").equalTo(sound.getURL());
         exists = false;
         profiles.addChildEventListener(new ChildEventListener() {
             @Override
@@ -129,16 +151,30 @@ public class FireBaseProfileDB {
         });
 
         if(!exists){
-            String key = profileDB.push().getKey();
-            profile.addSound(sound);
-            Map<String, Object> postValues = profile.toMap();
+           Query profileKey = profileDB.orderByChild("name").equalTo(profile.getName());
+           profileKey.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                    String key = dataSnapshot.getKey();
+                    profile.addSound(sound);
+                    Log.d("chis", key);
 
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put(key, postValues);
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put(key, profile);
 
-            profileDB.updateChildren(childUpdates);
+                    profileDB.updateChildren(childUpdates);
+                }
+
+                @Override public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e(PROFILE_DB_ERROR, "Error getting data");
+                }
+
+                @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+                @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+                @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            });
+
         }
-
     }
 
     public void deleteProfileSong(ProfileFB profile, SoundFB sound ) {
@@ -183,6 +219,23 @@ public class FireBaseProfileDB {
 
     public void destroyDBInstance() {
         profileDB.removeEventListener(postListener);
+    }
+
+
+    public void profilesUpdated() {
+        if (listener != null) listener.onChange();
+    }
+
+    public ChangeListener getListener() {
+        return listener;
+    }
+
+    public void setListener(ChangeListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ChangeListener {
+        void onChange();
     }
 
 }

@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,16 +58,22 @@ public class MainActivity extends AppCompatActivity {
 
     private FireBaseProfileDB profileDB = new FireBaseProfileDB();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("HEHE","going");
-        Log.d("HEHE",Integer.toString(profileDB.getProfiles().size()));
-        if (profileDB.getProfiles().size() > 0){
-            profileExists = true;
-            Log.d("HEHE","working");
-        }
+
+        profileDB.setListener(new FireBaseProfileDB.ChangeListener() {
+            @Override
+            public void onChange() {
+                if(profileDB.getProfiles().size() > 0){
+                        profileExists = true;
+                        Log.d("HEHE","working");
+                }
+            }
+        });
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
