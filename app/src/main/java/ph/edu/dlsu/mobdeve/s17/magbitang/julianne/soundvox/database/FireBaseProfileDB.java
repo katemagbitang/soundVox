@@ -52,7 +52,7 @@ public class FireBaseProfileDB {
                 for(Object object : newProfiles){
                     HashMap<String, Object> element = (HashMap<String, Object>) object;
                     String name = "";
-                    ArrayList<HashMap<String, String>> sounds = new ArrayList<HashMap<String, String>>();
+                    ArrayList<HashMap<String, String>> sounds = new ArrayList<>();
                     for(Object item : element.values()){
                         if(item instanceof  ArrayList)
                             sounds = (ArrayList<HashMap<String, String>>) item;
@@ -63,18 +63,15 @@ public class FireBaseProfileDB {
                     /*READ SOUND */
                     String label = "";
                     String url = "";
-                    int i = 0;
                     ArrayList<SoundFB> soundRefs = new ArrayList<>();
                     for(HashMap<String, String> hash: sounds){
-                        i = 0;
-                        for(Object sound  : hash.values()){
-                            if(i==0){
-                                label = sound.toString();
+                        for(Map.Entry<String, String> sound : hash.entrySet()){
+                            if(sound.getKey().equals("label")){
+                                label = sound.getValue();
                             }
-                            else{
-                                url = sound.toString();
+                            else if (sound.getKey().equals("url")){
+                                url = sound.getValue();
                             }
-                            i++;
                         }
                         soundRefs.add(new SoundFB(label, url));
                     }
