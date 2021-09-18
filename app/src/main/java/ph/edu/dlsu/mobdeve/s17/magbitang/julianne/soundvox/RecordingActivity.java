@@ -1,10 +1,7 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,19 +9,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -34,14 +24,17 @@ public class RecordingActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
 
     private Button back_btn;
-//    private Button record_btn;
+    private Button record_btn;
+    private Button listen_btn;
+    private Button stop_record_btn;
+    private Button stop_listen_btn;
 //    private TextView record_label;
     private static String fileName = null;
 
     private RecordButton recordButton = null;
     private MediaRecorder recorder = null;
 
-    private PlayButton   playButton = null;
+    private PlayButton playButton = null;
     private MediaPlayer player = null;
 
     private boolean permissionToRecordAccepted = false;
@@ -113,6 +106,7 @@ public class RecordingActivity extends AppCompatActivity {
         recorder = null;
     }
 
+
     class RecordButton extends androidx.appcompat.widget.AppCompatButton {
         boolean mStartRecording = true;
 
@@ -133,6 +127,8 @@ public class RecordingActivity extends AppCompatActivity {
             setText("Start recording");
             setOnClickListener(clicker);
         }
+
+
     }
 
     class PlayButton extends androidx.appcompat.widget.AppCompatButton {
@@ -155,92 +151,51 @@ public class RecordingActivity extends AppCompatActivity {
             setText("Start playing");
             setOnClickListener(clicker);
         }
+
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_recording);
-//
-//        back_btn = findViewById(R.id.btn_back);
-//        record_btn = findViewById(R.id.btn_record);
-//        record_label = findViewById(R.id.label_record);
-//
-//        mFilename = Environment.getExternalStorageDirectory().getAbsolutePath();
-//        mFilename += "/recorded_audio.3gp";
-//
-//        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
-//
-////        record_btn.setOnTouchListener(new View.OnTouchListener() {
-////
-////            @Override
-////            public boolean onTouch(View v, MotionEvent event) {
-////                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-////                     if(Build.VERSION.SDK_INT >= 23){
-////                         if (checkAudioPermission()){
-////                             startRecording();
-////                             record_label.setText("Recording In Progress");
-////                         }
-////                         else{
-////                             requestAudioPermission();
-////                         }
-////                     }
-////                     else{
-////                         startRecording();
-////                         record_label.setText("Recording In Progress");
-////                     }
-////                 }
-////                 else if (event.getAction() == MotionEvent.ACTION_BUTTON_RELEASE){
-////                     if(Build.VERSION.SDK_INT >= 23){
-////                         if (checkWriteStoragePermission()){
-////                             stopRecording();
-////                             record_label.setText("Recording Stopped");
-////                         }
-////                         else{
-////                             requestWriteStoragePermission();
-////                         }
-////                     }
-////                     else{
-////                         stopRecording();
-////                         record_label.setText("Recording Stopped");
-////                     }
-////                 }
-////
-////                return false;
-////            }
-////        });
-//
-//        back_btn.setOnClickListener(view -> {
-//            Intent goToMenu = new Intent(RecordingActivity.this, MenuActivity.class);
-//            startActivity(goToMenu);
-//        });
-//    }
-
-
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // Record to the external cache directory for visibility
         fileName = getExternalCacheDir().getAbsolutePath();
         fileName += "/audiorecordtest.3gp";
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
+        setContentView(R.layout.activity_recording);
 
-        LinearLayout ll = new LinearLayout(this);
-        recordButton = new RecordButton(this);
-        ll.addView(recordButton,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        0));
-        playButton = new PlayButton(this);
-        ll.addView(playButton,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        0));
+//        recordButton = new RecordButton(this);
+//        playButton = new PlayButton(this);
 
-        setContentView(ll);
+        back_btn = findViewById(R.id.btn_back);
+        record_btn = findViewById(R.id.btn_record);
+        listen_btn = findViewById(R.id.btn_listen);
+        stop_record_btn = findViewById(R.id.btn_stop_record);
+        stop_listen_btn = findViewById(R.id.btn_stop_listen);
+
+//        record_btn.setOnClickListener(recordButton.clicker);
+//        listen_btn.setOnClickListener(playButton.clicker);
+        record_btn.setOnClickListener(view -> {
+            startRecording();
+            record_btn.setVisibility(View.INVISIBLE);
+        });
+
+        stop_record_btn.setOnClickListener(view -> {
+            stopRecording();
+        });
+
+        listen_btn.setOnClickListener(view -> {
+            startPlaying();
+        });
+
+        stop_listen_btn.setOnClickListener(view -> {
+            stopPlaying();
+        });
+
+        back_btn.setOnClickListener(view -> {
+            Intent goToMenu = new Intent(RecordingActivity.this, MenuActivity.class);
+            startActivity(goToMenu);
+        });
     }
 
     @Override
