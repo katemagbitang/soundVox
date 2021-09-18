@@ -61,5 +61,7 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
 
         String name = data.getStringExtra("name");
         String url = data.getStringExtra("soundref");
+
+        soundArrayList.add(new SoundFB(name,url));
     }
 }

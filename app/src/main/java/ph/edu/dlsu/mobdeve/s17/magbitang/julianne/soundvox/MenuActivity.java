@@ -179,8 +179,8 @@ public class MenuActivity extends AppCompatActivity {
 
             sounds.add(0, new Sound(name,soundref));
 
-            Bundle args = new Bundle();
-            args.putSerializable("SOUNDS",(Serializable)sounds);
+//            Bundle args = new Bundle();
+//            args.putSerializable("SOUNDS",(Serializable)sounds);
 
             Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
         }

@@ -254,11 +254,11 @@ public class RecordingActivity extends AppCompatActivity {
         dialog_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
+//                soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
                 SoundFB newSound = new SoundFB(dialog_soundName.getText().toString(),fileName);
                 soundDB = new FireBaseSoundDB();
                 soundDB.addSounds(newSound);
-                soundAdapter.addSounds(soundArrayList);
+//                soundAdapter.addSounds(soundArrayList);
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();
 
