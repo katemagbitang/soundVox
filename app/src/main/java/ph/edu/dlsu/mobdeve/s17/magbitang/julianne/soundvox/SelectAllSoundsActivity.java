@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,4 +55,11 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
         this.rv_opensounds.setAdapter(this.openSoundsAdapter);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String name = data.getStringExtra("name");
+        String url = data.getStringExtra("soundref");
+    }
 }

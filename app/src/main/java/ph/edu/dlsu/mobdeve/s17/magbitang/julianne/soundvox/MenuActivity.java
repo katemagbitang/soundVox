@@ -1,8 +1,10 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,11 +18,13 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -31,7 +35,9 @@ public class MenuActivity extends AppCompatActivity {
     private EditText profileName;
     private Button btn_cancel,btn_save;
     private ArrayList<ProfileFB> Profiles = new ArrayList<>();
+    private ArrayList<Sound> sounds = new ArrayList<>();
     private ProfileAdapter profileAdapter;
+    private SoundAdapter soundAdapter;
 //    private ActivityMainBinding binding;
 
     private FireBaseProfileDB profileDB = new FireBaseProfileDB();
@@ -80,9 +86,9 @@ public class MenuActivity extends AppCompatActivity {
 
         btn_open.setOnClickListener(view -> {
             Intent goToRecord = new Intent(MenuActivity.this, SelectAllSoundsActivity.class);
-            startActivity(goToRecord);
+            startActivityForResult (goToRecord, 911);
             profileDB.destroyDBInstance();
-            finish();
+//            finish();
         });
 
         btn_create.setOnClickListener(view -> {
@@ -160,5 +166,23 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK && requestCode == 911) {
+
+            String name = data.getStringExtra("name");
+            String soundref = data.getStringExtra("soundref");
+
+            sounds.add(0, new Sound(name,soundref));
+
+            Bundle args = new Bundle();
+            args.putSerializable("SOUNDS",(Serializable)sounds);
+
+            Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
+        }
     }
 }
