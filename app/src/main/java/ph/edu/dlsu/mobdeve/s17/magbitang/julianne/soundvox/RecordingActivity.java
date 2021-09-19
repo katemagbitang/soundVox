@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +20,11 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
@@ -47,7 +51,7 @@ public class RecordingActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 //    private TextView record_label;
-    private static String fileName = null;
+    private String fileName = null;
 
 //    private RecordButton recordButton = null;
     private MediaRecorder recorder = null;
@@ -180,8 +184,11 @@ public class RecordingActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Record to the external cache directory for visibility
+        Date date = new java.util.Date();
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(date.getTime());
         fileName = getExternalCacheDir().getAbsolutePath();
-        fileName += "/audiorecordtest.3gp";
+        fileName += "/"+timeStamp+".3gp";
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
         setContentView(R.layout.activity_recording);
