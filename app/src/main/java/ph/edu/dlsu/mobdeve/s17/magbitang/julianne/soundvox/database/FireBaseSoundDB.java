@@ -18,25 +18,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
-<<<<<<< Updated upstream
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-=======
-import java.util.HashMap;
-import java.util.Map;
-
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
->>>>>>> Stashed changes
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class FireBaseSoundDB {
 
     private DatabaseReference soundsDB;
     private String SOUND_DB_ERROR = "SOUND_DB_ERROR";
-    FireBaseProfileDB.ChangeListener listener;
     private ArrayList<SoundFB> Sounds;
     boolean exists;
     private ChangeListener listener;
@@ -46,26 +36,6 @@ public class FireBaseSoundDB {
     ValueEventListener postListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            // Get Post object and use the values to update the UI
-<<<<<<< Updated upstream
-            Sounds = new ArrayList<SoundFB>();
-            if (dataSnapshot.getValue(soundListType) != null) {
-                String label = "";
-                String url = "";
-                ArrayList<HashMap<String, String>> soundRefs = new ArrayList<>();
-                for (HashMap<String, String> hash : soundRefs) {
-                    for (Map.Entry<String, String> sound : hash.entrySet()) {
-                        if (sound.getKey().equals("label")) {
-                            label = sound.getValue();
-                        } else if (sound.getKey().equals("url")) {
-                            url = sound.getValue();
-                        }
-                    }
-                }
-                Sounds.add(new SoundFB(label, url));
-                soundsUpdated();
-            }
-=======
             Sounds  = new ArrayList<SoundFB>();
             Collection<Object> newSounds;
             if(dataSnapshot.getValue(soundListType) != null){
@@ -90,7 +60,7 @@ public class FireBaseSoundDB {
                     }
                 }
             soundsUpdate();
->>>>>>> Stashed changes
+
         }
         @Override
         public void onCancelled(DatabaseError databaseError) {
@@ -183,19 +153,6 @@ public class FireBaseSoundDB {
 
     public interface ChangeListener {
         void onChange();
-    }
-
-    public void soundsUpdated(){
-        if (listener != null)
-            listener.onChange();
-    }
-
-    public FireBaseProfileDB.ChangeListener getListener() {
-        return listener;
-    }
-
-    public void setListener(FireBaseProfileDB.ChangeListener listener) {
-        this.listener = listener;
     }
 
 }

@@ -10,13 +10,9 @@ import java.util.Map;
 
 public class SoundFB implements Serializable {
 
-<<<<<<< Updated upstream
-    public String label;
-    public String URL;
-=======
+
     private String label;
     private String url;
->>>>>>> Stashed changes
 
     public SoundFB(String label, String URL) {
         this.label = label;
