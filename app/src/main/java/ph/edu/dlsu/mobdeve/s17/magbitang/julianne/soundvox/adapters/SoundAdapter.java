@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHolder> {
@@ -152,8 +154,14 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
 
         public void setName(String name){ this.btn_sound.setText(name);}
         public Button getButton() { return this.btn_sound;}
+        public Button getButtonDelete() { return this.btn_delete;}
     }
-
+//
+//    FireBaseProfileDB profileDB = new FireBaseProfileDB();
+//    profileDB.deleteProfileSong(/*passprofilehere,viewholder adapterposition*/);
+//    While(!profileDB.getUpdated())
+//    ProfileFB profileFB = profileDB.getProfile(/*passprofilehere.getName())*/);
+//    /*return profileFB to editProfile*/
 
 
 }

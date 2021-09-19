@@ -35,9 +35,9 @@ public class FireBaseProfileDB {
     private DatabaseReference profileDB;
     private ArrayList<ProfileFB> Profiles;
     private ChangeListener listener;
-    boolean exists;
-    boolean removed;
+    boolean exists = false,removed = false,updated = false;
     private String PROFILE_DB_ERROR = "PROFILE_DB_ERROR";
+    ProfileFB profileFB;
     GenericTypeIndicator<Map<String, Object>> profileListType = new GenericTypeIndicator<Map<String, Object>>() {
     };
 
@@ -145,6 +145,33 @@ public class FireBaseProfileDB {
         return this.Profiles;
     }
 
+    public ProfileFB getProfile(String name) {
+        Query profiles = profileDB.orderByChild("name").equalTo(name);
+        exists = false;
+
+        profiles.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                exists = true;
+                profileFB = dataSnapshot.getValue(ProfileFB.class);
+            }
+
+            @Override public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(PROFILE_DB_ERROR, "Error getting data");
+            }
+
+            @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+            @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+        });
+
+        if(exists){
+            return profileFB;
+        }else{
+            return null;
+        }
+    }
+
 
     public void addProfileSong(ProfileFB profile, SoundFB sound ) {
         ArrayList<SoundFB> updatedSounds = profile.getSounds();
@@ -183,6 +210,7 @@ public class FireBaseProfileDB {
 
     public void updateProfile(ProfileFB profile, ProfileFB newProfile) {
         removed = false;
+        updated = false;
         Query profiles = profileDB.orderByChild("name").equalTo(profile.getName());
 
         profiles.addChildEventListener(new ChildEventListener() {
@@ -192,6 +220,8 @@ public class FireBaseProfileDB {
                     dataSnapshot.getRef().removeValue();
                     addProfile(newProfile);
                     removed = true;
+                }else{
+                    updated = true;
                 }
             }
 
@@ -204,6 +234,10 @@ public class FireBaseProfileDB {
             @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
             @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
         });
+    }
+
+    public boolean getUpdated(){
+        return updated;
     }
 
     public void destroyDBInstance() {

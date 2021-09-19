@@ -61,7 +61,7 @@ public class EditProfileActivity extends AppCompatActivity {
         /* SET CURRENT USER */
         Intent intent = getIntent();
         profile = (ProfileFB) intent.getSerializableExtra("profile");
-        soundArrayList = soundArrayList;
+        soundArrayList = profile.getSounds();
 
         init();
 
@@ -74,10 +74,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         /*ON CLICK DELETE*/
         trash_btn.setOnClickListener(view -> {
-
-            FireBaseProfileDB profileDB = new FireBaseProfileDB();
-            profileDB.deleteProfileSong(profile, 0);
-            /*
             if(deleteState){
                 this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
                 deleteState = false;
@@ -87,7 +83,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 deleteState = true;
             }
             this.rvSound.setAdapter(this.soundAdapter);
-            */
         });
 
         /*ON CLICK ADD*/
