@@ -257,7 +257,7 @@
             android:id="@+id/trash_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="2.5"
             android:drawableTop="@drawable/trash_button"
             android:paddingTop="10dp"
             android:background="#00000000"
@@ -267,12 +267,25 @@
             />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:drawableTop="@drawable/add_button"
+            android:paddingTop="10dp"
+            android:background="#00000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:text="Add"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_btn"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="2.5"
-            android:drawableRight="@drawable/add_button"
+            android:drawableRight="@drawable/save_button"
             android:padding="10dp"
-            android:text="Add"
+            android:text="Save"
             android:background="#00000000"
             app:layout_constraintBottom_toBottomOf="parent" />
 

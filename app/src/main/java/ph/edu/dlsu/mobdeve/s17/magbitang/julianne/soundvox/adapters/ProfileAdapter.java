@@ -1,14 +1,13 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -17,6 +16,9 @@ import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MainActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.MenuActivity;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 
@@ -25,10 +27,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     private ArrayList<ProfileFB> profileArrayList;
     private Context context;
     private Class pClass; //class to go
-    private Button btn_no, btn_yes;
-
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
 
     public ProfileAdapter(Context context, ArrayList<ProfileFB> profileArrayList, byte pSelect) {
         this.profileArrayList = profileArrayList;
@@ -73,7 +71,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                                                                int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_item_list,parent,false);
         ProfileViewHolder profileViewHolder = new ProfileViewHolder(view);
-
         profileViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,45 +82,13 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
                 intent.putExtra("sounds", profileArrayList.get(profileViewHolder.getBindingAdapterPosition()).getSounds());
 
 
-
                 /* DELETE USER*/
                if(pClass == MenuActivity.class){
-
-                   LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                   View v2 = inflater.inflate(R.layout.activity_pop_up_delete_profile,null);
-
-                   /*INIT DIALOG*/
-                   dialogBuilder = new AlertDialog.Builder(v.getContext());
-                   btn_no = v2.findViewById(R.id.btn_no);
-                   btn_yes = v2.findViewById(R.id.btn_yes);
-
-
-                   /*START DIALOG*/
-                   dialogBuilder.setView(R.layout.activity_pop_up_delete_profile);
-                   dialog = dialogBuilder.create();
-                   dialog.show();
-
-                   /*CANCEL BUTTON*/
-                   btn_no.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v2) {
-                           dialog.dismiss();
-                       }
-                   });
-
-                   /*DELETE USER*/
-                   btn_yes.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v2) {
-                           FireBaseProfileDB profileDB = new FireBaseProfileDB();
-                           profileDB.deleteProfile(profileArrayList.get(profileViewHolder.getBindingAdapterPosition()));
-                           profileDB.destroyDBInstance();
-                           v.getContext().startActivity(intent);
-                       }
-                   });
-                }else{
-                   v.getContext().startActivity(intent);
-               }
+                   FireBaseProfileDB profileDB = new FireBaseProfileDB();
+                   profileDB.deleteProfile(profileArrayList.get(profileViewHolder.getBindingAdapterPosition()));
+                   profileDB.destroyDBInstance();
+                }
+                v.getContext().startActivity(intent);
             }
 
         });
@@ -144,17 +109,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
     public class ProfileViewHolder extends RecyclerView.ViewHolder{
 
         Button btn_profile;
+
         public ProfileViewHolder(View itemView) {
             super(itemView);
             btn_profile = itemView.findViewById(R.id.btn_soundall);
 
         }
 
-
-
         public void setButton(String name){ this.btn_profile.setText(name);}
         public Button getButton() { return this.btn_profile;}
-
 
     }
 
