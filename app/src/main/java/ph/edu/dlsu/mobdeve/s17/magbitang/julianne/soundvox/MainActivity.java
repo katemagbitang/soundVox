@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView profile_name_label;
     private TextView profile_name_id;
     private Profile profile;
+
     private ArrayList<ProfileFB> Profiles = new ArrayList<>();
 
     private boolean profileExists;
@@ -158,10 +159,6 @@ public class MainActivity extends AppCompatActivity {
         // DEBUG
         //        this.profile_name_label.setText(intent.getStringExtra("name"));
         //        this.profile_name_id.setText(String.valueOf(intent.getIntExtra("id",0)));
-
-
-
-
     }
 
     private ActivityResultLauncher<Intent> launchMenuProfile =

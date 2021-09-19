@@ -235,12 +235,6 @@
 <!--            </TableRow>-->
 <!--        </TableLayout>-->
 <!--    </GridLayout>-->
-    <TextView
-        android:id="@+id/pathOfFilePicked"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/profile_container"
-        app:layout_constraintTop_toBottomOf="@id/rv_soundlist"/>
     <LinearLayout
         android:id="@+id/profile_container"
         android:layout_width="match_parent"

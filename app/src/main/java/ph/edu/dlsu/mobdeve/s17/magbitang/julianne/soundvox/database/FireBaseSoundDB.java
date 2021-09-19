@@ -18,10 +18,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+<<<<<<< Updated upstream
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+=======
+import java.util.HashMap;
+import java.util.Map;
+
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
+>>>>>>> Stashed changes
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
@@ -32,12 +39,15 @@ public class FireBaseSoundDB {
     FireBaseProfileDB.ChangeListener listener;
     private ArrayList<SoundFB> Sounds;
     boolean exists;
-    GenericTypeIndicator<ArrayList<SoundFB>> soundListType = new GenericTypeIndicator<ArrayList<SoundFB>>() {};
+    private ChangeListener listener;
+    GenericTypeIndicator<Map<String, Object>> soundListType = new GenericTypeIndicator<Map<String, Object>>() {
+    };
 
     ValueEventListener postListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             // Get Post object and use the values to update the UI
+<<<<<<< Updated upstream
             Sounds = new ArrayList<SoundFB>();
             if (dataSnapshot.getValue(soundListType) != null) {
                 String label = "";
@@ -55,6 +65,32 @@ public class FireBaseSoundDB {
                 Sounds.add(new SoundFB(label, url));
                 soundsUpdated();
             }
+=======
+            Sounds  = new ArrayList<SoundFB>();
+            Collection<Object> newSounds;
+            if(dataSnapshot.getValue(soundListType) != null){
+
+                newSounds = dataSnapshot.getValue(soundListType).values();
+
+                /*READ SOUND */
+                String label = "";
+                String url = "";
+
+                for(Object object : newSounds){
+                    HashMap<String, String> hash = (HashMap<String, String>) object;
+                        for(Map.Entry<String, String> sound : hash.entrySet()){
+                            if(sound.getKey().equals("label")){
+                                label = sound.getValue();
+                            }
+                            else if (sound.getKey().equals("url")){
+                                url = sound.getValue();
+                            }
+                        }
+                        Sounds.add(new SoundFB(label, url));
+                    }
+                }
+            soundsUpdate();
+>>>>>>> Stashed changes
         }
         @Override
         public void onCancelled(DatabaseError databaseError) {
@@ -67,30 +103,13 @@ public class FireBaseSoundDB {
     public FireBaseSoundDB() {
         soundsDB = FirebaseDatabase.getInstance("https://soundvox-data-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("test-user").child("sounds");
         Sounds = new ArrayList<SoundFB>();
-        SoundsFirstRead();
         soundsDB.addValueEventListener(postListener);
     }
 
 
-    private void SoundsFirstRead() {
-        soundsDB.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e(SOUND_DB_ERROR, "Error getting data", task.getException());
-                }
-                else {
-                    if (task.getResult().getValue(soundListType) != null) {
-                        Sounds = task.getResult().getValue(soundListType);
-                    }
-                }
-            }
-        });
-    }
-
     public void addSounds(SoundFB sound) {
         //check if exists already
-        Query songs = soundsDB.orderByChild("URL").equalTo(sound.getURL());
+        Query songs = soundsDB.orderByChild("url").equalTo(sound.getURL());
         exists = false;
         songs.addChildEventListener(new ChildEventListener() {
             @Override
@@ -125,7 +144,7 @@ public class FireBaseSoundDB {
 
 
     public void deleteSound(SoundFB sound) {
-        Query songs = soundsDB.orderByChild("URL").equalTo(sound.getURL());
+        Query songs = soundsDB.orderByChild("url").equalTo(sound.getURL());
 
         songs.addChildEventListener(new ChildEventListener() {
             @Override
@@ -146,6 +165,24 @@ public class FireBaseSoundDB {
 
     public void destroyDBInstance() {
         soundsDB.removeEventListener(postListener);
+        listener = null;
+    }
+
+
+    public void soundsUpdate() {
+        if (listener != null) listener.onChange();
+    }
+
+    public FireBaseSoundDB.ChangeListener getListener() {
+        return listener;
+    }
+
+    public void setListener(FireBaseSoundDB.ChangeListener listener) {
+        this.listener = listener;
+    }
+
+    public interface ChangeListener {
+        void onChange();
     }
 
     public void soundsUpdated(){

@@ -47,8 +47,6 @@ public class EditProfileActivity extends AppCompatActivity {
 //    private Integer profileNo = null;
     Intent myFileIntent;
     private TextView profile_name_label;
-    private TextView profile_name_id;
-    private TextView pathFile;
     private ArrayList<ProfileFB> Profiles = new ArrayList<>();
     private ProfileFB profile;
 
@@ -87,21 +85,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         /*ON CLICK ADD*/
         add_btn.setOnClickListener(view -> {
-            Intent goToOpenSounds = new Intent(EditProfileActivity.this, AddSoundsActivity.class);
-            startActivity(goToOpenSounds);
-
-//            FILE PICKER CODE (MOVE TO MENU UPLOAD)
-//            if (Build.VERSION.SDK_INT >= 23){
-//                if (checkPermission()){
-//                    filePicker();
-//                }
-//                else{
-//                    requestPermission();
-//                }
-//            }
-//            else{
-//                filePicker();
-//            }
+            //Intent goToOpenSounds = new Intent(EditProfileActivity.this, AddSoundsActivity.class);
+            //startActivity(goToOpenSounds);
         });
     }
 
@@ -127,95 +112,11 @@ public class EditProfileActivity extends AppCompatActivity {
         trash_btn = findViewById(R.id.trash_btn);
         add_btn = findViewById(R.id.add_btn);
         this.profile_name_label = findViewById(R.id.tv_profilename_debug);
-        this.profile_name_id = findViewById(R.id.tv_profileid_debug);
-        this.pathFile = findViewById(R.id.pathOfFilePicked);
         this.profile_name_label.setText(profile.getName());
 
         ProfileAdapter profileAdapter = new ProfileAdapter(getApplicationContext(), Profiles, (byte) 0);
 
     }
 
-    /*FILE PICKER REQ PERMISSION*/
-    private void requestPermission(){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(EditProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-            Toast.makeText(EditProfileActivity.this, "Please give permission to upload file", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            ActivityCompat.requestPermissions(EditProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
-        }
-    }
-    /*FILE PICKER CHECK PERMISSION*/
-    private boolean checkPermission(){
-        int result = ContextCompat.checkSelfPermission(EditProfileActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    /*FILE PICKER */
-    private void filePicker(){
-        Toast.makeText(EditProfileActivity.this,"File Picker Call", Toast.LENGTH_SHORT).show();
-        Intent opengallery = new Intent(Intent.ACTION_PICK);
-        opengallery.setType("*/*");
-        startActivityForResult(opengallery,REQUEST_GALLERY);
-    }
 
-    /*FILE PICKER */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case PERMISSION_REQUEST_CODE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(EditProfileActivity.this,"Permission Successful",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(EditProfileActivity.this,"Permission Failed",Toast.LENGTH_SHORT).show();
-                }
-        }
-    }
-
-    /* FILE PICKER RESULT*/
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK){
-            String path = data.getData().getPath();
-//            String filePath = getRealPathFromUri(data.getData(),EditProfileActivity.this);
-            Log.d("File Path: ",""+path);
-
-            this.pathFile.setText(path);
-
-//            Profile profile = new Profile();
-            Sound sound = new Sound();
-            int count = soundAdapter.getItemCount();
-            sound.setId(count+1);
-            sound.setLabel("Trial Dos");
-            sound.setURL(path);
-            sound.setProfileID(Integer.parseInt(profile_name_id.getText().toString()));
-            SoundDAO soundDAO = new SoundDAOSqlImpl(getApplicationContext());
-            soundDAO.addSoundToProfile(sound);
-            soundAdapter.addSounds(soundArrayList);
-
-            Toast.makeText(getApplicationContext(),"Sound was stored.", Toast.LENGTH_SHORT).show();
-
-//            this.soundArrayList.add(new Sound("Test Sound",path));
-            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
-            this.rvSound.setAdapter(this.soundAdapter);
-        }
-    }
-
-    public String getRealPathFromUri(Uri uri, Activity activity){
-        Cursor cursor = activity.getContentResolver().query(uri, null, null, null, null);
-        if (cursor == null){
-            return uri.getPath();
-        }
-        else{
-            cursor.moveToFirst();
-            int id = cursor.getColumnIndex(MediaStore.Audio.AudioColumns._ID);
-            return cursor.getString(id);
-        }
-    }
 }

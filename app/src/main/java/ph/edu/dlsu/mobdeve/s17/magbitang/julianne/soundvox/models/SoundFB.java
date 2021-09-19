@@ -10,12 +10,17 @@ import java.util.Map;
 
 public class SoundFB implements Serializable {
 
+<<<<<<< Updated upstream
     public String label;
     public String URL;
+=======
+    private String label;
+    private String url;
+>>>>>>> Stashed changes
 
     public SoundFB(String label, String URL) {
         this.label = label;
-        this.URL = URL;
+        this.url = URL;
     }
 
     public String getLabel() {
@@ -27,18 +32,18 @@ public class SoundFB implements Serializable {
     }
 
     public String getURL() {
-        return URL;
+        return url;
     }
 
     public void setURL(String URL) {
-        this.URL = URL;
+        this.url = URL;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("label", label);
-        result.put("URL", URL);
+        result.put("url", url);
 
 
         return result;

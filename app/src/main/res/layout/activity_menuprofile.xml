@@ -39,12 +39,23 @@
 <!--                android:textAlignment="textStart"/>-->
 <!--        </LinearLayout>-->
 <!--    </ScrollView>-->
+
+    <TextView
+        android:id="@+id/pathOfFilePicked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_profile"
+        app:layout_constraintStart_toStartOf="@+id/rv_profile" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_profile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintBottom_toTopOf="@id/goback_container"/>
+        app:layout_constraintBottom_toTopOf="@id/goback_container">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
             android:id="@+id/goback_container"
@@ -72,6 +83,7 @@
                 android:layout_weight="7.5"
                 android:text="Select a profile to play*"
                 android:textAlignment="center"/>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
