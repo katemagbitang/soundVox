@@ -73,8 +73,8 @@ public class AddSoundsActivity extends AppCompatActivity {
         }
 
         back_btn.setOnClickListener(view -> {
-            Intent goToEdit = new Intent(AddSoundsActivity.this, EditProfileActivity.class);
-            startActivity(goToEdit);
+            Intent goToMenu = new Intent(AddSoundsActivity.this, MenuActivity.class);
+            startActivity(goToMenu);
             soundDB.destroyDBInstance();
             finish();
         });
@@ -114,7 +114,6 @@ public class AddSoundsActivity extends AppCompatActivity {
     }
     /*FILE PICKER */
     private void filePicker(){
-        Toast.makeText(AddSoundsActivity.this,"File Picker Call", Toast.LENGTH_SHORT).show();
         Intent opengallery = new Intent(Intent.ACTION_GET_CONTENT);
         opengallery.setType("*/*");
         startActivityForResult(opengallery,REQUEST_GALLERY);
@@ -165,6 +164,11 @@ public class AddSoundsActivity extends AppCompatActivity {
 //            this.soundArrayList.add(new Sound("Test Sound",path));
             this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
             this.rv_opensounds.setAdapter(this.soundAdapter);
+
+            Intent goToSoundFolder= new Intent(AddSoundsActivity.this, SelectAllSoundsActivity.class);
+            startActivityForResult (goToSoundFolder, 911);
+            soundDB.destroyDBInstance();
+            finish();
 
         }
     }
