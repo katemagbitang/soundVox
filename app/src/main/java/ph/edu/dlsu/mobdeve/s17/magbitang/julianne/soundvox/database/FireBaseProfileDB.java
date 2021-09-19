@@ -145,6 +145,8 @@ public class FireBaseProfileDB {
         return this.Profiles;
     }
 
+
+    /*
     public ProfileFB getProfile(String name) {
         Query profiles = profileDB.orderByChild("name").equalTo(name);
         exists = false;
@@ -153,7 +155,7 @@ public class FireBaseProfileDB {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 exists = true;
-                profileFB = dataSnapshot.getValue(ProfileFB.class);
+                profileFB = (ProfileFB) dataSnapshot.getValue();
             }
 
             @Override public void onCancelled(@NonNull DatabaseError error) {
@@ -171,7 +173,7 @@ public class FireBaseProfileDB {
             return null;
         }
     }
-
+    */
 
     public void addProfileSong(ProfileFB profile, SoundFB sound ) {
         ArrayList<SoundFB> updatedSounds = profile.getSounds();

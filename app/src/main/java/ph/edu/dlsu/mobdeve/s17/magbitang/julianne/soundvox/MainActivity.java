@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = getIntent();
             soundArrayList = (ArrayList<SoundFB>) intent.getSerializableExtra("sounds");
         }
-        this.soundAdapter = new SoundAdapter(getApplicationContext(), soundArrayList,false,false,false);
+        this.soundAdapter = new SoundAdapter(getApplicationContext(), soundArrayList,null,false,false,false);
         this.rvSound.setAdapter(this.soundAdapter);
 
         tv_noprofile = (TextView)findViewById(R.id.tv_noprofile);

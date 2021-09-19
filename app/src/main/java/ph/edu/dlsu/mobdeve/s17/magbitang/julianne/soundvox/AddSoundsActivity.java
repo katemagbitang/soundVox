@@ -86,7 +86,7 @@ public class AddSoundsActivity extends AppCompatActivity {
         this.layout = new LinearLayoutManager(this);
         this.rv_opensounds.setLayoutManager(this.layout);
 //        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-        this.openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,true);
+        this.openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,null,false,true,true);
         this.rv_opensounds.setAdapter(this.openSoundsAdapter);
         this.rv_opensounds.setVisibility(View.VISIBLE);
         this.profile_name_id = findViewById(R.id.tv_profileid_debug);
@@ -165,7 +165,7 @@ public class AddSoundsActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Sound was stored.", Toast.LENGTH_SHORT).show();
 
 //            this.soundArrayList.add(new Sound("Test Sound",path));
-            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,null,deleteState,false,false);
             this.rv_opensounds.setAdapter(this.soundAdapter);
 
             Intent goToSoundFolder= new Intent(AddSoundsActivity.this, SelectAllSoundsActivity.class);

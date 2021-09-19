@@ -51,6 +51,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView profile_name_label;
     private ArrayList<ProfileFB> Profiles = new ArrayList<>();
     private ProfileFB profile;
+    private FireBaseProfileDB fireBaseProfileDB = new FireBaseProfileDB();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +75,17 @@ public class EditProfileActivity extends AppCompatActivity {
 
         /*ON CLICK DELETE*/
         trash_btn.setOnClickListener(view -> {
-            if(deleteState){
-                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
+            if(deleteState)
                 deleteState = false;
-            }
-            else{
-                this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
+            else
                 deleteState = true;
-            }
+
+            this.soundAdapter = new SoundAdapter(getApplicationContext(),
+                    soundArrayList,
+                    profile,
+                    deleteState,
+                    false,false);
+
             this.rvSound.setAdapter(this.soundAdapter);
         });
 
@@ -105,7 +109,7 @@ public class EditProfileActivity extends AppCompatActivity {
         this.layout = new GridLayoutManager(this,4);
 
         this.rvSound.setLayoutManager(this.layout);
-        this.soundAdapter = new SoundAdapter(getApplicationContext(), soundArrayList,deleteState,false,false);
+        this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,profile,deleteState,false,false);
         this.rvSound.setAdapter(this.soundAdapter);
 
 

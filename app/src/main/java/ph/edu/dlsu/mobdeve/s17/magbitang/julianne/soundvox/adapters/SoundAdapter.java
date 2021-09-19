@@ -31,14 +31,17 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
     private boolean phase; //for deleting
     private boolean openAccess;
     private boolean assigning;
+    private ProfileFB profileName;
 
     public SoundAdapter(Context context,
                         ArrayList<SoundFB> soundArrayList,
+                        ProfileFB profileName,
                         boolean phase, //if removing sound; true
                         boolean openAccess, //if using soundadapter for ALL sounds; true
                         boolean assigning)//if assigning to profile)
     {
         this.soundArrayList = soundArrayList;
+        this.profileName = profileName;
         this.context = context;
         this.phase = phase;
         this.openAccess= openAccess;
@@ -64,7 +67,6 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
             soundViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     MediaPlayer mPlayer;
                     String url = soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getURL();
                     switch(url){
@@ -101,12 +103,6 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
                             mPlayer.start();
                         }
                     });
-
-
-
-
-
-
                 }});
         }else{
             soundViewHolder.getButton().setOnClickListener(new View.OnClickListener() {
@@ -124,8 +120,33 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
     }
 
     @Override
-    public void onBindViewHolder(SoundAdapter.SoundViewHolder holder, int position) {
-        holder.setName(this.soundArrayList.get(position).getLabel());
+    public void onBindViewHolder(SoundAdapter.SoundViewHolder holder, int listPosition) {
+        holder.setName(this.soundArrayList.get(listPosition).getLabel());
+
+        holder.btn_delete.setOnClickListener(view ->{
+
+            FireBaseProfileDB profileDB = new FireBaseProfileDB();
+            profileDB.deleteProfileSong(profileName,listPosition);
+            profileDB.setListener(new FireBaseProfileDB.ChangeListener() {
+                @Override
+                public void onChange() {
+                    ArrayList<ProfileFB> profileFB = profileDB.getProfiles();
+                    for(ProfileFB profile: profileFB){
+                        if(profile.getName().equals(profileName.getName()) && profileDB.getUpdated()){
+                            profileName = profile;
+                            soundArrayList = profileName.getSounds();
+                            notifyDataSetChanged();
+                            profileDB.destroyDBInstance();
+                        }
+                    }
+                }
+            });
+//            notifyItemRemoved(listPosition);
+
+
+
+
+        });
     }
 
     @Override
@@ -154,7 +175,6 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
 
         public void setName(String name){ this.btn_sound.setText(name);}
         public Button getButton() { return this.btn_sound;}
-        public Button getButtonDelete() { return this.btn_delete;}
     }
 //
 //    FireBaseProfileDB profileDB = new FireBaseProfileDB();

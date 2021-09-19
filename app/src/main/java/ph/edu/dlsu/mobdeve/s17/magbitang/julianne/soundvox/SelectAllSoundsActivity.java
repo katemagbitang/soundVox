@@ -45,7 +45,7 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
                 if(soundDB.getSounds().size() > 0){
                     soundArrayList = soundDB.getSounds();
                     Log.d("HEHE","working");
-                    openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
+                    openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,null,false,true,false);
                     rv_opensounds.setAdapter(openSoundsAdapter);
                 }
             }
@@ -68,7 +68,7 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
         this.rv_opensounds = findViewById(R.id.rv_profile);
         this.layout = new LinearLayoutManager(this);
         this.rv_opensounds.setLayoutManager(this.layout);
-        openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
+        openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,null,false,true,false);
         rv_opensounds.setAdapter(openSoundsAdapter);
     }
 
