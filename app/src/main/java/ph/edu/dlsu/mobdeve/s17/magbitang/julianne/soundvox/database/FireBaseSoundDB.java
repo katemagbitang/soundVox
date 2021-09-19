@@ -143,11 +143,11 @@ public class FireBaseSoundDB {
         if (listener != null) listener.onChange();
     }
 
-    public FireBaseSoundDB.ChangeListener getListener() {
+    public ChangeListener getListener() {
         return listener;
     }
 
-    public void setListener(FireBaseSoundDB.ChangeListener listener) {
+    public void setListener(ChangeListener listener) {
         this.listener = listener;
     }
 

@@ -82,6 +82,10 @@ public class MenuActivity extends AppCompatActivity {
 
         btn_upload.setOnClickListener(view -> {
             //TO DO: this is where the upload goes to using file picker
+            Intent goToUpload = new Intent(MenuActivity.this, AddSoundsActivity.class);
+            startActivity(goToUpload);
+            profileDB.destroyDBInstance();
+            finish();
         });
 
         btn_open.setOnClickListener(view -> {
