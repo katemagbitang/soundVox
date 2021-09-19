@@ -31,6 +31,7 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
     private ArrayList<SoundFB> soundArrayList = new ArrayList<>();
 //    private Profile profile = new Profile();
 
+    FireBaseSoundDB soundDB = new FireBaseSoundDB();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
