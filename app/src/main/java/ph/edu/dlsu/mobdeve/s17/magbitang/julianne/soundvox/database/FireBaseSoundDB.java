@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.R;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class FireBaseSoundDB {
@@ -76,6 +77,19 @@ public class FireBaseSoundDB {
         soundsDB.addValueEventListener(postListener);
     }
 
+    /*
+    public void init(){
+        ArrayList<SoundFB> sounds = new ArrayList<SoundFB>();
+        addSounds(new SoundFB("a_major", Integer.toString(R.raw.piano_a_major)));
+        addSounds(new SoundFB("b_major", Integer.toString(R.raw.piano_b_major)));
+        addSounds(new SoundFB("c_major", Integer.toString(R.raw.piano_c_major)));
+        addSounds(new SoundFB("c_sharp", Integer.toString(R.raw.piano_c_sharp)));
+        addSounds(new SoundFB("d_major", Integer.toString(R.raw.piano_d_major)));
+        addSounds(new SoundFB("e_major", Integer.toString(R.raw.piano_e_major)));
+        addSounds(new SoundFB("f_major", Integer.toString(R.raw.piano_f_major)));
+        addSounds(new SoundFB("g_major", Integer.toString(R.raw.piano_g_major)));
+    }
+    */
 
     public void addSounds(SoundFB sound) {
         //check if exists already

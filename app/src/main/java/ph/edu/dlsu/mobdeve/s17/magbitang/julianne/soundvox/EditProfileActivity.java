@@ -24,6 +24,8 @@ import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
@@ -72,6 +74,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         /*ON CLICK DELETE*/
         trash_btn.setOnClickListener(view -> {
+
+            FireBaseProfileDB profileDB = new FireBaseProfileDB();
+            profileDB.deleteProfileSong(profile, 0);
+            /*
             if(deleteState){
                 this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,deleteState,false,false);
                 deleteState = false;
@@ -81,6 +87,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 deleteState = true;
             }
             this.rvSound.setAdapter(this.soundAdapter);
+            */
         });
 
         /*ON CLICK ADD*/

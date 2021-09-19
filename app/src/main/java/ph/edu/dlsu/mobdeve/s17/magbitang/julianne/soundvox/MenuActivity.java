@@ -152,11 +152,11 @@ public class MenuActivity extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Init Profile
-                ProfileFB profile = new ProfileFB(profileName.getText().toString());
-
                 //Save to DB
                 FireBaseProfileDB profileDB = new FireBaseProfileDB();
+
+                // Init Profile
+                ProfileFB profile = new ProfileFB(profileName.getText().toString(), profileDB.defaultMusic());
                 profileDB.addProfile(profile);
 
                 Toast.makeText(getApplicationContext(),"Save was pressed.", Toast.LENGTH_SHORT).show();

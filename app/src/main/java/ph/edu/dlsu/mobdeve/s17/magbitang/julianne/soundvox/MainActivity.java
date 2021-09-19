@@ -81,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        FireBaseSoundDB soundDB = new FireBaseSoundDB();
+        soundDB.init();
+        soundDB.destroyDBInstance();
+        */
+
         /*IF SELECTED PROFILE EXISTS*/
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();

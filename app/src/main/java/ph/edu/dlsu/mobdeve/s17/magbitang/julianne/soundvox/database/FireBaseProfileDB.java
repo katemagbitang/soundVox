@@ -36,6 +36,7 @@ public class FireBaseProfileDB {
     private ArrayList<ProfileFB> Profiles;
     private ChangeListener listener;
     boolean exists;
+    boolean removed;
     private String PROFILE_DB_ERROR = "PROFILE_DB_ERROR";
     GenericTypeIndicator<Map<String, Object>> profileListType = new GenericTypeIndicator<Map<String, Object>>() {
     };
@@ -94,7 +95,6 @@ public class FireBaseProfileDB {
 
     public FireBaseProfileDB(){
         profileDB = FirebaseDatabase.getInstance("https://soundvox-data-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("test-user").child("profiles");
-        //ProfilesFirstRead();
         profileDB.addValueEventListener(postListener);
     }
 
@@ -137,8 +137,6 @@ public class FireBaseProfileDB {
             childUpdates.put(key, profile);
 
             profileDB.updateChildren(childUpdates);
-            for(SoundFB sound : defaultMusic())
-                addProfileSong(profile, sound);
         }
 
     }
@@ -149,53 +147,22 @@ public class FireBaseProfileDB {
 
 
     public void addProfileSong(ProfileFB profile, SoundFB sound ) {
-
-        Query profiles = profileDB.child(profile.getName()).orderByChild("sound").equalTo(sound.getURL());
-        exists = false;
-        profiles.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                exists = true;
-            }
-
-            @Override public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(PROFILE_DB_ERROR, "Error getting data");
-            }
-
-            @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-            @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-            @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-        });
-
-        if(!exists){
-           Query profileKey = profileDB.orderByChild("name").equalTo(profile.getName());
-           profileKey.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                    String key = dataSnapshot.getKey();
-                    profile.addSound(sound);
-                    Log.d("chis", key);
-
-                    Map<String, Object> childUpdates = new HashMap<>();
-                    childUpdates.put(key, profile);
-
-                    profileDB.updateChildren(childUpdates);
-                }
-
-                @Override public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e(PROFILE_DB_ERROR, "Error getting data");
-                }
-
-                @Override public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                @Override public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-                @Override public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-            });
-
-        }
+        ArrayList<SoundFB> updatedSounds = profile.getSounds();
+        updatedSounds.add(sound);
+        ProfileFB updatedProfile = new ProfileFB(profile.getName(), updatedSounds);
+        updateProfile(profile, updatedProfile);
     }
 
-    public void deleteProfileSong(ProfileFB profile, SoundFB sound ) {
-        Query profiles = profileDB.orderByChild("name").equalTo(profile.getName()).orderByChild("sound").equalTo(sound.getURL());
+    public void deleteProfileSong(ProfileFB profile, int index) {
+        ArrayList<SoundFB> updatedSounds = profile.getSounds();
+        updatedSounds.remove(index);
+        ProfileFB updatedProfile = new ProfileFB(profile.getName(), updatedSounds);
+        updateProfile(profile, updatedProfile);
+    }
+
+
+    public void deleteProfile(ProfileFB profile) {
+        Query profiles = profileDB.orderByChild("name").equalTo(profile.getName());
 
         profiles.addChildEventListener(new ChildEventListener() {
             @Override
@@ -214,13 +181,18 @@ public class FireBaseProfileDB {
         });
     }
 
-    public void deleteProfile(ProfileFB profile ) {
+    public void updateProfile(ProfileFB profile, ProfileFB newProfile) {
+        removed = false;
         Query profiles = profileDB.orderByChild("name").equalTo(profile.getName());
 
         profiles.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                dataSnapshot.getRef().removeValue();
+                if(!removed){
+                    dataSnapshot.getRef().removeValue();
+                    addProfile(newProfile);
+                    removed = true;
+                }
             }
 
             @Override
