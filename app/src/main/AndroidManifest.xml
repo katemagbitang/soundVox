@@ -20,8 +20,8 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SelectProfileActivity" />
         <activity android:name=".SelectDeleteProfileActivity" />
-        <activity android:name=".AddSoundsActivity" />
-        <activity android:name=".SelectAllSoundsActivity" />
+        <activity android:name=".SelectSoundFolderActivity" />
+        <activity android:name=".AddSongsEditViewActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

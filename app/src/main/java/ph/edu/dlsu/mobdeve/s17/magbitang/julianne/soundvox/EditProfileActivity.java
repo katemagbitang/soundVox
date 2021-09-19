@@ -1,37 +1,23 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -62,6 +48,7 @@ public class EditProfileActivity extends AppCompatActivity {
         /* SET CURRENT USER */
         Intent intent = getIntent();
         profile = (ProfileFB) intent.getSerializableExtra("profile");
+        Log.d("hello","EPA "+(ProfileFB) intent.getSerializableExtra("profile"));
         soundArrayList = profile.getSounds();
 
         init();
@@ -91,8 +78,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
         /*ON CLICK ADD*/
         add_btn.setOnClickListener(view -> {
-            //Intent goToOpenSounds = new Intent(EditProfileActivity.this, AddSoundsActivity.class);
-            //startActivity(goToOpenSounds);
+            Intent selectSoundsActivity = new Intent(EditProfileActivity.this, AddSongsEditViewActivity.class);
+            selectSoundsActivity.putExtra("profile",profile);
+            fireBaseProfileDB.destroyDBInstance();
+
+            Log.d("hello","activity starting...");
+            startActivity(selectSoundsActivity);
+
+            Log.d("hello","activity started...");
+
         });
     }
 

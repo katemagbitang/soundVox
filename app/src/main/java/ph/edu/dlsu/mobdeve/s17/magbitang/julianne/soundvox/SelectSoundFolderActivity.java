@@ -23,15 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.SoundDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
-public class AddSoundsActivity extends AppCompatActivity {
+public class SelectSoundFolderActivity extends AppCompatActivity {
 
     private Button back_btn;
     private TextView tv_label;
@@ -73,7 +69,7 @@ public class AddSoundsActivity extends AppCompatActivity {
         }
 
         back_btn.setOnClickListener(view -> {
-            Intent goToMenu = new Intent(AddSoundsActivity.this, MenuActivity.class);
+            Intent goToMenu = new Intent(SelectSoundFolderActivity.this, MenuActivity.class);
             startActivity(goToMenu);
             soundDB.destroyDBInstance();
             finish();
@@ -95,16 +91,16 @@ public class AddSoundsActivity extends AppCompatActivity {
 
     /*FILE PICKER REQ PERMISSION*/
     private void requestPermission(){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(AddSoundsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-            Toast.makeText(AddSoundsActivity.this, "Please give permission to upload file", Toast.LENGTH_SHORT).show();
+        if(ActivityCompat.shouldShowRequestPermissionRationale(SelectSoundFolderActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            Toast.makeText(SelectSoundFolderActivity.this, "Please give permission to upload file", Toast.LENGTH_SHORT).show();
         }
         else{
-            ActivityCompat.requestPermissions(AddSoundsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(SelectSoundFolderActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE);
         }
     }
     /*FILE PICKER CHECK PERMISSION*/
     private boolean checkPermission(){
-        int result = ContextCompat.checkSelfPermission(AddSoundsActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE);
+        int result = ContextCompat.checkSelfPermission(SelectSoundFolderActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED){
             return true;
         }
@@ -126,10 +122,10 @@ public class AddSoundsActivity extends AppCompatActivity {
         switch (requestCode){
             case PERMISSION_REQUEST_CODE:
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(AddSoundsActivity.this,"Permission Successful",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelectSoundFolderActivity.this,"Permission Successful",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(AddSoundsActivity.this,"Permission Failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelectSoundFolderActivity.this,"Permission Failed",Toast.LENGTH_SHORT).show();
                 }
         }
     }
@@ -168,7 +164,7 @@ public class AddSoundsActivity extends AppCompatActivity {
             this.soundAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,null,deleteState,false,false);
             this.rv_opensounds.setAdapter(this.soundAdapter);
 
-            Intent goToSoundFolder= new Intent(AddSoundsActivity.this, SelectAllSoundsActivity.class);
+            Intent goToSoundFolder= new Intent(SelectSoundFolderActivity.this, AddSongsEditViewActivity.class);
             startActivityForResult (goToSoundFolder, 911);
             soundDB.destroyDBInstance();
             finish();

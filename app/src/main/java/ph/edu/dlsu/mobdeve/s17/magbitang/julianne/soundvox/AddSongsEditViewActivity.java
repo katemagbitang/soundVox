@@ -6,7 +6,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,14 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
-public class SelectAllSoundsActivity extends AppCompatActivity {
+public class AddSongsEditViewActivity extends AppCompatActivity {
 
     private Button back_btn;
     private TextView tv_label;
@@ -29,14 +25,19 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
     private RecyclerView rv_opensounds;
     private RecyclerView.LayoutManager layout;
     private ArrayList<SoundFB> soundArrayList = new ArrayList<>();
-//    private Profile profile = new Profile();
+    private ProfileFB profile;
 
     FireBaseSoundDB soundDB = new FireBaseSoundDB();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menuprofile);
-
+        Intent intent = getIntent();
+        Log.d("hello",""+(ProfileFB) intent.getSerializableExtra("profile"));
+        if((ProfileFB) intent.getSerializableExtra("profile") != null){
+            Log.d("hello",""+intent.getSerializableExtra("profile"));
+            profile = (ProfileFB) intent.getSerializableExtra("profile");
+        }
         init();
 
         soundDB.setListener(new FireBaseSoundDB.ChangeListener() {
@@ -45,7 +46,7 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
                 if(soundDB.getSounds().size() > 0){
                     soundArrayList = soundDB.getSounds();
                     Log.d("HEHE","working");
-                    openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,null,false,true,false);
+                    openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList, profile,false,true,false);
                     rv_opensounds.setAdapter(openSoundsAdapter);
                 }
             }
@@ -56,7 +57,7 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
         tv_label.setText("Select a sound");
 
         back_btn.setOnClickListener(view -> {
-            Intent goToMenu = new Intent(SelectAllSoundsActivity.this, MenuActivity.class);
+            Intent goToMenu = new Intent(AddSongsEditViewActivity.this, MenuActivity.class);
             startActivity(goToMenu);
             soundDB.destroyDBInstance();
             finish();
@@ -68,8 +69,10 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
         this.rv_opensounds = findViewById(R.id.rv_profile);
         this.layout = new LinearLayoutManager(this);
         this.rv_opensounds.setLayoutManager(this.layout);
-        openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,null,false,true,false);
+        openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,profile,false,true,false);
         rv_opensounds.setAdapter(openSoundsAdapter);
+
+
     }
 
 }

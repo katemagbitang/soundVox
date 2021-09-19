@@ -1,6 +1,5 @@
 package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,15 +13,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.ProfileAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Profile;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.ProfileFB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 
@@ -82,14 +77,14 @@ public class MenuActivity extends AppCompatActivity {
 
         btn_upload.setOnClickListener(view -> {
             //TO DO: this is where the upload goes to using file picker
-            Intent goToUpload = new Intent(MenuActivity.this, AddSoundsActivity.class);
+            Intent goToUpload = new Intent(MenuActivity.this, SelectSoundFolderActivity.class);
             startActivity(goToUpload);
             profileDB.destroyDBInstance();
             finish();
         });
 
         btn_open.setOnClickListener(view -> {
-            Intent goToRecord = new Intent(MenuActivity.this, SelectAllSoundsActivity.class);
+            Intent goToRecord = new Intent(MenuActivity.this, AddSongsEditViewActivity.class);
             startActivityForResult (goToRecord, 911);
             profileDB.destroyDBInstance();
 //            finish();
