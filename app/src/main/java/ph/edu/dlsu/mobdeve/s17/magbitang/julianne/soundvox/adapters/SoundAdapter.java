@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Button;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.EditProfileActivity;
@@ -37,9 +39,10 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
         this.context = context;
         this.phase = phase;
         this.openAccess= openAccess;
-        if(openAccess)
-            inflater = R.layout.button_item_list;
-        else
+        //if(openAccess)
+            //inflater = R.layout.button_item_list;
+        //else
+        /*TEMP REMOVE IF ELSE CAUSE BUTTONS WONT APPEAR*/
             inflater = R.layout.button_sound_list;
         this.assigning = assigning;
     }
@@ -60,7 +63,8 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
                 public void onClick(View v) {
 
                     MediaPlayer mPlayer;
-                    switch(soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getURL()){
+                    String url = soundArrayList.get(soundViewHolder.getBindingAdapterPosition()).getURL();
+                    switch(url){
                         case R.raw.piano_a_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_a_major); break;
                         case R.raw.piano_b_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_b_major); break;
                         case R.raw.piano_c_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_c_major); break;
@@ -69,18 +73,33 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
                         case R.raw.piano_e_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_e_major); break;
                         case R.raw.piano_f_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_f_major); break;
                         case R.raw.piano_g_major + "" : mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_g_major); break;
-                        default: mPlayer = MediaPlayer.create(v.getContext(), R.raw.piano_a_major); break;
-
+                        default: mPlayer = new MediaPlayer();
+                                try {
+                                    mPlayer.setDataSource(url);
+                                    Log.d("MOMO", url + " " + mPlayer);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
                     }
-                    
+
                     mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        public void onCompletion(MediaPlayer mp) {
+
+                        public void onCompletion(MediaPlayer mPlayer) {
                             mPlayer.stop();
                             mPlayer.release();
                         }
                     });
 
-                    mPlayer.start();
+                    mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mPlayer.start();
+                        }
+                    });
+
+
+
 
                 }});
         }else{

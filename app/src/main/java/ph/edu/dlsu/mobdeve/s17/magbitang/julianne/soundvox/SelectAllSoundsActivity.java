@@ -2,6 +2,7 @@ package ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseProfileDB;
+import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAO;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.ProfileDAOSqlImpl;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
@@ -34,12 +37,27 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menuprofile);
 
         init();
+
+        soundDB.setListener(new FireBaseSoundDB.ChangeListener() {
+            @Override
+            public void onChange() {
+                if(soundDB.getSounds().size() > 0){
+                    soundArrayList = soundDB.getSounds();
+                    Log.d("HEHE","working");
+                    openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
+                    rv_opensounds.setAdapter(openSoundsAdapter);
+                }
+            }
+        });
+
         back_btn = findViewById(R.id.btn_back);
         tv_label = findViewById(R.id.tv_label);
         tv_label.setText("Select a sound");
+
         back_btn.setOnClickListener(view -> {
             Intent goToMenu = new Intent(SelectAllSoundsActivity.this, MenuActivity.class);
             startActivity(goToMenu);
+            soundDB.destroyDBInstance();
             finish();
         });
 
@@ -49,19 +67,8 @@ public class SelectAllSoundsActivity extends AppCompatActivity {
         this.rv_opensounds = findViewById(R.id.rv_profile);
         this.layout = new LinearLayoutManager(this);
         this.rv_opensounds.setLayoutManager(this.layout);
-        ProfileDAO profileDAO = new ProfileDAOSqlImpl(getApplicationContext());
-
-        this.openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
-        this.rv_opensounds.setAdapter(this.openSoundsAdapter);
+        openSoundsAdapter = new SoundAdapter(getApplicationContext(),soundArrayList,false,true,false);
+        rv_opensounds.setAdapter(openSoundsAdapter);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        String name = data.getStringExtra("name");
-        String url = data.getStringExtra("soundref");
-
-        soundArrayList.add(new SoundFB(name,url));
-    }
 }
