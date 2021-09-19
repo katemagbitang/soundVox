@@ -11,16 +11,12 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +24,6 @@ import java.util.Date;
 
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.adapters.SoundAdapter;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.database.FireBaseSoundDB;
-import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.Sound;
 import ph.edu.dlsu.mobdeve.s17.magbitang.julianne.soundvox.models.SoundFB;
 
 public class RecordingActivity extends AppCompatActivity {
@@ -50,13 +45,12 @@ public class RecordingActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-//    private TextView record_label;
     private String fileName = null;
 
-//    private RecordButton recordButton = null;
+    private RecordButton recordButton = null;
     private MediaRecorder recorder = null;
 
-//    private PlayButton playButton = null;
+    private PlayButton playButton = null;
     private MediaPlayer player = null;
 
     private boolean permissionToRecordAccepted = false;
@@ -78,21 +72,21 @@ public class RecordingActivity extends AppCompatActivity {
 
     }
 
-//    private void onRecord(boolean start) {
-//        if (start) {
-//            startRecording();
-//        } else {
-//            stopRecording();
-//        }
-//    }
-//
-//    private void onPlay(boolean start) {
-//        if (start) {
-//            startPlaying();
-//        } else {
-//            stopPlaying();
-//        }
-//    }
+    private void onRecord(boolean start) {
+        if (start) {
+            startRecording();
+        } else {
+            stopRecording();
+        }
+    }
+
+    private void onPlay(boolean start) {
+        if (start) {
+            startPlaying();
+        } else {
+            stopPlaying();
+        }
+    }
 
     private void startPlaying() {
         player = new MediaPlayer();
@@ -133,52 +127,54 @@ public class RecordingActivity extends AppCompatActivity {
     }
 
 
-//    class RecordButton extends androidx.appcompat.widget.AppCompatButton {
-//        boolean mStartRecording = true;
-//
-//        OnClickListener clicker = new OnClickListener() {
-//            public void onClick(View v) {
-//                onRecord(mStartRecording);
-//                if (mStartRecording) {
-//                    setText("Stop recording");
-//                } else {
-//                    setText("Start recording");
-//                }
-//                mStartRecording = !mStartRecording;
-//            }
-//        };
-//
-//        public RecordButton(Context ctx) {
-//            super(ctx);
-//            setText("Start recording");
-//            setOnClickListener(clicker);
-//        }
-//
-//
-//    }
-//
-//    class PlayButton extends androidx.appcompat.widget.AppCompatButton {
-//        boolean mStartPlaying = true;
-//
-//        OnClickListener clicker = new OnClickListener() {
-//            public void onClick(View v) {
-//                onPlay(mStartPlaying);
-//                if (mStartPlaying) {
-//                    setText("Stop playing");
-//                } else {
-//                    setText("Start playing");
-//                }
-//                mStartPlaying = !mStartPlaying;
-//            }
-//        };
-//
-//        public PlayButton(Context ctx) {
-//            super(ctx);
-//            setText("Start playing");
-//            setOnClickListener(clicker);
-//        }
-//
-//    }
+    class RecordButton extends androidx.appcompat.widget.AppCompatButton {
+        boolean mStartRecording = true;
+
+        public OnClickListener clicker(Button btn){
+            OnClickListener clicker = v -> {
+                onRecord(mStartRecording);
+                if (mStartRecording) {
+                    btn.setText("Stop recording");
+                } else {
+                    btn.setText("Start recording");
+                }
+                mStartRecording = !mStartRecording;
+            };
+            return clicker;
+        }
+
+        public RecordButton(Context ctx, Button btn) {
+            super(ctx);
+            btn.setText("Start recording");
+            btn.setOnClickListener(clicker(btn));
+        }
+
+
+    }
+
+    class PlayButton extends androidx.appcompat.widget.AppCompatButton {
+        boolean mStartPlaying = true;
+
+        public OnClickListener clicker(Button btn){
+            OnClickListener clicker = v -> {
+                onPlay(mStartPlaying);
+                if (mStartPlaying) {
+                    btn.setText("Stop playing");
+                } else {
+                    btn.setText("Start playing");
+                }
+                mStartPlaying = !mStartPlaying;;
+            };
+            return clicker;
+        }
+
+        public PlayButton(Context ctx, Button btn) {
+            super(ctx);
+            btn.setText("Start playing");
+            btn.setOnClickListener(clicker(btn));
+        }
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -193,33 +189,16 @@ public class RecordingActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
         setContentView(R.layout.activity_recording);
 
-//        recordButton = new RecordButton(this);
-//        playButton = new PlayButton(this);
-
+        recordButton = new RecordButton(this,findViewById(R.id.btn_record));
+        playButton = new PlayButton(this,findViewById(R.id.btn_listen));
+//
         back_btn = findViewById(R.id.btn_back);
         record_btn = findViewById(R.id.btn_record);
         listen_btn = findViewById(R.id.btn_listen);
-        stop_record_btn = findViewById(R.id.btn_stop_record);
-        stop_listen_btn = findViewById(R.id.btn_stop_listen);
         save_btn = findViewById(R.id.save_record_btn);
-//        record_btn.setOnClickListener(recordButton.clicker);
-//        listen_btn.setOnClickListener(playButton.clicker);
-        record_btn.setOnClickListener(view -> {
-            startRecording();
-//            record_btn.setVisibility(View.INVISIBLE);
-        });
 
-        stop_record_btn.setOnClickListener(view -> {
-            stopRecording();
-        });
-
-        listen_btn.setOnClickListener(view -> {
-            startPlaying();
-        });
-
-        stop_listen_btn.setOnClickListener(view -> {
-            stopPlaying();
-        });
+        record_btn.setOnClickListener(recordButton.clicker(record_btn));
+        listen_btn.setOnClickListener(playButton.clicker(listen_btn));
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override

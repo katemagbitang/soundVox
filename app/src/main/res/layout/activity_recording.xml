@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:textAlignment="center"
-            android:text="Hold button to record"/>
+            android:text="Start and listen to your recording"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -39,19 +39,29 @@
             android:layout_width="match_parent"
             android:weightSum="10">
 
+            <Space
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="3"/>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_record"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:text="Record Sound"
-                android:layout_weight="5"/>
+                android:layout_weight="4"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_stop_record"
+            <Space
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
-                android:text="Stop Recording"
-                android:layout_weight="5"/>
+                android:layout_weight="3"/>
+
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/btn_stop_record"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:text="Stop Recording"-->
+<!--                android:layout_weight="5"/>-->
 
         </LinearLayout>
 
@@ -61,19 +71,22 @@
             android:layout_width="match_parent"
             android:weightSum="10">
 
+            <Space
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="3"/>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_listen"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:text="Listen Sound"
-                android:layout_weight="5"/>
+                android:layout_weight="4"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_stop_listen"
+            <Space
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
-                android:text="Stop Listening"
-                android:layout_weight="5"/>
+                android:layout_weight="3"/>
 
         </LinearLayout>
 
