@@ -115,7 +115,7 @@ public class AddSoundsActivity extends AppCompatActivity {
     /*FILE PICKER */
     private void filePicker(){
         Intent opengallery = new Intent(Intent.ACTION_GET_CONTENT);
-        opengallery.setType("*/*");
+        opengallery.setType("audio/*");
         startActivityForResult(opengallery,REQUEST_GALLERY);
     }
 
@@ -148,9 +148,12 @@ public class AddSoundsActivity extends AppCompatActivity {
             this.pathFile.setText(path);
 
             Log.d("path", pathFile + "");
-
             String label = path.substring(path.lastIndexOf('/') + 1);
-            int pos = label.lastIndexOf(".");
+            int pos = path.indexOf(":");
+            if (pos >= 0) {
+                path = path.substring(pos+1);
+            }
+            pos = label.lastIndexOf(".");
             if (pos > 0) {
                 label = label.substring(0, pos);
             }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -76,12 +77,13 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
                         default: mPlayer = new MediaPlayer();
                                 try {
                                     mPlayer.setDataSource(url);
-                                    Log.d("MOMO", url + " " + mPlayer);
+                                    mPlayer.prepareAsync();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 break;
                     }
+
 
                     mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
@@ -97,6 +99,8 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundViewHol
                             mPlayer.start();
                         }
                     });
+
+
 
 
 
